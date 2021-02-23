@@ -1,4 +1,4 @@
-const PORT = process.env.PORT || 443;
+const PORT = process.env.PORT || 3000;
 const express = require('express');
 const red = express();
 const app = express();
@@ -2771,7 +2771,7 @@ app.get('/api', function(req, res)  {
 app.get('*', function(req, res){
   res.sendFile('notfound.html', { root: __dirname });
 });
-red.listen(80);
+red.listen(8080);
 var server = app.listen(PORT, () => console.log(`Listening for https on ${PORT}`));
 // var webSocketServer = require('ws').server;
 // wss = new webSocketServer({server: server});
