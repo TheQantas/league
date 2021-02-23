@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/teams.css" />
+  <link rel="stylesheet" href="css/schedule.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources_sans.js"></script>
+  <script src="scripts/teams.js"></script>
+  <script src="scripts/schedule.js"></script>
+  <title>The League | Schedule</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="info">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule" style="text-decoration: underline">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/">Home</a>
+        <a href="info">Info</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule" style="text-decoration: underline">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <section id="scheduleSelect" class="league">
+    <select class="select" onchange="changeSortMethod(this)">
+      <option val="week">By Week</option>
+      <option val="team">By Team</option>
+    </select>
+    <select class="select">
+      <option val="0">Week 1</option>
+      <option val="1">Week 2</option>
+      <option val="2">Week 3</option>
+      <option val="3">Week 4</option>
+      <option val="4">Week 5</option>
+      <option val="5">Week 6</option>
+      <option val="6">Week 7</option>
+      <option val="7">Week 8</option>
+      <option val="8">Week 9</option>
+      <option val="9">Week 10</option>
+      <option val="10">Week 11</option>
+      <option val="11">Wild Card</option>
+      <option val="12">Divisional</option>
+      <option val="13">Conference</option>
+      <option val="14">Championship</option>
+    </select>
+    <select class="select" style="display:none">
+      <option selected disabled>Select Team</option>
+      <option val="AAR">Aardvarks</option>
+      <option val="AVI">Aviators</option>
+      <option val="BAD">Badgers</option>
+      <option val="CHA">Chameleons</option>
+      <option val="CHE">Cheetahs</option>
+      <option val="COL">Collies</option>
+      <option val="COO">Coonhounds</option>
+      <option val="COU">Cougars</option>
+      <option val="DRA">Dragons</option>
+      <option val="EAG">Eagles</option>
+      <option val="ENG">Engineers</option>
+      <option val="FAL">Falcons</option>
+      <option val="FLA">Flamingos</option>
+      <option val="FOX">Foxes</option>
+      <option val="GAL">Galaxy</option>
+      <option val="GOL">Goldens</option>
+      <option val="GRE">Greats</option>
+      <option val="GRI">Grizzlies</option>
+      <option val="HUM">Hummingbirds</option>
+      <option val="HUS">Huskies</option>
+      <option val="LON">Longhorns</option>
+      <option val="LYN">Lynx</option>
+      <option val="NAT">Nationals</option>
+      <option val="PAN">Pandas</option>
+      <option val="PEG">Pegasi</option>
+      <option val="PEN">Penguins</option>
+      <option val="PIO">Pioneers</option>
+      <option val="PIR">Pirates</option>
+      <option val="REB">Rebels</option>
+      <option val="RED">Red Pandas</option>
+      <option val="ROT">Rottweilers</option>
+      <option val="SEN">Senators</option>
+      <option val="SHA">Sharks</option>
+      <option val="SNA">Snakes</option>
+      <option val="SQU">Squirrels</option>
+      <option val="STA">Stallions</option>
+      <option val="STR">Stars</option>
+      <option val="WAR">Warriors</option>
+      <option val="WOL">Wolves</option>
+      <option val="ZEB">Zebras</option>
+    </select>
+  </section>
+  <section id="gamesCont">
+    <div class="gameBox">
+      <div class="gameTime">DDD TT MMM HH:MMA</div>
+      <div class="gameTop">
+        <div class="gameTopHalf aardvarks">
+          <img class="gameLogo" src="logos/aardvarks.png">
+          <div class="gameName">Aardvarks</div>
+          <div class="gameScore">-</div>
+        </div><div class="gameTopHalf coonhounds">
+          <div class="gameScore">-</div>
+          <div class="gameName">Coonhounds</div>
+          <img class="gameLogo" src="logos/coonhounds.png">
+        </div>
+      </div>
+      <div class="gameBot">
+        <table class="gameTable">
+          <tr>
+            <th>Team</th>
+            <td>1</td>
+            <td>2</td>
+            <td>3</td>
+            <td>4</td>
+            <td>T</td>
+          </tr>
+          <tr>
+            <th>Aardvarks</th>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <th>Coonhounds</th>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="gameBox"></div>
+    <div class="gameBox"></div>
+  </section>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.min.css" />
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="stylesheet" href="css/info.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources.min.js"></script>
+  <script src="scripts/info.min.js"></script>
+  <script src="scripts/teams.min.js"></script>
+  <title>The League | Info</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet">Bet</a>
+    <a href="info" style="text-decoration:underline">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/">Home</a>
+        <a href="bet">Bet</a>
+        <a href="info" style="text-decoration:underline">Info</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <section id="navCont" class="league">
+    <div class="wikiNav">
+      <a href="#order">1. Draft Order</a><br/>
+      <a href="#rules">2. Rules</a><br/>
+      <a href="#houstonrule" class="single">2.1. Houston Rule</a><br/>
+      <a href="#broncosrule" class="single">2.2. Broncos Rule</a><br/>
+      <a href="#pedersonrule" class="single">2.3. Pederson Rule</a><br/>
+      <a href="#calculators">3. Calculators</a><br/>
+      <a href="#qbr" class="single">3.1. Quarterback Rating (QBR)</a><br/>
+      <a href="#otr" class="single">3.2. Offensive Rating (OTR)</a><br/>
+      <a href="#dtr" class="single">3.3. Defensive Rating (DTR)</a>
+    </div>
+    <div class="wikiNav">
+      <a href="#stats">4. Player Stats</a><br/>
+      <a href="#qb" class="single">4.1. Quarterback (QB)</a><br/>
+      <a href="#rb" class="single">4.2. Running Back (RB)</a><br/>
+      <a href="#wr" class="single">4.3. Wide Receiver (WR)</a><br/>
+      <a href="#te" class="single">4.4. Tight End (TE)</a><br/>
+      <a href="#delb" class="single">4.5. Defensive End (DE)/Linebacker (LB)</a><br/>
+      <a href="#cbs" class="single">4.6. Cornerback (CB)/Safety (S)</a><br/>
+      <a href="#k" class="single">4.7. Kicker (K)</a><br/>
+      <a href="#p" class="single">4.8. Punter (P)</a>
+    </div>
+    <div class="wikiNav">
+      <a href="#players">5. Players</a><br/>
+      <a href="#simulation">6. Simulation</a><br/>
+      <a href="#pass" class="single">6.1. Pass Plays</a><br/>
+      <a href="#rush" class="single">6.2. Push Plays</a><br/>
+      <a href="#pressure" class="single">6.3. Defensive Pressure</a><br/>
+      <a href="#fg" class="single">6.4. Field Goals</a><br/>
+      <a href="#punts" class="single">6.5. Punts</a><br/>
+      <a href="#4th" class="single">6.6. 4th Down</a><br/>
+      <a href="#2pt" class="single">6.7. 2-Point Conversions</a><br/>
+    </div>
+  </section>
+  <section class="lowerCont league">
+    <h id="order">Draft Order</h>
+    <div id="filterCont">
+      <select id="filter" onchange="filter()">
+        <option value="ALL">All Teams</option>
+        <option value="AAR">Aardvarks</option>
+        <option value="AVI">Aviators</option>
+        <option value="BAD">Badgers</option>
+        <option value="CHA">Chameleons</option>
+        <option value="CHE">Cheetahs</option>
+        <option value="COL">Collies</option>
+        <option value="COO">Coonhounds</option>
+        <option value="COU">Cougars</option>
+        <option value="DRA">Dragons</option>
+        <option value="EAG">Eagles</option>
+        <option value="ENG">Engineers</option>
+        <option value="FAL">Falcons</option>
+        <option value="FLA">Flamingos</option>
+        <option value="FOX">Foxes</option>
+        <option value="GAL">Galaxy</option>
+        <option value="GOL">Goldens</option>
+        <option value="GRE">Greats</option>
+        <option value="GRI">Grizzlies</option>
+        <option value="HUM">Hummingbirds</option>
+        <option value="HUS">Huskies</option>
+        <option value="LON">Longhorns</option>
+        <option value="LYN">Lynx</option>
+        <option value="NAT">Nationals</option>
+        <option value="PAN">Pandas</option>
+        <option value="PEG">Pegasi</option>
+        <option value="PEN">Penguins</option>
+        <option value="PIO">Pioneers</option>
+        <option value="PIR">Pirates</option>
+        <option value="REB">Rebels</option>
+        <option value="RED">Red Pandas</option>
+        <option value="ROT">Rottweilers</option>
+        <option value="SEN">Senators</option>
+        <option value="SHA">Sharks</option>
+        <option value="SQU">Squirrels</option>
+        <option value="STA">Stallions</option>
+        <option value="STR">Stars</option>
+        <option value="WAR">Warriors</option>
+        <option value="WOL">Wolves</option>
+        <option value="ZEB">Zebras</option>
+      </select>
+    </div>
+    <table id="table">
+      <tr>
+        <th></th>
+        <th>1</th>
+        <th>2</th>
+        <th>3</th>
+        <th>4</th>
+        <th>5</th>
+        <th>6</th>
+        <th>7</th>
+        <th>8</th>
+        <th>9</th>
+        <th>10</th>
+      </tr>
+    </table>
+  </section>
+  <section class="lowerCont league">
+    <h id="rules">Rules</h><br>
+    <h2 id="houstonrule">Houston Rule</h2><br>
+    <p>You can only trade picks within the same round, and you can only trade draft picks for other draft picks.
+      You can only trade three picks per trade and you can only trade draft picks with any given team twice.
+    </p><br>
+    <h2 id="broncosrule">Broncos Rule</h2><br>
+    <p>You can only trade players of the same position (to make sure that every team has every position for every game).</p><br>
+    <h2 id="pedersonrule">Pederson Rule</h2><br>
+    <p>You may not blatantly tank in any game.</p>
+  </section>
+  <section class="lowerCont league">
+    <h id="calculators">Calculators</h><br>
+    <h2 id="qbr">Quarterback Rating (QBR)</h2>
+    <div class="calcBar">
+      <input type="number" class="calcInp" oninput="calcQBR(this)" placeholder="Pass Attempts">
+      <input type="number" class="calcInp" oninput="calcQBR(this)" placeholder="Completions">
+      <input type="number" class="calcInp" oninput="calcQBR(this)" placeholder="Yards">
+      <input type="number" class="calcInp" oninput="calcQBR(this)" placeholder="TDs">
+      <input type="number" class="calcInp" oninput="calcQBR(this)" placeholder="Ints">
+      <span class="calcOut">0.0</span>
+    </div>
+    <h2 id="otr">Offensive Rating (OTR)</h2>
+    <div class="calcBar">
+      <input type="number" class="calcInp" oninput="calcOTR(this)" placeholder="Plays">
+      <input type="number" class="calcInp" oninput="calcOTR(this)" placeholder="TDs">
+      <input type="number" class="calcInp" oninput="calcOTR(this)" placeholder="Points">
+      <input type="number" class="calcInp" oninput="calcOTR(this)" placeholder="Yards">
+      <span class="calcOut">0.0</span>
+    </div>
+    <h2 id="dtr">Defensive Rating (DTR)</h2>
+    <div class="calcBar">
+      <input type="number" class="calcInp" oninput="calcDTR(this)" placeholder="Plays Def.">
+      <input type="number" class="calcInp" oninput="calcDTR(this)" placeholder="Sacks">
+      <input type="number" class="calcInp" oninput="calcDTR(this)" placeholder="TDs Given">
+      <input type="number" class="calcInp" oninput="calcDTR(this)" placeholder="Ints">
+      <input type="number" class="calcInp" oninput="calcDTR(this)" placeholder="Yards Given">
+      <input type="number" class="calcInp" oninput="calcDTR(this)" placeholder="Points Given">
+      <span class="calcOut">0.0</span>
+    </div>
+  </section>
+  <section class="lowerCont league">
+    <h id="stats">Player Stats</h><br>
+    <h2 id="qb">Quarterbacks (QB)</h2>
+    <table class="statTable">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Mean</th>
+        <th>Range</th>
+        <th>Varies Every</th>
+      </tr>
+      <tr>
+        <td><abbr title="Accuracy 10 Yards or Under">Acc.</abbr></td>
+        <td>The chance of the QB throwing an accurate pass 10 yards or under. The pass must be accurate to be caught and an accurate ball cannot be intercepted. Bigger is better.</td>
+        <td>0.88</td>
+        <td>0.8-0.96</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td><abbr title="Accuracy Over 10 Yards">Long Acc.</abbr></td>
+        <td>The chance of the QB throwing an accurate pass over 10 yards. The pass must be accurate to be caught and an accurate ball cannot be intercepted. Bigger is better.</td>
+        <td>0.78</td>
+        <td>0.7-0.86</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td><abbr title="Pressure">Press.</abbr></td>
+        <td>If the QB is pressured by the DE or LB, his accuracy will go down by this amount. Smaller is better.</td>
+        <td>0.09</td>
+        <td>0.03-0.15</td>
+        <td>Half</td>
+      </tr>
+    </table>
+    <h2 id="rb">Running Backs (RB)</h2>
+    <table class="statTable">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Mean</th>
+        <th>Range</th>
+        <th>Varies Every</th>
+      </tr>
+      <tr>
+        <td><abbr title="Yards After Contact">YAC</abbr></td>
+        <td>If the RB escapes all defenders, he will run this far before falling down. Bigger is better.</td>
+        <td>20</td>
+        <td>10-30</td>
+        <td>Play</td>
+      </tr>
+      <tr>
+        <td><abbr title="Elusiveness">Elus.</abbr></td>
+        <td>The chance of the RB being tackled will be multiplied by this amount. Smaller is better.</td>
+        <td>0.75</td>
+        <td>0.6-0.9</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td>Speed</td>
+        <td>This is how fast the RB runs (in yds/sec). Bigger is better.</td>
+        <td>5</td>
+        <td>4-6</td>
+        <td>Play</td>
+      </tr>
+    </table>
+    <h2 id="wr">Wide Receivers (WR)</h2>
+    <table class="statTable">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Mean</th>
+        <th>Range</th>
+        <th>Varies Every</th>
+      </tr>
+      <tr>
+        <td><abbr title="Reception Rate 10 Yards or Under">Recep.</abbr></td>
+        <td>This is the chance of the WR catching the ball 10 yards or under. Bigger is better.</td>
+        <td>0.9</td>
+        <td>0.85-0.95</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td><abbr title="Reception Rate Over 10 Yards">Long Recep.</abbr></td>
+        <td>This is the chance of the WR catching the ball over 10 yards. Bigger is better.</td>
+        <td>0.8</td>
+        <td>0.75-0.85</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td>Speed</td>
+        <td>This is how fast the WR runs (in yds/sec). Bigger is better.</td>
+        <td>5</td>
+        <td>4-6</td>
+        <td>Play</td>
+      </tr>
+    </table>
+    <h2 id="te">Tight Ends (TE)</h2>
+    <table class="statTable">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Mean</th>
+        <th>Range</th>
+        <th>Varies Every</th>
+      </tr>
+      <tr>
+        <td><abbr title="Reception Rate">Recep.</abbr></td>
+        <td>This is the chance of the TE catching the ball. Bigger is better.</td>
+        <td>0.9</td>
+        <td>0.85-0.95</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td><abbr title="Run Blocking">Block</abbr></td>
+        <td>The chance of the RB being tackled by the DE or LB will be multiplied by this amount. Smaller is better.</td>
+        <td>0.9</td>
+        <td>0.85-0.95</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td>Speed</td>
+        <td>This is how fast the TE runs (in yds/sec). Bigger is better.</td>
+        <td>3</td>
+        <td>2-4</td>
+        <td>Play</td>
+      </tr>
+    </table>
+    <h2 id="delb">Defensive Ends (DE)/Linebackers (LB)</h2>
+    <table class="statTable">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Mean</th>
+        <th>Range</th>
+        <th>Varies Every</th>
+      </tr>
+      <tr>
+        <td><abbr title="Pressure Percentage">Press Perc.</abbr></td>
+        <td>This is the chance of DE/LB getting pressure on the QB given he rushes. Bigger is better.</td>
+        <td>0.3</td>
+        <td>0.2-0.4</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td>Sack</td>
+        <td>The chance of the DE/LB sacking the QB given he rushes. Bigger is better.</td>
+        <td>0.06</td>
+        <td>0.02-0.1</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td>Speed</td>
+        <td>This is how fast the DE/LB runs (in yds/sec). Bigger is better.</td>
+        <td>2</td>
+        <td>1-3</td>
+        <td>Play</td>
+      </tr>
+    </table>
+    <h2 id="cbs">Cornerbacks (CB)/Safeties (S)</h2>
+    <table class="statTable">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Mean</th>
+        <th>Range</th>
+        <th>Varies Every</th>
+      </tr>
+      <tr>
+        <td>Cover</td>
+        <td>This reduces the chance of the ball being caught. Smaller is better.</td>
+        <td>0.9</td>
+        <td>0.85-0.95</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td><abbr title="Interception Rate">Int.</abbr></td>
+        <td>The chance of the CB/S intercepting the ball given the QB throws an inaccurate pass. Bigger is better.</td>
+        <td>0.05</td>
+        <td>0.03-0.07</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td>Speed</td>
+        <td>This is how fast the CB/S runs (in yds/sec). Bigger is better.</td>
+        <td>3 (CB)/5 (S)</td>
+        <td>2-4 (CB)/4-6 (S)</td>
+        <td>Play</td>
+      </tr>
+    </table>
+    <h2 id="k">Kickers (K)</h2>
+    <table class="statTable">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Mean</th>
+        <th>Range</th>
+        <th>Varies Every</th>
+      </tr>
+      <tr>
+        <td><abbr title="Points After Touchdown">PAT</abbr></td>
+        <td>This is the chance of the kicker making an extra point. Bigger is better.</td>
+        <td>0.94</td>
+        <td>0.9-0.98</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td><abbr title="Field Goal">FG</abbr></td>
+        <td>This is the chance of the kicker making a field goal 40 yards or under (inside opponent's 23). Bigger is better.</td>
+        <td>0.94</td>
+        <td>0.9-0.98</td>
+        <td>N/A</td>
+      </tr>
+      <tr>
+        <td><abbr title="Long Field Goal">Long FG</abbr></td>
+        <td>This is the chance of the kicker making a field goal over 40 yards (outside opponent's 23). Bigger is better.</td>
+        <td>0.8</td>
+        <td>0.7-0.9</td>
+        <td>N/A</td>
+      </tr>
+    </table>
+    <h2 id="p">Punters (P)</h2>
+    <table class="statTable">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Mean</th>
+        <th>Range</th>
+        <th>Varies Every</th>
+      </tr>
+      <tr>
+        <td><abbr title="Distance">Dist.</abbr></td>
+        <td>This is how far the punter will kick (in yds). Bigger is better.</td>
+        <td>45</td>
+        <td>40-50</td>
+        <td>Punt</td>
+      </tr>
+      <tr>
+        <td><abbr title="Awareness">Aware.</abbr></td>
+        <td>This is the chance of the punter keeping a punt out of the end zone. Bigger is better.</td>
+        <td>0.35</td>
+        <td>0.3-0.4</td>
+        <td>Half</td>
+      </tr>
+      <tr>
+        <td><abbr title="Punt Blocked">Block</abbr></td>
+        <td>This is the chance of the punt being blocked. Smaller is better.</td>
+        <td>0.015</td>
+        <td>0.01-0.02</td>
+        <td>Half</td>
+      </tr>
+    </table>
+  </section>
+  <section class="lowerCont league">
+    <h id="players">Players</h>
+    <div id="playersNavBar">
+      <button class="playersNav" onclick="changeTable(0)" style="text-decoration:underline">QB</button>
+      <button class="playersNav" onclick="changeTable(1)">RB</button>
+      <button class="playersNav" onclick="changeTable(2)">WR</button>
+      <button class="playersNav" onclick="changeTable(3)">TE</button>
+      <button class="playersNav" onclick="changeTable(4)">DE</button>
+      <button class="playersNav" onclick="changeTable(5)">LB</button>
+      <button class="playersNav" onclick="changeTable(6)">CB</button>
+      <button class="playersNav" onclick="changeTable(7)">S</button>
+      <button class="playersNav" onclick="changeTable(8)">K</button>
+      <button class="playersNav" onclick="changeTable(9)">P</button>
+    </div>
+    <table class="playersTable" style="display:table">
+      <tr>
+        <th>Player</th>
+        <th>Acc.</th>
+        <th>Long Acc.</th>
+        <th>Press.</th>
+      </tr>
+    </table>
+    <table class="playersTable">
+      <tr>
+        <th>Player</th>
+        <th>YAC</th>
+        <th>Elus.</th>
+        <th>Speed</th>
+      </tr>
+    </table>
+    <table class="playersTable">
+      <tr>
+        <th>Player</th>
+        <th>Recep.</th>
+        <th>Long Recep.</th>
+        <th>Speed</th>
+      </tr>
+    </table>
+    <table class="playersTable">
+      <tr>
+        <th>Player</th>
+        <th>Recep.</th>
+        <th>Block</th>
+        <th>Speed</th>
+      </tr>
+    </table>
+    <table class="playersTable">
+      <tr>
+        <th>Player</th>
+        <th>Press. Perc.</th>
+        <th>Sack</th>
+        <th>Speed</th>
+      </tr>
+    </table>
+    <table class="playersTable">
+      <tr>
+        <th>Player</th>
+        <th>Press. Perc.</th>
+        <th>Sack</th>
+        <th>Speed</th>
+      </tr>
+    </table>
+    <table class="playersTable">
+      <tr>
+        <th>Player</th>
+        <th>Cover</th>
+        <th>Int.</th>
+        <th>Speed</th>
+      </tr>
+    </table>
+    <table class="playersTable">
+      <tr>
+        <th>Player</th>
+        <th>Cover</th>
+        <th>Int.</th>
+        <th>Speed</th>
+      </tr>
+    </table>
+    <table class="playersTable">
+      <tr>
+        <th>Player</th>
+        <th>PAT</th>
+        <th>FG</th>
+        <th>Long FG</th>
+      </tr>
+    </table>
+    <table class="playersTable">
+      <tr>
+        <th>Player</th>
+        <th>Dist.</th>
+        <th>Aware.</th>
+        <th>Block</th>
+      </tr>
+    </table>
+  </section>
+  <section class="lowerCont league">
+    <h id="simulation">Simulation</h><br>
+    <h2 id="pass">Pass</h2><br>
+    <p>The QB will allow 1.5-3 seconds for the receivers to run down the field. He will then randomly choose a receiver to throw to
+      according to the team's play calls. If the ball is caught (probability below), a defender will attempt to tackle the receiver.
+      If the receiver escapes all defenders, he will run it in for a TD.
+    </p>
+    <div class="calcBar">
+      <span class="calcText">(</span>
+      <input type="number" class="calcInp s" oninput="calcRecep(this)" placeholder="QB Acc.">
+      <span class="calcText">-</span>
+      <input type="number" class="calcInp s" oninput="calcRecep(this)" placeholder="QB Press.">
+      <span class="calcText">)*(</span>
+      <input type="number" class="calcInp s" oninput="calcRecep(this)" placeholder="Rec. Recep.">
+      <span class="calcText">-</span>
+      <input type="number" class="calcInp s" oninput="calcRecep(this)" placeholder="Rec. Tire">
+      <span class="calcText">/50)*</span>
+      <input type="number" class="calcInp s" oninput="calcRecep(this)" placeholder="Def. Cover">
+      <span class="calcText">=</span>
+      <span class="calcOut s">0.000</span>
+    </div>
+    <p>*Receiver tire is the number of times on the current drive the receiver has been targeted. Limited to 10.</p><br>
+    <p>The chance of the ball being intercepted is below.</p>
+    <div class="calcBar">
+      <span class="calcText">(1-</span>
+      <input type="number" class="calcInp s" oninput="calcInt(this)" placeholder="QB Acc.">
+      <span class="calcText">)*</span>
+      <input type="number" class="calcInp s" oninput="calcInt(this)" placeholder="Def. Int.">
+      <span class="calcText">=</span>
+      <span class="calcOut s">0.000</span>
+    </div>
+    <h2 id="rush">Rush</h2><br>
+    <p>The running back will run at full speed, and all defenders who are not rushing the quarterback will attempt to tackle him.
+      The chance of him being tackled is below. If he escapes all defenders, he will run as far as his YAC yardage (because he starts 
+      3 yards behind the line of scrimmage, he will make YAC-3 yards).
+    </p>
+    <div class="calcBar">
+      <span class="calcText">(</span>
+      <input type="number" class="calcInp s" oninput="calcRB(this)" placeholder="RB Elus.">
+      <span class="calcText">+</span>
+      <input type="number" class="calcInp s" oninput="calcRB(this)" placeholder="RB Tire">
+      <span class="calcText">/100)*</span>
+      <select class="calcSel" oninput="calcRB(this)">
+        <option value="0.7">DE (0.7)</option>
+        <option value="0.7">LB (0.7)</option>
+        <option value="0.8">CB (0.8)</option>
+        <option value="0.97">S (0.97)</option>
+      </select>
+      <span class="calcText">*</span>
+      <input type="number" class="calcInp s" oninput="calcRB(this)" placeholder="TE Block">
+      <span class="calcText">=</span>
+      <span class="calcOut s">0.000</span>
+    </div>
+    <div style="display:flex;justify-content:center;margin-top:10px;">
+      <img src="images/layout.png" style="max-width:400px;">
+    </div>
+    <h>Time to Tackling Calculator</h>
+    <div class="calcBar">
+      <input type="number" class="calcInp" oninput="calcTime(this)" placeholder="x_rb - x_def">
+      <input type="number" class="calcInp" oninput="calcTime(this)" placeholder="y_rb - y_def">
+      <input type="number" class="calcInp" oninput="calcTime(this)" placeholder="RB Speed">
+      <input type="number" class="calcInp" oninput="calcTime(this)" placeholder="Def Speed">
+      <span class="calcText" style="font-weight:bold;">&rarr;</span>
+      <span class="calcOut s">0 Secs</span>
+    </div>
+    <h2 id="pressure">Defensive Pressure</h2><br>
+    <p>If the DE or LB blitzes the QB, he cannot tackle the running back, but he can pressure or sack the QB.</p><br>
+    <h2 id="fg">Field Goals</h2><br>
+    <p>The chance of the kicker making a field goal depends on whether the field goal is over or under 40 yards. Kickers 
+      have a constant chance of making any kick from game to game. The max distance of a kicker is 62 yards (the opponent's 45-yard line).
+    </p><br>
+    <h2 id="punts">Punts</h2><br>
+    <p>The kick will punt according to his distance distribution. If the punt goes into the end zone, the punter has a chance 
+      (listed as "aware" in stats) to move the ball somewhere inside the 20-yard line.
+    </p><br>
+    <h2 id="4th">Fourth Downs</h2><br>
+    <p>If the game is not in its final 10 minutes, teams will not go for it on fourth down. Otherwise, teams will go for it if they are 
+      inside of the opponent's 3-yard line. Teams will not go for it in any of the following circumstances:<br>
+      - If the team is in field goal range and the team can win/tie with a field goal<br>
+      - If the team is outside of field goal range and is ahead<br>
+      - If a team is ahead and has over 2 yard to go<br>
+      - If a team is behind by one possession inside its own 40 with over 3 minutes<br>
+      If none of the above criteria are met, the decision is made by the following equation:<br>
+      <span style="color:palevioletred">100 * (seconds_remaining / 60) + 25 * score_differential + 9 * distance_to_opponents_goal_line < 750</span><br>
+      If the above equation is true, the team will go for it. Otherwise, the team won't go for it.
+    </p>
+    <div class="calcBar">
+      <span class="calcText">(100*</span>
+      <input type="number" class="calcInp s" oninput="calcFourth(this)" placeholder="Seconds">
+      <span class="calcText">/60)+(25*</span>
+      <input type="number" class="calcInp s" oninput="calcFourth(this)" placeholder="Differential">
+      <span class="calcText">)+(9*</span>
+      <input type="number" class="calcInp s" oninput="calcFourth(this)" placeholder="Distance">
+      <span class="calcText">)=</span>
+      <span class="calcOut s" id="fourthOut">-</span>
+    </div>
+    <h2 id="2pt">2-Point Conversions</h2><br>
+    <p>All teams have a 50% chance of making a two-point conversion, regardless of players. Teams will go for a two-point conversion 
+      if the game is within the final 10 minutes and the point differential after the TD is -15,-13,-11,-10,-8,-5,-2,1,5 or 12.
+    </p>
+  </section>
+</body>
+</html>

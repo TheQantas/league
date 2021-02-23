@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.min.css" />
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="stylesheet" href="css/stats.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources.min.js"></script>
+  <!-- <script src="scripts/games_sch.js"></script> -->
+  <script src="scripts/stats.min.js"></script>
+  <script src="scripts/teams.min.js"></script>
+  <title>The League | Stats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet">Bet</a>
+    <a href="info">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule">Schedule</a>
+    <a href="stats" style="text-decoration:underline">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/">Home</a>
+        <a href="bet">Bet</a>
+        <a href="info">Info</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule">Schedule</a>
+        <a href="stats" style="text-decoration:underline">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <div id="cont" class="league">
+    <div id="posSelCont">
+      <button onclick="goToPage(0)" class="posSel selected">QB</button>
+      <button onclick="goToPage(1)" class="posSel">RB</button>
+      <button onclick="goToPage(2)" class="posSel">WR</button>
+      <button onclick="goToPage(3)" class="posSel">TE</button>
+      <button onclick="goToPage(4)" class="posSel">DE</button>
+      <button onclick="goToPage(5)" class="posSel">LB</button>
+      <button onclick="goToPage(6)" class="posSel">CB</button>
+      <button onclick="goToPage(7)" class="posSel">S</button>
+      <button onclick="goToPage(8)" class="posSel">K</button>
+      <button onclick="goToPage(9)" class="posSel">P</button>
+      <button onclick="goToPage(10)" class="posSel">OFF</button>
+      <button onclick="goToPage(11)" class="posSel">DEF</button>
+    </div>
+    <div id="pad"></div>
+    <div id="termSelCont">
+      <select id="termSel" onchange="changeTerm()">
+        <option value="-1">Season</option>
+        <option value="0">Week 1</option>
+        <option value="1">Week 2</option>
+        <option value="2">Week 3</option>
+        <option value="3">Week 4</option>
+        <option value="4">Week 5</option>
+        <option value="5">Week 6</option>
+        <option value="6">Week 7</option>
+        <option value="7">Week 8</option>
+        <option value="8">Week 9</option>
+        <option value="9">Week 10</option>
+        <option value="10">Week 11</option>
+        <option value="11">Wild Card</option>
+        <option value="12">Divisional</option>
+        <option value="13">Conference</option>
+        <option value="14">Championship</option>
+      </select>
+    </div>
+    <div id="statCont">
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Comp/Att</th>
+            <th>Yards</th>
+            <th>TD/Int</th>
+            <th>Rating</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Yds</th>
+            <th>Attempts</th>
+            <th>Avg</th>
+            <th>TD</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Yds</th>
+            <th>Rec</th>
+            <th>Avg</th>
+            <th>TD</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Yds</th>
+            <th>Rec</th>
+            <th>Avg</th>
+            <th>TD</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Tackles</th>
+            <th>Sack</th>
+            <th>Att</th>
+            <th>Blitzes</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Tackles</th>
+            <th>Sack</th>
+            <th>Att</th>
+            <th>Blitzes</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Tackles</th>
+            <th>Int</th>
+            <th>Att</th>
+            <th>Targets</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Tackles</th>
+            <th>Int</th>
+            <th>Att</th>
+            <th>Targets</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Under 40</th>
+            <th>Over 40</th>
+            <th>PAT</th>
+            <th>PTS</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Player</th>
+            <th>Avg</th>
+            <th>Net Avg</th>
+            <th>Inside 20</th>
+            <th>Blocked</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Team</th>
+            <th>Plays</th>
+            <th>First Downs</th>
+            <th>Yards</th>
+            <th>Rating</th>
+          </tr>
+        </table>
+      </div>
+      <div class="statPage" data-init="false">
+        <table class="statTable" data-period="-1">
+          <tr>
+            <th colspan="2">Team</th>
+            <th>Sacks</th>
+            <th>Int</th>
+            <th>Yards Given</th>
+            <th>Rating</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

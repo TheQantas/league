@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/teams.css" />
+  <link rel="stylesheet" href="css/bet.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources_sans.js"></script>
+  <script src="scripts/teams.js"></script>
+  <script src="scripts/bet.js"></script>
+  <title>The League | Bet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet" style="text-decoration:underline;">Bet</a>
+    <a href="info">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/">Home</a>
+        <a href="bet" style="text-decoration:underline;">Bet</a>
+        <a href="info">Info</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <section id="navCont" class="league">
+    <button onclick="changePage(0)" style="text-decoration:underline;">Betting</button>
+    <button onclick="changePage(1)">Leaderboard</button>
+    <button onclick="changePage(2)">About</button>
+    <button onclick="signOut()">Sign Out</button>
+  </section>
+  <section class="page">
+    <div id="balance">You Have 1,000,000 Tokens - <wbr> All Bets Cost 20,000 Tokens</div>
+    <div class="box">
+      <div class="boxTop">
+        <span>70%</span>
+        <span class="right">30%</span>
+      </div>
+      <div class="boxBot">
+        <div class="boxOpt coonhounds selected">
+          <img src="logos/coonhounds.png">
+          <div class="boxName">Coonhounds</div>
+          <div class="boxAbbr">COO</div>
+          <div class="boxTri"><div class="topLeft"></div></div>
+        </div>
+        <div class="boxOpt hummingbirds notselected">
+          <div class="boxTri"><div class="botRight"></div></div>
+          <div class="boxName">Hummingbirds</div>
+          <div class="boxAbbr">HUM</div>
+          <img src="logos/hummingbirds.png">
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="boxTop">
+        <span>O/U 31.5</span>
+      </div>
+      <div class="boxBot">
+        <div class="boxOpt league over">
+          <div class="boxName">Over</div>
+          <div class="boxAbbr">Over</div>
+          <div class="boxTri"><div class="topLeft"></div></div>
+        </div>
+        <div class="boxOpt league under">
+          <div class="boxTri"><div class="botRight"></div></div>
+          <div class="boxName">Under</div>
+          <div class="boxAbbr">Under</div>
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="boxTop">
+        <span>xxx</span>
+      </div>
+      <div class="boxBot">
+        <div class="boxOpt coonhounds">
+          <img src="logos/coonhounds.png">
+          <div class="boxName">Coonhounds</div>
+          <div class="boxAbbr">COO</div>
+          <div class="boxTri"><div class="topLeft"></div></div>
+        </div>
+        <div class="boxOpt hummingbirds">
+          <div class="boxTri"><div class="botRight"></div></div>
+          <div class="boxName">Hummingbirds</div>
+          <div class="boxAbbr">HUM</div>
+          <img src="logos/hummingbirds.png">
+        </div>
+      </div>
+    </div>
+    <div class="box">
+      <div class="boxTop">
+        <span>xxx</span>
+      </div>
+      <div class="boxBot">
+        <div class="boxOpt league over notselected">
+          <div class="boxName">Over</div>
+          <div class="boxAbbr">Over</div>
+          <div class="boxTri"><div class="topLeft"></div></div>
+        </div>
+        <div class="boxOpt league under">
+          <div class="boxTri"><div class="botRight"></div></div>
+          <div class="boxName">Under</div>
+          <div class="boxAbbr">Under</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="page" style="display:none">
+    <table id="standingsTable">
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Tokens</th>
+      </tr><tr>
+        <td>1</td>
+        <td>Q</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>2</td>
+        <td>W</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>3</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>4</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>5</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>6</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>7</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>8</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>9</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>10</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>11</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>12</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>13</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>14</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>15</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>16</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>17</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>18</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>19</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>20</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr><tr>
+        <td>21</td>
+        <td>E</td>
+        <td>1,000,000</td>
+      </tr>
+    </table>
+  </section>
+  <section class="page" style="display:none">
+    <div class="sect">
+      <h>Types of Bets</h><br>
+      <p>There are two types of bets: over/under and moneyline.</p><br>
+      <h1>Over/Under Bets</h1><br>
+      <p>Over/Under bets bet on whether the combined points of both teams will be above or below a set amount.
+        If you correctly predict whether the combined total is over or under, you get back double your bet.
+      </p><br>
+      <h1>Moneyline Bets</h1><br>
+      <p>The moneyline is determined by the betters such that all the money from the losers is distributed among the winners.
+        For example, if 80% percent of betters bet on the home team, then the moneyline for the home team is -400 (and +400 
+        for the away team).
+      </p><br>
+      <h>Mechanics</h><br>
+      <p>Every user starts with 1 million "tokens." Depending on the week, the cost for all bets is different. Throughout the 
+        regular season, the cost is 20K tokens. Throughout the playoffs, the cost of bets doubles every round (50K for wild card, 
+        100K for divisional, 200K for conference) until the championship, where bets cost 500K.
+      </p><br>
+      <h>Returns</h><br>
+      <p>After each game is played, the total profit or loss will be listed above each bet that you bet on. "DNB" means "did not bet."</p>
+    </div>
+  </section>
+  <div id="errorCont">
+    <span></span>
+  </div>
+</body>
+</html>

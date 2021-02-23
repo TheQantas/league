@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.min.css" />
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="stylesheet" href="css/playoffs.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources.min.js"></script>
+  <script src="scripts/teams.min.js"></script>
+  <script src="scripts/playoffs.min.js"></script>
+  <title>The League | Playoffs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet">Bet</a>
+    <a href="info">Info</a>
+    <a href="playoffs" style="text-decoration:underline">Playoffs</a>
+    <a href="schedule">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/">Home</a>
+        <a href="bet">Bet</a>
+        <a href="info">Info</a>
+        <a href="playoffs" style="text-decoration:underline">Playoffs</a>
+        <a href="schedule">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <section id="champCont">
+    <img src="images/champ_logo_time_c.png" id="champLogo" />
+    <div id="padding"></div>
+    <div class="champMatchup cfc">
+      <img src="logos/cfc.png" />
+      <div class="champName">CFC Champ</div>
+      <div class="champAbbr">CFC</div>
+      <div class="champScore">-</div>
+    </div>
+    <div class="champMatchup nfc">
+      <img src="logos/nfc.png" />
+      <div class="champName">NFC Champ</div>
+      <div class="champAbbr">NFC</div>
+      <div class="champScore">-</div>
+    </div>
+  </section>
+  <section id="playoffCont">
+    <div id="confChooseCont">
+      <div id="confChooseHeader">Choose Conference:</div>
+      <div style="width:100%;height:auto;display:flex;">
+        <button class="confChoose cfc" onclick="goToCon('CFC',this)" style="text-decoration:underline">CFC</button>
+        <button class="confChoose nfc" onclick="goToCon('NFC',this)">NFC</button>
+      </div>
+    </div>
+    <div class="playoffBlock">
+      <div class="playoffHeader">Conference</div>
+      <div class="playoffGroup"></div>
+    </div>
+    <div class="playoffBlock">
+      <div class="playoffHeader">Divisional</div>
+      <div class="playoffGroup"></div>
+    </div>
+    <div class="playoffBlock">
+      <div class="playoffHeader">Wild Card</div>
+      <div class="playoffDesc">These teams are currently in the playoff picture</div>
+      <div class="playoffSub">x: Clinched Playoffs | y: Clinched Division</div>
+      <div class="playoffGroup"></div>
+    </div>
+    <div id="huntCont">
+      <div class="playoffBlock" id="theHunt">
+        <div class="playoffHeader">In the Hunt</div>
+        <div class="playoffDesc">These teams are on the outside looking in</div>
+        <div class="playoffGroup"></div>
+      </div>
+      <div class="playoffBlock" id="elimTeams">
+        <div class="playoffHeader">Eliminated</div>
+        <div class="playoffDesc">These teams cannot make the playoffs</div>
+        <div class="playoffGroup"></div>
+      </div>
+    </div>
+  </section>
+  <section id="standingsCont">
+    <div id="standingsGrid">
+      <div class="standingsCell">
+        <h>North</h>
+        <div class="standingsGroup" data-div="North">
+
+        </div>
+      </div>
+      <div class="standingsCell">
+        <h>South</h>
+        <div class="standingsGroup" data-div="South">
+
+        </div>
+      </div>
+      <div class="standingsCell">
+        <h>Central</h>
+        <div class="standingsGroup" data-div="Central">
+
+        </div>
+      </div>
+      <div class="standingsCell">
+        <h>East</h>
+        <div class="standingsGroup" data-div="East">
+
+        </div>
+      </div>
+      <div class="standingsCell">
+        <h>West</h>
+        <div class="standingsGroup" data-div="West">
+
+        </div>
+      </div>
+      <div class="standingsCell">
+        <h>Key</h><br />
+        <span class="playoffSub">x: Clinched Playoffs</span><br />
+        <span class="playoffSub">y: Clinched Division</span><br />
+        <span class="playoffSub">*: Eliminated From Playoffs</span><br />
+      </div>
+    </div>
+  </section>
+  <section id="seedCont">
+    <div>
+      <p>The top eight teams in each conference make the playoffs, with the top five seeds being the division champions and the other 
+        three being the top teams who did not win their division. The tie-breakers are as follows:
+      </p>
+      <ol>
+        <li>Overall record</li>
+        <li>Direct matchups</li>
+        <li>Divisional record</li>
+        <li>Total Points Scored</li>
+        <li>Average Point Differential</li>
+      </ol>
+    </div>
+  </section>
+</body>
+</html>
