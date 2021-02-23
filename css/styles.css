@@ -1,0 +1,421 @@
+body {
+  margin: 0px;
+}
+button:focus {
+  outline: none;
+}
+#banner {
+  height: 500px;
+  width: 100%;
+  background-image: url('../images/gold.png');
+  background-size: cover;
+}
+#banner > div {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background-color: #eee8;
+}
+#slideNavCont {
+  bottom: 0px;
+  padding: 10px;
+  position: absolute;
+  width: calc(100% - 20px);
+  display: flex;
+  justify-content: center;
+}
+#slideNavGroup {
+  display: inline;
+}
+.slideNav {
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--quinary);
+}
+.slideNav:not(.selected):hover {
+  background-color: var(--quinaryhover);
+}
+.slideNav.selected {
+  background-color: var(--secondaryaccent);
+}
+.slideNav.selected:hover {
+  background-color: var(--secondaryaccenthover);
+}
+.slideNav:last-of-type {
+  margin-right: 0px;
+}
+#slideCont {
+  height: calc(100% - 45px);
+  padding: 0px 15px;
+  width: calc(100% - 30px);
+  overflow: hidden;
+}
+.slidePage {
+  height: 100%;
+  width: 100%;
+}
+.slidePage:not(:first-of-type) {
+  display: none;
+}
+.slidePage * span {
+  font-family: 'Oswald', sans-serif;
+  color: #333;
+  font-size: 120px;
+}
+span.slideSub {
+  font-size: 60px;
+}
+.slideShort {
+  display: none;
+}
+#weeklyUniv {
+  height: 80px;
+  width: 100%;
+  background-color: var(--secondaryaccent);
+  position: relative;
+  border-bottom: 5px solid var(--secondaryaccent);
+}
+#weeklyGames {
+  position: absolute;
+  left: 40px;
+  top: 0;
+  height: 80px;
+  background-color: rgb(84,84,84);
+  width: calc(100% - 80px);
+  display: flex;
+  overflow: hidden;
+  --unit: 80px;
+}
+.weeklyChevron {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  padding: 20px 0;
+  background-color: rgb(96,96,96);
+  fill: rgb(168,168,168);
+}
+.weeklyChevron:hover {
+  background-color: rgb(108,108,108);
+  cursor: pointer;
+}
+.weeklyChevron.disabled {
+  fill: rgb(144,144,144);
+}
+.weeklyChevron.disabled:hover {
+  background-color: rgb(96,96,96);
+  cursor: default;
+}
+.weeklyCont {
+  height: var(--unit);
+  width: calc(var(--unit) * 3.5);
+  border-right: 3px solid var(--secondaryaccent);
+  flex-shrink: 0;
+}
+.weeklyCont:last-child {
+  border-right: none;
+}
+.weeklyHalf {
+  height: calc(var(--unit) * 0.5);
+  width: 100%;
+  display: flex;
+}
+.weeklyHalf > img {
+  height: calc(100% - 6px);
+  width: auto;
+  padding: 3px;
+  flex-shrink: 0;
+}
+.weeklyInfo {
+  width: 100%;
+  height: calc(var(--unit) * 0.5);
+  line-height: calc(var(--unit) * 0.5);
+  color: rgb(144,144,144);
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  font-size: calc(var(--unit) / 3);
+  padding: 0 3px;
+}
+.weeklyInfo:last-child {
+  color: rgb(120,120,120);
+  font-size: calc(var(--unit) / 5);
+}
+.liveUpdates {
+  background-color: red;
+  color: white;
+  font-size: calc(var(--unit) / 4);
+  border: none;
+  padding: 3px 6px;
+  font-weight: bold;
+}
+.liveUpdates:hover {
+  background-color: rgb(230,0,0);
+}
+#datesCont {
+  padding: 20px;
+  background-color: var(--tertiary);
+}
+#dateBox {
+  display: flex;
+}
+#datesCol, #datesSpace {
+  position: relative;
+  width: 50px;
+  height: 350px;
+  flex-shrink: 0;
+}
+#datesTont {
+  width: 100%;
+  height: auto;
+}
+.dateCircle {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  left: 10px;
+  background-color: var(--secondaryaccent);
+  border-radius: 15px;
+}
+#dateBar {
+  width: 10px;
+  height: 300px;
+  position: absolute;
+  left: 20px;
+  top: 25px;
+  background-color: var(--secondaryaccent);
+}
+.datesText {
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  overflow: hidden;
+  color: var(--secondary);
+  font-size: 30px;
+  font-family: 'Oswald', sans-serif;
+}
+h {
+  font-size: 60px;
+  color: #ddd;
+  font-family: 'Oswald', sans-serif;
+}
+#footer {
+  padding: 10px 0px;
+  background-color: #888;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+}
+.cell {
+  min-height: 20px;
+}
+.cellRow {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+.cellRow > img {
+  height: 50px;
+  width: 50px;
+}
+.cellTitle {
+  font-family: 'Oswald', sans-serif;
+  color: white;
+  font-size: 24px;
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+#headlinesCont {
+  padding: 20px;
+  background-color: #222;
+}
+.headline {
+  height: auto;
+  width: calc(100% - 10px);
+  padding: 5px;
+  background-color: var(--blue);
+  font-family: 'Roboto', sans-serif;
+}
+.headlineTime {
+  font-size: 20px;
+  color: #ccc;
+  font-weight: bold;
+}
+.headlineText {
+  font-size: 36px;
+  color: #eee;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+}
+.headlineMore {
+  height: 50px;
+  line-height: 50px;
+  background-color: var(--blueaccent);
+  color: #eee;
+  font-style: italic;
+  font-size: 30px;
+  padding: 0 5px;
+  font-family: 'Roboto', sans-serif;
+  width: 100%;
+  border: none;
+  text-align: left;
+}
+.headlineMore:hover {
+  text-decoration: underline;
+  background-color: var(--blueaccenthover);
+}
+@media only screen and (max-width: 1200px) {
+  .slidePage * span {
+    font-size: 100px;
+  }
+  span.slideSub {
+    font-size: 50px;
+  }
+  #banner {
+    height: 430px;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .slidePage * span {
+    font-size: 80px;
+  }
+  span.slideSub {
+    font-size: 40px;
+  }
+  #banner {
+    height: 350px;
+  }
+  #footer {
+    grid-template-columns: auto auto auto auto auto;
+  }
+}
+@media only screen and (max-width: 800px) {
+  #datesSpace {
+    display: none;
+  }
+  .datesText {
+    font-size: 24px;
+  }
+  .slideLong {
+    display: none;
+  }
+  .slideShort {
+    display: block;
+  }
+  .slidePage * span {
+    font-size: 70px;
+  }
+  span.slideSub {
+    font-size: 35px;
+  }
+  #banner {
+    height: 200px;
+  }
+  .slideNav {
+    height: 15px;
+    width: 15px;
+  }
+}
+@media only screen and (max-width: 663px) {
+  .headlineTime {
+    font-size: 16px;
+  }
+  .headlineText {
+    font-size: 30px;
+  }
+  .headlineMore {
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+  h {
+    font-size: 40px;
+  }
+  #datesCol {
+    display: none;
+  }
+  .datesText {
+    text-align: center;
+  }
+  .weeklyCont {
+    border-right: none;
+    width: calc(100vw - 80px);
+  }
+}
+@media only screen and (max-width: 580px) {
+  #datesCont {
+    padding: 10px;
+  }
+  .slidePage * span {
+    font-size: 70px;
+  }
+  span.slideSub {
+    font-size: 35px;
+  }
+  #banner {
+    height: 300px;
+  }
+  .cellRow > img {
+    height: 40px;
+    width: 40px;
+  }
+  .cellTitle {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 480px) {
+  .headlineTime {
+    font-size: 12px;
+  }
+  .headlineText {
+    font-size: 24px;
+  }
+  .headlineMore {
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+  }
+  h {
+    font-size: 30px;
+  }
+  .datesText {
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+  }
+  .slidePage{
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .slidePage{
+    text-align: center;
+  }
+  .cellRow > img {
+    height: 30px;
+    width: 30px;
+  }
+  .cellTitle {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 350px) {
+  #footer {
+    grid-template-columns: auto auto auto;
+  }
+  .datesText {
+    height: 30px;
+    line-height: 30px;
+  }
+  .slidePage * span {
+    font-size: 50px;
+  }
+  span.slideSub {
+    font-size: 25px;
+  }
+  #banner {
+    height: 230px;
+  }
+}

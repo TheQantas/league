@@ -1,0 +1,1346 @@
+#welcome {
+  background-color: var(--primary);
+  color: var(--secondary);
+  padding: 0 50px;
+  width: calc(100% - 100px);
+  height: 150px;
+  line-height: 150px;
+  font-size: 100px;
+  font-family: 'Oswald', sans-serif;
+}
+#navBar, #accBar {
+  height: auto;
+  width: 100%;
+  display: flex;
+  background-color: var(--primary);
+  color: var(--secondary);
+  border: solid var(--secondary);
+  border-width: 3px 0;
+}
+#accBar {
+  border-top: none;
+}
+.navBtn, .accBtn {
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+  height: 60px;
+  width: 100%;
+  border: none;
+  background-color: var(--primary);
+  color: inherit;
+  border-radius: 0px;
+}
+.navBtn:hover, .accBtn:hover {
+  background-color: var(--primaryaccent);
+}
+#matchupDate {
+  font-family: 'Oswald', sans-serif;
+  padding: 3px 0;
+  width: 100%;
+  background-color: var(--primary);
+  color: var(--secondary);
+  font-size: 36px;
+  text-align: center;
+  font-weight: bold;
+}
+#matchupCont {
+  width: 100%;
+  display: flex;
+}
+#matchupCont > div {
+  width: 50%;
+  background-color: var(--primary);
+}
+.matchupTeam {
+  height: 150px;
+  width: 100%;
+  color: var(--secondary);
+  display: flex;
+}
+.matchupTeam > img {
+  height: calc(100% - 10px);
+  width: auto;
+  padding: 5px;
+  flex-shrink: 0;
+}
+.matchupTeam > div {
+  width: 100%;
+  height: auto;
+}
+.matchupMascot {
+  height: 90px;
+  line-height: 90px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 70px;
+}
+.matchupRecord {
+  height: 60px;
+  line-height: 60px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+}
+.playerRow {
+  height: 120px;
+  width: 100%;
+  display: flex;
+}
+.playerRow.rosterRow:nth-of-type(13), .playerRow.rosterRow:nth-of-type(14), .playerRow.rosterRow:nth-of-type(15) {
+  height: 160px;
+}
+.playerRow:nth-of-type(even) {
+  background-color: var(--primaryaccent);
+}
+.playerPos, .tradeNum, .tradePos {
+  /* height: 100%; */
+  padding: 0px 5px;
+  font-size: 24px;
+  font-family: 'Oswald', sans-serif;
+  width: 30px;
+  line-height: 30px;
+  writing-mode: tb-rl;
+  transform: rotate(-180deg);
+  background-color: var(--secondary);
+  color: var(--tertiary);
+  text-align: center;
+  flex-shrink: 0;
+}
+.tradeNum {
+  height: 100%;
+  padding: 0px 2px;
+  width: 20px;
+  line-height: 20px;
+  font-size: 16px;
+}
+.playerRow:nth-of-type(even) > .playerPos {
+  background-color: var(--secondaryaccent);
+}
+.playerCont {
+  width: 100%;
+  height: auto;
+  padding-left: 5px;
+}
+.playerName {
+  height: 70px;
+  line-height: 70px;
+  font-family: 'Oswald', sans-serif;
+  color: var(--secondary);
+  font-size: 50px;
+}
+.playerNum {
+  font-size: 0.7em;
+}
+.playerStat {
+  height: 50px;
+  line-height: 50px;
+  font-family: 'Oswald', sans-serif;
+  color: var(--secondary);
+  font-size: 24px;
+}
+.playerOpt {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  position: relative;
+}
+.playerOptConf {
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  display: none;
+}
+.playerBtn {
+  height: 40px;
+  width: 100%;
+  color: var(--secondary);
+  border: 2px solid var(--secondary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  border-radius: 0px;
+}
+.playerRelConf {
+  height: 40px;
+  line-height: 40px;
+  font-size: 24px;
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--secondary);
+  color: var(--tertiary);
+  width: auto;
+  margin-left: -5px;
+  flex-shrink: 0;
+  padding: 0 20px;
+}
+.playerRow:nth-of-type(even) * div.playerRelConf {
+  background-color: var(--secondaryaccent);
+}
+.playerBtn:not(.relBtn):first-of-type {
+  margin-left: -5px;
+}
+.playerRow:nth-of-type(odd) * button.playerBtn {
+  background-color: var(--primary);
+}
+.playerRow:nth-of-type(even) * button.playerBtn {
+  background-color: var(--primaryaccent);
+  color: var(--secondaryaccent);
+  border: 2px solid var(--secondaryaccent);
+}
+.playerRow:nth-of-type(odd) * button.playerBtn:hover {
+  color: var(--primary);
+  background-color: var(--secondary);
+}
+.playerRow:nth-of-type(even) * button.playerBtn:hover {
+  color: var(--primaryaccent);
+  background-color: var(--secondaryaccent);
+}
+.playerFlexHead {
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  color: var(--tertiary);
+  background-color: var(--secondaryaccent);
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+}
+#playCallOff, #playCallDef {
+  padding: 20px;
+  width: calc(100% - 40px);
+  height: auto;
+  background-color: var(--primary);
+  color: var(--secondaryaccent);
+  font-weight: bold;
+}
+#playCallDef {
+  background-color: var(--secondaryaccent);
+  color: var(--primary);
+}
+#playCallOff > h, #playCallDef > h {
+  font-size: 40px;
+  font-family: 'Oswald', sans-serif;
+}
+#playCallOff > p, #playCallDef > p {
+  font-size: 30px;
+  color: #eee;
+  font-family: 'Oswald', sans-serif;
+  margin: 0px;
+  height: 45px;
+}
+#playCallOff > p > abbr, #playCallDef > p > abbr {
+  font-size: 0.85em;
+}
+#playCallOff > p > abbr:hover, #playCallDef > p > abbr:hover {
+  cursor: default;
+}
+#playCallOff > button, #playCallDef > button {
+  color: inherit;
+  border: 3px solid currentColor;
+  background-color: inherit;
+  font-size: 30px;
+  padding: 3px 10px;
+  margin-top: 5px;
+  font-family: 'Oswald', sans-serif;
+}
+button.disabled {
+  text-decoration: line-through;
+}
+#playCallOff > button:hover {
+  background-color: var(--primaryaccent);
+}
+#playCallOff > button.disabled:hover {
+  background-color: var(--primary);
+  cursor: default;
+}
+#playCallDef > button:hover {
+  background-color: var(--secondary);
+}
+#playCallDef > button.disabled:hover {
+  background-color: var(--secondaryaccent);
+  cursor: default;
+}
+.sliderCont {
+  height: 45px;
+  width: 100%;
+  color: inherit;
+  display: flex;
+}
+.sliderCont > input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  margin-top: 10px;
+  color: inherit;
+}
+.sliderCont > input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: currentColor;
+  cursor: pointer;
+}
+.sliderCont > input::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: currentColor;
+  cursor: pointer;
+}
+.sliderCont > div {
+  height: 45px;
+  line-height: 45px;
+  flex-shrink: 0;
+  padding: 0 15px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 25px;
+}
+.rosterChoose {
+  width: 100%;
+  display: flex;
+}
+.rosterChooseHalf, #proposeTradeCont {
+  background-color: var(--primary);
+  color: var(--secondary);
+  width: 50%;
+  font-size: 30px;
+  font-family: 'Oswald', sans-serif;
+  border-bottom: 3px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#proposeTradeCont {
+  border-bottom: none;
+}
+#proposeTradeCont {
+  width: auto;
+  flex-shrink: 0;
+  background-color: var(--secondary);
+}
+#proposeTrade {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  background-color: var(--secondary);
+  color: var(--primary);
+  border-radius: 0px;
+  padding: 0 20px;
+  height: 100%;
+  flex-shrink: 0;
+}
+#proposeTrade:not(.disabled):hover {
+  background-color: var(--secondaryaccent);
+}
+#proposeTrade.disabled:hover {
+  cursor: default;
+}
+#rosterSel {
+  font-size: 30px;
+  background-color: var(--primaryaccent);
+  border: none;
+  color: inherit;
+  font-family: 'Oswald', sans-serif;
+  padding: 0 10px;
+}
+#rosterSel:hover {
+  background-color: var(--tertiary);
+}
+#rosterSel:focus {
+  outline: none;
+}
+.rosterCont {
+  width: 100%;
+  height: auto;
+  display: flex;
+}
+#rosterHalfTeam, #rosterHalfOppo {
+  width: 50%;
+  background-color: var(--primary);
+}
+#rosterTeam, #rosterOppo {
+  height: 100px;
+  width: 100%;
+  display: flex;
+}
+.rosterImg {
+  height: calc(100% - 10px);
+  width: auto;
+  padding: 5px;
+  flex-shrink: 0;
+}
+.rosterName {
+  height: 100px;
+  line-height: 100px;
+  width: 100%;
+  font-family: 'Oswald', sans-serif;
+  color: var(--secondary);
+  font-size: 70px;
+}
+#rosterOppo > div.rosterName {
+  text-align: right;
+}
+#freeAgency {
+  padding: 30px;
+  width: calc(100% - 60px);
+  background-image: url('../images/background13.jpg');
+  background-size: cover;
+  background-position: center;
+}
+#freeAgencyTitle, #freeAgencyExp {
+  height: 60px;
+  line-height: 60px;
+  width: calc(100% - 10px);
+  background-color: var(--blue);
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+  padding-left: 10px;
+  color: var(--bluesecondary);
+}
+#freeAgencyExp {
+  height: 40px;
+  line-height: 40px;
+  font-size: 30px;
+  font-style: italic;
+}
+#freeAgencyNav {
+  height: auto;
+  width: 100%;
+  display: flex;
+  border-top: 3px solid var(--bluesecondary);
+  border-bottom: 3px solid var(--bluesecondary);
+}
+.freeAgencyBtn {
+  font-size: 30px;
+  font-family: 'Oswald', sans-serif;
+  color: var(--bluesecondary);
+  border: none;
+  background-color: var(--blue);
+  width: 100%;
+  border-radius: 0px;
+}
+.freeAgencyBtn:hover {
+  background-color: var(--bluehover);
+}
+#freeAgencyCont {
+  width: 100%;
+  height: auto;
+}
+.freeAgencyPage {
+  height: auto;
+  width: 100%;
+  display: none;
+}
+.freeAgencyNone {
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--primary);
+  color: var(--secondary);
+  font-style: italic;
+  padding-left: 10px;
+}
+.freeAgencyTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--primary);
+}
+.freeAgencyTable * td, .freeAgencyTable * th {
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  height: 50px;
+  text-align: center;
+  color: var(--secondary);
+  border-spacing: 0px;
+  padding: 0px;
+  vertical-align: middle;
+}
+.freeAgencySign {
+  height: 40px;
+  width: 40px;
+  fill: var(--secondary);
+  display: block;
+  margin: 0 auto;
+  border-radius: 20px;
+}
+.freeAgencySign.disabled {
+  fill: var(--tertiaryhover);
+}
+.freeAgencySign:not(.disabled):hover {
+  background-color: var(--primaryaccent);
+  cursor: pointer;
+}
+.freeAgencyNum {
+  font-size: 0.7em;
+}
+#account {
+  height: auto;
+  width: calc(100% - 60px);
+  padding: 20px 30px;
+  background-color: #eee;
+}
+.row {
+  width: 100%;
+  display: flex;
+}
+.signOut {
+  color: var(--blue);
+  background-color: rgb(234,234,234);
+  border: 3px solid currentColor;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px;
+  font-weight: bold;
+}
+.signOut:not(:last-of-type) {
+  margin-right: 30px;
+}
+.signOut:hover {
+  background-color: rgb(200,200,200);
+}
+.accHeader {
+  padding: 5px 0px;
+  font-size: 40px;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  display: block;
+}
+.accInp {
+  background-color: #ccc;
+  border: none;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  margin-right: 5px;
+}
+.accInp:hover {
+  background-color: #bbb;
+}
+.accInp:focus {
+  outline: none;
+}
+.accAct {
+  background-color: var(--blue);
+  color: var(--bluesecondary);
+  border: none;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.accAct:hover {
+  background-color: var(--bluehover);
+}
+.resTxt {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  color: var(--blue);
+}
+.container {
+  margin-top: 5px;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  padding-left: 35px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  height: 30px;
+  line-height: 30px;
+  color: #333;
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+}
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 30px;
+  width: 30px;
+  background-color: #bbb;
+}
+.checkmark.radio {
+  border-radius: 50%;
+}
+.container:hover input ~ .checkmark {
+  background-color: #aaa;
+}
+.container input:checked ~ .checkmark {
+  background-color: var(--secondary);
+}
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+.container .checkmark:after {
+  left: 11px;
+  top: 6px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.container input:checked ~ .checkmark.radio:after {
+  display: block;
+}
+.container .checkmark.radio:after {
+ 	top: 9px;
+	left: 9px;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	background: white;
+}
+#devicesTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--primary);
+}
+#devicesTable * td, #devicesTable * th {
+  color: var(--secondary);
+  font-size: 24px;
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+}
+#trade {
+  background-color: #ddd;
+}
+#tradeDeadline, #tradeInst {
+  background-color: var(--primary);
+  text-align: center;
+  padding: 5px 0px;
+}
+#tradeInst {
+  background-color: var(--secondary);
+}
+#tradeDeadline > span, #tradeInst > span {
+  font-family: 'Oswald', sans-serif;
+  color: var(--secondary);
+  font-size: 30px;
+}
+#tradeInst > span {
+  color: var(--primary);
+}
+#tradeCont {
+  padding: 15px;
+  background-color: #ddd;
+  min-height: calc(100vh - 421px);
+}
+.tradeBox {
+  background-color: white;
+  padding: 5px;
+  border-radius: 10px;
+  position: relative;
+}
+.tradeBox:not(:first-of-type) {
+  margin-top: 15px;
+}
+.tradeTop {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  position: relative;
+}
+.tradeTopAbs {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+}
+.tradeTopOpt {
+  height: 30px;
+  width: 30px;
+  border-radius: 5px;
+  fill: #333;
+}
+.tradeTopOpt:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+.tradeStatus {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 20px 0 15px;
+  flex-shrink: 0;
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+}
+.tradeStatus.proposed, .tradeBtn.proposed, .tradeStatus.counterproposal {
+  color: #ffd11a;
+}
+.tradeStatus.accepted, .tradeBtn.accepted {
+  color: #33cc33;
+}
+.tradeStatus.declined, .tradeBtn.declined {
+  color: #ff3300;
+}
+.tradeStatus.countered, .tradeBtn.countered {
+  color: #0066ff;
+}
+.tradeStatus.retracted, .tradeBtn.retracted {
+  color: #cc0044;
+}
+.confOpt {
+  display: none;
+}
+.tradeBtn.cancel {
+  color: #e60000;
+}
+.tradeInfo {
+  width: 100%;
+  height: 100%;
+}
+.tradeMeta {
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  color: #444;
+  font-weight: bold;
+}
+.tradeLower {
+  display: flex;
+  width: 100%;
+}
+.tradeLowerHalf {
+  width: 50%;
+  background-color: var(--primary);
+  min-height: 50px;
+}
+.tradeLowerTop {
+  height: 60px;
+  width: 100%;
+  display: flex;
+}
+.tradeTeamLogo {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  flex-shrink: 0;
+}
+.tradeTeamName, .tradeClarify {
+  height: 60px;
+  line-height: 60px;
+  width: 100%;
+  font-family: 'Oswald', sans-serif;
+  color: var(--secondary);
+  font-size: 40px;
+}
+.tradeClarify {
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  text-align: center;
+}
+.tradeRow {
+  height: 70px;
+  width: 100%;
+  display: flex;
+}
+.tradeRow:nth-of-type(odd) {
+  background-color: var(--primaryaccent);
+}
+.tradeRow:nth-of-type(odd) > .tradePos {
+  background-color: var(--secondaryaccent);
+}
+.tradeRowName {
+  height: 70px;
+  line-height: 70px;
+  width: 100%;
+  padding-left: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+  color: var(--secondary);
+}
+.tradeBottom {
+  margin-top: 5px;
+  height: auto;
+  width: 100%;
+  display: flex;
+}
+.tradeBtn {
+  padding: 3px;
+  width: 100%;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  border: 3px solid currentColor;
+  border-radius: 5px;
+  background-color: white;
+}
+.tradeBtn:hover {
+  background-color: #ddd;
+}
+.tradeCounter {
+  height: 60px;
+  line-height: 60px;
+  font-size: 40px;
+  font-style: italic;
+  color: #222;
+  font-family: 'Oswald', sans-serif;
+  text-align: center;
+  width: 100%;
+}
+/* make trade stuff */
+#makeTradeCont {
+  position: fixed;
+  height: auto;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  background-color: #dddd;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  display: none;
+}
+#makeTradeCont > div {
+  width: 50%;
+  min-width: 400px;
+  height: 410px;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #333;
+  position: relative;
+}
+#makeTradeWindow {
+  height: 30px;
+  width: 60px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  display: flex;
+}
+#makeTradeWindow > svg {
+  height: 24px;
+  width: 24px;
+  padding: 3px;
+  fill: #eee;
+  border-radius: 5px;
+}
+#makeTradeWindow > svg:hover {
+  background-color: #555;
+  cursor: pointer;
+}
+#makeTradeLower {
+  height: auto;
+  width: 100%;
+  display: flex;
+}
+#makeTradeTeamHalf, #makeTradeOppoHalf {
+  width: 50%;
+  height: auto;
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+.makeTradeTop {
+  height: 50px;
+  width: 100%;
+  display: flex;
+}
+.makeTradeLogo {
+  height: 40px;
+  width: 40px;
+  padding: 5px;
+  flex-shrink: 0;
+}
+.makeTradeName {
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+}
+.makeTradeTrans {
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+}
+.makeTradeRow {
+  height: 50px;
+  display: none;
+}
+#addMorePlayers {
+  height: 50px;
+  background-color: var(--primaryaccent);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0 0 5px 5px;
+}
+#addMorePlayers:not(.disabled):hover {
+  background-color: var(--tertiary);
+  cursor: pointer;
+}
+#addMorePlayers > svg {
+  height: 40px;
+  width: 40px;
+  fill: var(--secondary);
+  border-radius: 50%;
+}
+#addMorePlayers.disabled > svg {
+  fill: var(--tertiary);
+}
+#proposeTradeBot {
+  height: 50px;
+  width: 100%;
+  position: relative;
+  margin-top: 5px;
+}
+#proposeTradeBtn {
+  font-family: 'Oswald', sans-serif;
+  height: 50px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--secondaryaccent);
+  font-size: 30px;
+  color: var(--primary);
+}
+#proposeTradeBtn:not(.disabled):hover {
+  background-color: var(--secondary);
+}
+#proposeTradeBtn.disabled:hover {
+  cursor: default;
+}
+.tradeRowRight {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.makeTradeSel {
+  height: 40px;
+  background-color: var(--primary);
+  color: var(--secondary);
+  border: 2px solid currentColor;
+  border-radius: 5px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+}
+.makeTradeSel:hover {
+  background-color: var(--primaryaccent);
+}
+.makeTradeSel:focus {
+  outline: none;
+}
+#pill {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  height: 40px;
+  line-height: 40px;
+  background-color: white;
+  color: var(--blue);
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  padding: 0 20px;
+  display: none;
+  box-shadow: 4px 4px 6px #444;
+  border-radius: 10px;
+  border: none;
+}
+#pill:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+#tradePosExp {
+  margin-top: 35px;
+  background-color: var(--blue);
+  border-radius: 5px 5px 0 0;
+  color: var(--bluesecondary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  height: 40px;
+  line-height: 40px;
+  width: 100%;
+  text-align: center;
+}
+#confirmProposal {
+  display: none;
+  align-items: center;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
+  border-radius: 5px;
+  background-color: #ccce;
+  padding: 5px;
+}
+#confirmProposal > div {
+  height: auto;
+  width: 100%;
+}
+#confirmProposalTxt {
+  background-color: var(--bluesecondary);
+  padding: 5px;
+  width: calc(100% - 10px);
+  text-align: center;
+  border-radius: 5px;
+}
+#confirmProposalTxt > span {
+  color: var(--blue);
+  font-size: 24px;
+  font-family: 'Oswald', sans-serif;
+}
+#confirmProposalCont {
+  width: 100%;
+  margin-top: 5px;
+  display: flex;
+}
+.confirmProposalBtn {
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--blue);
+  color: var(--bluesecondary);
+  border: 2px solid var(--blue);
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  padding: 3px;
+}
+.confirmProposalBtn:first-of-type {
+  background-color: var(--bluesecondary);
+  color: var(--blue);
+  margin-right: 5px;
+}
+.confirmProposalBtn:first-of-type:hover {
+  background-color: rgb(220,220,220);
+}
+.confirmProposalBtn:hover {
+  background-color: var(--bluehover);
+  border-color: var(--bluehover)
+}
+#errorCont {
+  z-index: 4;
+  width: 100%;
+  position: fixed;
+  bottom: 30px;
+  height: auto;
+  display: none;
+  justify-content: center;
+  pointer-events: none;
+}
+#errorCont > span {
+  padding: 5px 15px;
+  background-color: #222d;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-size: 30px;
+  pointer-events: all;
+  border-radius: 5px;
+}
+@media only screen and (max-width: 1200px) {
+  .playerStat {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 1100px) {
+  .matchupMascot {
+    font-size: 60px;
+  }
+}
+@media only screen and (max-width: 1050px) {
+  .tradeClarify {
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+  #freeAgencyExp {
+    height: 30px;
+    line-height: 30px;
+    font-size: 20px;
+  }
+  .playerName {
+    height: 50px;
+    line-height: 50px;
+    font-size: 40px;
+  }
+  .playerStat {
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+  }
+  .playerRow {
+    height: 80px;
+  }
+  .playerRow.rosterRow:nth-of-type(13), .playerRow.rosterRow:nth-of-type(14), .playerRow.rosterRow:nth-of-type(15) {
+    height: 120px;
+  }
+  .matchupMascot {
+    height: 60px;
+    line-height: 60px;
+    font-size: 50px;
+  }
+  .matchupRecord {
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+  .matchupTeam {
+    height: 100px;
+  }
+  #welcome {
+    height: 120px;
+    line-height: 120px;
+    font-size: 80px;
+  }
+  .navBtn {
+    font-size: 24px;
+    height: 40px;
+  }
+  #tradeCont {
+    min-height: calc(100vh - 371px);
+  }
+}
+@media only screen and (max-width: 890px) {
+  #tradeCont {
+    min-height: calc(100vh - 361px);
+  }
+}
+@media only screen and (max-width: 850px) {
+  .signOut {
+    font-size: 24px;
+    padding: 3px;
+  }
+  #account {
+    width: calc(100% - 30px);
+    padding: 10px 15px;
+  }
+  .accInp, .accAct {
+    font-size: 24px;
+    padding: 3px 5px;
+  }
+  .tradeRowName {
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+  }
+  .tradeRow {
+    height: 50px;
+  }
+  #matchupCont, .rosterCont {
+    display: block;
+  }
+  #matchupCont > div, #rosterHalfTeam, #rosterHalfOppo {
+    width: 100%;
+  }
+  #welcome {
+    height: 80px;
+    line-height: 80px;
+    font-size: 60px;
+    padding: 0 20px;
+    width: calc(100% - 40px);
+  }
+  #tradeCont {
+    min-height: calc(100vh - 321px);
+  }
+}
+@media only screen and (max-width: 700px) {
+  .container {
+    font-size: 12px;
+  }
+  .accHeader {
+    font-size: 30px;
+  }
+  #devicesTable * td, #devicesTable * th {
+    font-size: 20px;
+  }
+  .signOut {
+    font-size: 20px;
+  }
+  .signOut:not(:last-of-type) {
+    margin-right: 15px;
+  }
+}
+@media only screen and (max-width: 650px) {
+  .accInp, .accAct {
+    font-size: 16px;
+  }
+  #devicesTable * td, #devicesTable * th {
+    font-size: 16px;
+  }
+  .accHeader {
+    font-size: 24px;
+  }
+  .tradeRowName {
+    height: 40px;
+    line-height: 40px;
+    padding-left: 5px;
+    font-size: 24px;
+  }
+  .tradeRow {
+    height: 40px;
+  }
+  .tradePos {
+    padding: 0px 3px;
+    font-size: 16px;
+    width: 20px;
+    line-height: 20px;
+  }
+  .tradeBtn {
+    font-size: 20px;
+    padding: 1px;
+  }
+  .tradeTeamLogo {
+    height: 40px;
+    width: auto;
+  }
+  .tradeClarify {
+    height: auto;
+    line-height: normal;
+    font-size: 20px;
+  }
+  .tradeTeamName {
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+  }
+  .tradeLowerTop {
+    height: auto;
+  }
+  #tradeCont {
+    min-height: calc(100vh - 301px);
+  }
+  #freeAgencyExp {
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+  }
+  .freeAgencyNone {
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+  .rosterChooseHalf, #proposeTradeCont, #rosterSel {
+    font-size: 20px;
+  }
+  #welcome {
+    height: 60px;
+    line-height: 60px;
+    font-size: 40px;
+    padding: 0 10px;
+    width: calc(100% - 20px);
+  }
+  #matchupDate {
+    font-size: 24px;
+  }
+  .container {
+    font-size: 10px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .signOut {
+    font-size: 16px;
+  }
+  .tradeStatus {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px 0 5px;
+    font-size: 24px;
+  }
+  .tradeMeta {
+    height: 20px;
+    line-height: 20px;
+    font-size: 16px;
+  }
+  .tradeTop {
+    height: 40px;
+  }
+  .tradeTeamName {
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+  .tradeTeamLogo {
+    height: 34px;
+    padding: 3px;
+  }
+  .tradeClarify {
+    font-size: 16px;
+  }
+  .tradeLower {
+    display: block;
+  }
+  .tradeLowerHalf {
+    width: 100%;
+  }
+  #tradeCont {
+    min-height: calc(100vh - 271px);
+  }
+  #tradeDeadline > span, #tradeInst > span {
+    font-size: 20px;
+  }
+  .rosterName {
+    height: 80px;
+    line-height: 80px;
+    font-size: 50px;
+  }
+  #rosterTeam, #rosterOppo {
+    height: 80px;
+  }
+  #freeAgency {
+    padding: 10px;
+    width: calc(100% - 20px);
+  }
+  .freeAgencyNone {
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+  }
+  .freeAgencyBtn {
+    font-size: 20px;
+  }
+  #freeAgencyExp {
+    height: auto;
+    line-height: normal;
+  }
+  #freeAgencyTitle {
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+  }
+  #playCallOff > p, #playCallDef > p {
+    font-size: 20px;
+    height: 30px;
+  }
+  #playCallOff > h, #playCallDef > h {
+    font-size: 30px;
+  }
+  #playCallOff > button, #playCallDef > button {
+    font-size: 20px;
+  }
+  .freeAgencyNone {
+    line-height: normal;
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,430 @@
+#navCont {
+  padding: 30px;
+  width: calc(100% - 60px);
+  background-image: url('../images/background9.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+}
+.wikiNav {
+  background-color: var(--secondaryaccent);
+  width: calc(100% / 3);
+  height: auto;
+  min-height: 100px;
+}
+.wikiNav > a {
+  font-size: 22px;
+  font-family: 'Oswald', sans-serif;
+  color: var(--primaryaccent);
+  padding: 5px;
+  text-decoration: none;
+}
+.wikiNav > a.single {
+  margin-left: 24px;
+}
+.wikiNav > a:hover {
+  text-decoration: underline;
+}
+#table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+#table * td, #table * th {
+  font-family: 'Oswald', sans-serif;
+  border-spacing: 0px;
+  font-size: 20px;
+  text-align: center;
+}
+#table * th {
+  background-color: var(--primaryaccent);
+  color: var(--secondary);
+}
+#table * td {
+  background-color: var(--primary);
+}
+#table * img {
+  height: 60px;
+  width: 60px;
+  display: block;
+  margin: 0 auto;
+}
+h, h2, p {
+  font-family: 'Oswald', sans-serif;
+}
+h {
+  color: #eee;
+  font-size: 45px;
+}
+h2, p {
+  color: #ccc;
+  display: inline;
+}
+h2 {
+  font-size: 36px;
+}
+p {
+  font-size: 30px;
+}
+#filterCont {
+  height: 60px;
+  width: 100%;
+  background-color: var(--secondaryaccent);
+  display: flex;
+  justify-content: center;
+}
+#filter {
+  height: 50px;
+  margin: 5px;
+  padding: 0px 10px;
+  background-color: var(--secondary);
+  color: var(--primary);
+  border: none;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+}
+#filter:hover {
+  background-color: var(--secondaryhoverlight);
+}
+#filter:focus {
+  outline: none;
+}
+.lowerCont {
+  padding: 10px 30px 30px 30px;
+  height: auto;
+  width: calc(100% - 60px);
+}
+.lowerCont:nth-of-type(odd) {
+  background-color: #444;
+}
+.lowerCont:nth-of-type(even) {
+  background-color: #666;
+}
+.calcBar {
+  margin-top: 10px;
+  background-color: var(--blue);
+  height: 60px;
+  width: 100%;
+  display: flex;
+  border-radius: 10px;
+}
+.calcInp, .calcOut, .calcSel {
+  border-radius: 5px;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+  font-size: 30px;
+}
+.calcInp {
+  margin-top: 5px;
+  width: 100%;
+  height: 40px;
+  border: none;
+  padding: 5px;
+  background-color: #ccc;
+}
+.calcInp:not(.s) {
+  margin-left: 5px;
+}
+.calcInp:hover {
+  background-color: #bbb;
+}
+.calcInp:focus {
+  outline: none;
+}
+.calcOut, .calcText {
+  line-height: 50px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.calcOut {
+  background-color: #aaa;
+  width: 150px;
+  margin: 5px;
+}
+.calcOut.s {
+  margin-left: 0px;
+}
+.calcText {
+  width: auto;
+  margin: 5px 3px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 30px;
+  color: #333;
+}
+.calcSel {
+  margin-top: 5px;
+  width: 100%;
+  height: 50px;
+  border: none;
+  padding: 5px;
+  background-color: #ccc;
+}
+.calcSel:focus {
+  outline: none;
+}
+.statTable, .playersTable {
+  margin-top: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #666;
+}
+.playersTable {
+  display: none;
+  background-color: #444;
+  margin-top: 0px;
+}
+.statTable * td, .statTable * th, .playersTable * td, .playersTable * th {
+  font-family: 'Oswald', sans-serif;
+  color: white;
+  font-size: 24px;
+  text-align: center;
+}
+.statTable * th, .playersTable * th {
+  color: var(--secondary);
+}
+#playersNavBar {
+  margin-top: 5px;
+  width: 100%;
+  display: flex;
+}
+.playersNav {
+  height: 60px;
+  width: 100%;
+  border: none;
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--secondaryaccent);
+  font-size: 40px;
+  color: var(--primary);
+}
+.playersNav:hover {
+  background-color: var(--secondaryaccenthover);
+}
+.num {
+  font-size: 0.7em;
+}
+#fourthOut {
+  width: 220px;
+  color: white;
+}
+@media only screen and (max-width: 1200px) {
+  .playersNav {
+    height: 50px;
+    font-size: 30px;
+  }
+  .statTable * td, .statTable * th, .playersTable * td, .playersTable * th {
+    font-size: 20px;
+  }
+  .wikiNav > a {
+    font-size: 18px;
+  }
+  .calcBar {
+    height: 50px;
+  }
+  .calcInp, .calcOuts {
+    font-size: 24px;
+  }
+  .calcSel {
+    padding: 3px;
+    font-size: 18px;
+  }
+  .calcInp {
+    height: 30px;
+  }
+  .calcOut, .calcText {
+    line-height: 40px;
+  }
+  .calcOut {
+    width: 120px;
+  }
+  .calcText {
+    font-size: 24px;
+  }
+  .calcSel {
+    height: 40px;
+  }
+  #fourthOut {
+    width: 180px;
+  }
+  p {
+    font-size: 24px;
+  }
+  #navCont {
+    display: block;
+  }
+  .wikiNav > a {
+    font-size: 24px;
+  }
+  .wikiNav {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .playersNav {
+    height: 40px;
+    font-size: 24px;
+  }
+  .statTable * td, .statTable * th, .playersTable * td, .playersTable * th {
+    font-size: 16px;
+  }
+  .calcBar {
+    height: 40px;
+  }
+  .calcInp, .calcOut {
+    font-size: 20px;
+  }
+  .calcSel {
+    padding: 2px;
+    height: 16px;
+  }
+  .calcInp {
+    height: 20px;
+  }
+  .calcOut, .calcText {
+    line-height: 30px;
+  }
+  .calcOut {
+    width: 80px;
+  }
+  .calcText {
+    font-size: 20px;
+  }
+  .calcSel {
+    height: 30px;
+  }
+  #fourthOut {
+    width: 130px;
+  }
+  p {
+    font-size: 20px;
+  }
+  h2 {
+    font-size: 30px;
+  }
+  h {
+    font-size: 36px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  #table * img {
+    height: 40px;
+    width: 40px;
+  }
+  #filterCont {
+    height: 50px;
+  }
+  #filter {
+    height: 40px;
+    font-size: 24px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  .lowerCont {
+    padding: 10px;
+    height: auto;
+    width: calc(100% - 20px);
+  }
+  .calcBar {
+    padding: 3px;
+    width: calc(100% - 6px);
+    height: auto;
+    border-radius: 8px;
+  }
+  .calcBar > *:not(.calcText):not(.calcInp):not(.calcOut) {
+    margin: 0px;
+  }
+  .calcInp:not(.s), .calcOut {
+    margin: 0px 0px 0px 5px;
+  }
+  .calcInp.s {
+    margin-top: 0px;
+  }
+  .calcInp:not(.s):first-of-type {
+    margin-left: 0px;
+  }
+  .calcText {
+    margin: 0 2px;
+  }
+  .calcText, .calcOut, .calcInp, .calcSel {
+    font-size: 16px;
+  }
+  .calcOut {
+    height: 30px;
+  }
+  #fourthOut {
+    width: 100px;
+  }
+  p {
+    font-size: 16px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  h {
+    font-size: 30px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .playersNav {
+    height: 30px;
+    font-size: 20px;
+  }
+  .statTable * td, .statTable * th, .playersTable * td, .playersTable * th {
+    font-size: 12px;
+  }
+  #table * img {
+    height: 30px;
+    width: 30px;
+  }
+  #filterCont {
+    height: 40px;
+  }
+  #filter {
+    height: 30px;
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .calcText, .calcOut, .calcInp, .calcSel {
+    font-size: 12px;
+  }
+  .calcInp {
+    padding: 3px;
+    height: 18px;
+  }
+  .calcSel {
+    height: 24px;
+  }
+  .calcOut {
+    height: 24px;
+  }
+  .calcOut, .calcText {
+    line-height: 24px;
+  }
+  #fourthOut {
+    width: 80px;
+  }
+  #table * img {
+    height: 20px;
+    width: 20px;
+  }
+  #table * td, #table * th {
+    font-size: 10px;
+  }
+  #filterCont {
+    height: 30px;
+  }
+  #filter {
+    height: 24px;
+    font-size: 16px;
+    margin: 3px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  #table * img {
+    height: 16px;
+    width: 16px;
+  }
+  #table * td, #table * th {
+    font-size: 8px;
+  }
+}

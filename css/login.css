@@ -1,0 +1,175 @@
+#cont {
+  height: calc(100vh - 65px);
+  width: 100%;
+  background-image: url('../images/background15.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#cont > div {
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #333;
+  box-shadow: 3px 3px 5px white;
+  width: 40%;
+}
+#errorMess {
+  font-family: 'Oswald', sans-serif;
+  color: var(--secondary);
+  font-size: 20px;
+  width: 100%;
+  text-align: center;
+  margin-top: 5px;
+}
+.page {
+  display: none;
+}
+.row {
+  display: flex;
+  width: 100%;
+}
+.methodBtn {
+  background-color: var(--blue);
+  color: var(--bluesecondary);
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  font-size: 30px;
+  font-family: 'Oswald', sans-serif;
+}
+.methodBtn:hover {
+  background-color: var(--bluehover);
+}
+.methodBtn:not(:last-of-type) {
+  margin-right: 5px;
+}
+input {
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  margin-top: 5px;
+  padding: 5px;
+  width: calc(100% - 10px);
+  border: none;
+  background-color: #555;
+  color: var(--bluesecondary);
+  border-radius: 5px;
+}
+input:hover {
+  background-color: #666;
+}
+input:focus {
+  outline: none;
+}
+.btn {
+  background-color: var(--secondaryaccent);
+  width: 100%;
+  margin-top: 5px;
+  padding: 5px;
+  color: var(--bluesecondary);
+  border: none;
+  border-radius: 5px;
+  font-size: 30px;
+  font-family: 'Oswald', sans-serif;
+}
+.btn:hover {
+  background-color: var(--secondary);
+}
+#forgotBtn {
+  background-color: #333;
+  border: none;
+  color: var(--secondary);
+  font-family: 'Oswald', sans-serif;
+  margin-top: 5px;
+  font-size: 20px;
+  padding: 3px 5px;
+  font-style: italic;
+  border-radius: 5px;
+}
+#forgotBtn:hover {
+  background-color: #484848;
+}
+.title {
+  height: 30px;
+  line-height: 30px;
+  font-size: 20px;
+  font-family: 'Oswald', sans-serif;
+  color: var(--secondary);
+}
+.recoverBtn {
+  background-color: #555;
+  width: 100%;
+  border: none;
+  color: var(--secondary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+.recoverBtn:hover {
+  background-color: #666;
+}
+.recoverCont {
+  display: none;
+  background-color: #555;
+  margin-top: 5px;
+  border-radius: 5px;
+}
+.recoverDesc {
+  font-family: 'Oswald', sans-serif;
+  color: var(--bluesecondary);
+  margin-left: 5px;
+  font-size: 20px;
+}
+.recoverUse {
+  width: 100%;
+  border: none;
+  background-color: var(--secondaryaccent);
+  color: var(--bluesecondary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  border-radius: 5px;
+}
+.recoverUse:hover {
+  background-color: var(--secondary);
+}
+#problem1, #problem2, #promptCode, #factPrompt {
+  color: var(--bluesecondary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+}
+#draftBtnCont {
+  position: absolute;
+  width: 100%;
+  bottom: 20px;
+  min-height: 10px;
+  display: flex;
+  justify-content: center;
+}
+#draftBtn {
+  padding: 5px 20px;
+  background-color: red;
+  color: white;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+#draftBtn:hover {
+  text-decoration: underline;
+  background-color: #d00;
+}
+@media only screen and (max-width: 920px) {
+  #cont {
+    height: calc(100vh - 55px);
+  }
+  #cont > div {
+    width: 70%;
+  }
+}
+@media only screen and (max-width: 500px) {
+  #cont > div {
+    width: calc(100% - 20px);
+  }
+}

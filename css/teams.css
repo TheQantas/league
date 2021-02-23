@@ -1,0 +1,378 @@
+.league {
+  --primary: rgb(64,64,64);
+  --primaryaccent: rgb(84,84,84);
+  --secondary: rgb(222,192,86);
+  --secondaryhover: rgb(200,173,77);
+  --secondaryhoverlight: rgb(244,211,95);
+  --secondaryaccent: rgb(176,136,47);
+  --secondaryaccenthover: rgb(194,150,52);
+  --tertiary: rgb(96,96,96);
+  --quaternary: rgb(72,72,72);
+  --quinary: rgb(108,108,108);
+  --tertiaryhover: rgb(108,108,108);
+  --quinaryhover: rgb(120,120,120);
+  --blue: rgb(38,109,162);
+  --blueaccent: rgb(34,98,146);
+  --blueaccenthover: rgb(29,83,124);
+  --bluehover: rgb(42,120,178);
+  --bluesecondary: rgb(234,234,234);
+}
+.cfc {
+  --primary: rgb(0,0,255);
+  --primaryaccent: rgb(0,0,217);
+  --secondary: white;
+}
+.nfc {
+  --primary: rgb(255,0,0);
+  --primaryaccent: rgb(217,0,0);
+  --secondary: white;
+}
+.foxes {
+  --primary: #00f;
+  --bar: #00f;
+  --primaryaccent: rgb(0,0,217);
+  --secondary: #f00;
+  --secondaryaccent: rgb(171,0,0);
+  --tertiary: #fff;
+}
+.penguins {
+  --primary: rgb(0,0,136);
+  --bar: rgb(0,0,136);
+  --primaryaccent: rgb(0,0,116);
+  --secondary: rgb(255,146,0);
+  --secondaryaccent: rgb(212,117,0);
+  --tertiary: #fff;
+}
+.greats {
+  --primary: rgb(163,73,164);
+  --bar: rgb(163,73,164);
+  --primaryaccent: rgb(139,62,139);
+  --secondary: rgb(255,201,14);
+  --secondaryaccent: rgb(204,161,11);
+  --tertiary: #fff;
+}
+.snakes {
+  --primary: rgb(30,132,0);
+  --bar: rgb(30,132,0);
+  --primaryaccent: rgb(26,112,0);
+  --secondary: #f22;
+  --secondaryaccent: rgb(153,0,0);
+  --tertiary: #fff;
+}
+.falcons {
+  --primary: rgb(0,255,0);
+  --bar: rgb(0,255,0);
+  --primaryaccent: rgb(0,217,0);
+  --secondary: rgb(0,0,127);
+  --secondaryaccent: rgb(0,0,191);
+  --tertiary: #eee;
+}
+.grizzlies {
+  --primary: rgb(255,201,14);
+  --bar: rgb(255,201,14);
+  --primaryaccent: rgb(217,171,9);
+  --secondary: rgb(60,60,60);
+  --secondaryaccent: rgb(90,90,90);
+  --tertiary: rgb(195,195,195);
+}
+.cougars {
+  --primary: rgb(0,162,232);
+  --bar: rgb(0,162,232);
+  --primaryaccent: rgb(0,138,197);
+  --secondary: rgb(22,116,50);
+  --secondaryaccent: rgb(15,78,34);
+  --tertiary: #aaa;
+}
+.warriors {
+  --primary: rgb(200,170,118);
+  --bar: rgb(200,170,118);
+  --primaryaccent: rgb(170,145,100);
+  --secondary: rgb(237,28,36);
+  --secondaryaccent: rgb(156,18,24);
+  --tertiary: white;
+}
+.rottweilers {
+  --primary: rgb(120,152,186);
+  --bar: rgb(120,152,186);
+  --primaryaccent: rgb(102,129,158);
+  --secondary: rgb(35,31,32);
+  --secondaryaccent: rgb(53,47,48);
+  --tertiary: rgb(199,125,76);
+}
+.aardvarks {
+  --primary: rgb(85,74,60);
+  --bar: rgb(119,104,85);
+  --primaryaccent: rgb(72,63,51);
+  --secondary: rgb(192,192,192);
+  --secondaryaccent: rgb(127,127,127);
+  --tertiary: rgb(48,48,48);
+}
+.hummingbirds {
+  --primary: rgb(52,176,203);
+  --bar: rgb(52,176,203);
+  --primaryaccent: rgb(44,150,173);
+  --secondary: #ff0080;
+  --secondaryaccent: rgb(204,0,102);
+  --tertiary: white; /*rgb(163,73,164) rgb(196,88,197)*/
+}
+.longhorns {
+  --primary: rgb(255,127,39);
+  --bar: rgb(255,127,39);
+  --primaryaccent: rgb(217,108,33);
+  --secondary: rgb(0,0,79);
+  --secondaryaccent: rgb(0,0,119);
+  --tertiary: white;
+}
+.aviators {
+  --primary: rgb(19,35,61);
+  --primaryaccent: rgb(16,30,52);
+  --secondary: rgb(249,76,10);
+  --bar: rgb(249,76,10);
+  --secondaryaccent: rgb(167,51,7);
+  --tertiary: #ddd;
+}
+.rebels {
+  --primary: rgb(136,0,21);
+  --bar: rgb(136,0,21);
+  --primaryaccent: rgb(116,0,18);
+  --secondary: rgb(195,195,195);
+  --secondaryaccent: rgb(131,131,131);
+  --tertiary: black;
+}
+.huskies {
+  /* --primary: rgb(127,127,127);
+  --bar: rgb(127,127,127);
+  --primaryaccent: rgb(108,108,108); */
+  --primary: rgb(72,72,72);
+  --bar: white;
+  --primaryaccent: rgb(60,60,60);
+  --secondary: white;
+  --secondaryaccent: rgb(171,171,171);
+  --tertiary: #444;
+}
+.stallions {
+  --primary: rgb(36,36,36);
+  --primaryaccent: rgb(31,31,31);
+  --secondary: #2875b0;
+  --bar: #2875b0;
+  --secondaryaccent: rgb(50,98,140);
+  --tertiary: rgb(15,47,95);
+}
+.sharks {
+  /* --primary: rgb(0,132,142);
+  --bar: rgb(0,132,142);
+  --primaryaccent: rgb(0,112,121);
+  --secondary: rgb(191,191,191);
+  --secondaryaccent: rgb(127,127,127);
+  --tertiary: white; */
+  --primary: rgb(19,50,62);
+  --bar: rgb(19,50,62);
+  --primaryaccent: rgb(16,40,51);
+  --secondary: rgb(167,182,179);
+  --secondaryaccent: rgb(186,197,195);
+  --tertiary: rgb(13,91,130);
+}
+.chameleons {
+  --primary: rgb(0,177,0);
+  --bar: rgb(0,177,0);
+  --primaryaccent: rgb(0,150,0);
+  --secondary: rgb(107,70,37);
+  --secondaryaccent: rgb(72,47,25);
+  --tertiary: white;
+}
+.pandas {
+  --primary: #fff;
+  --bar: #fff;
+  --primaryaccent: #ddd;
+  --secondary: #000;
+  --secondaryaccent: #333;
+  --tertiary: #aaa;
+}
+.wolves {
+  --primary: rgb(3,125,148);
+  --bar: rgb(3,125,148);
+  --primaryaccent: rgb(3,106,126);
+  --secondary: white;
+  --secondaryaccent: #ddd;
+  --tertiary: rgb(64,64,64);
+}
+.badgers {
+  --primary: #fff;
+  --bar: #fff;
+  --primaryaccent: #ddd;
+  --secondary: #404044;
+  --secondaryaccent: rgb(43,43,46);
+  --tertiary: rgb(192,192,192);
+}
+.collies {
+  --primary: #fff;
+  --primaryaccent: #ddd;
+  --bar: #ddd;
+  --secondary: #161616;
+  --secondaryaccent: rgb(33,33,33);
+  --tertiary: rgb(160,160,160);
+}
+.squirrels {
+  --primary: rgb(0,111,130);
+  --primaryaccent: rgb(0,94,111);
+  --secondary: rgb(242,198,1);
+  --bar: rgb(242,198,1);
+  --secondaryaccent: rgb(194,158,1);
+  --tertiary: white;
+}
+.coonhounds {
+  --primary: #fff;
+  --primaryaccent: #ddd;
+  --secondary: #00f;
+  --bar: #ff0;
+  --secondaryaccent: rgb(0,0,171);
+  --tertiary: #ff0;
+}
+.nationals {
+  --primary: rgb(195,195,195);
+  --primaryaccent: rgb(166,166,166);
+  --secondary: rgb(63,72,204);
+  --bar: rgb(82,90,209);
+  --secondaryaccent: rgb(38,53,137);
+  --tertiary: rgb(255,127,39);
+}
+.goldens {
+  --primary: rgb(236,95,0);
+  --primaryaccent: rgb(201,81,0);
+  --bar: rgb(201,81,0);
+  --secondary: rgb(207,207,207);
+  --secondaryaccent: rgb(138,138,138);
+  --tertiary: rgb(64,64,64);
+}
+.lynx {
+  /* --primary: rgb(32,32,32);
+  --primaryaccent: rgb(27,27,27);
+  --secondary: #5103ba;
+  --bar: #5103ba;
+  --secondaryaccent: rgb(54,2,125);
+  --tertiary: #ddd; */
+  --primary: rgb(73,21,230);
+  --primaryaccent: rgb(67,20,210);
+  --secondary: rgb(20,20,20);
+  --bar: rgb(73,21,230);
+  --secondaryaccent: rgb(38,38,38);
+  --tertiary: #ddd;
+}
+.galaxy {
+  --primary: rgb(32,32,32);
+  --primaryaccent: rgb(27,27,27);
+  --secondary: rgb(31,120,248);
+  --secondaryaccent: rgb(19,72,149);
+  --tertiary: white;
+  --bar: rgb(134,119,244);
+}
+.pirates {
+  --primary: #000;
+  --primaryaccent: #111;
+  --secondary: #bf0000;
+  --bar: #bf0000;
+  --secondaryaccent: rgb(128,0,0);
+  --tertiary: white;
+}
+.eagles {
+  --primary: #000;
+  --primaryaccent: #111;
+  --secondary: #00f;
+  --bar: #00f;
+  --secondaryaccent: rgb(0,0,171);
+  --tertiary: #eee;
+}
+.flamingos {
+  --primary: rgb(37,37,37);
+  --primaryaccent: rgb(31,31,31);
+  --secondary: #f0f;
+  --bar: #f0f;
+  --secondaryaccent: rgb(171,0,171);
+  --tertiary: white;
+}
+.senators {
+  /* --primary: rgb(145,150,150);
+  --primaryaccent: rgb(123,128,128);
+  --secondary: #000080;
+  --bar: #000080;
+  --secondaryaccent: rgb(0,0,192);
+  --tertiary: white; */
+  --primary: rgb(31,37,118);
+  --bar: rgb(31,37,118);
+  --primaryaccent: rgb(27,32,101);
+  --secondary: rgb(195,195,195);
+  --secondaryaccent: rgb(179,179,179);
+  --tertiary: rgb(48,48,48);
+}
+.engineers {
+  --primary: rgb(11,63,138);
+  --bar: rgb(11,63,138);
+  --primaryaccent: rgb(9,54,117);
+  --secondary: rgb(195,195,195);
+  --secondaryaccent: rgb(131,131,131);
+  --tertiary: rgb(48,48,48);
+}
+.dragons {
+  --primary: rgb(178,147,82);
+  --bar: rgb(178,147,82);
+  --primaryaccent: rgb(151,125,70);
+  --secondary: rgb(9,84,41);
+  --secondaryaccent: rgb(6,59,28);
+  --tertiary: rgb(220,78,56);
+}
+.redpandas {
+  --primary: rgb(238,238,238);
+  --primaryaccent: rgb(202,202,202);
+  --secondary: rgb(214,119,60);
+  --bar: rgb(214,119,60);
+  --secondaryaccent: rgb(143,79,40);
+  --tertiary: rgb(78,46,24);
+}
+.pioneers {
+  /* --primary: rgb(127,127,127);
+  --primaryaccent: rgb(108,108,108);
+  --secondary: rgb(0,86,123);
+  --bar: rgb(0,86,123);
+  --secondaryaccent: rgb(0,57,82);
+  --tertiary: white; */
+  --primary: rgb(11, 82, 113);
+  --primaryaccent: hsl(198, 82%, 22%);
+  --secondary: rgb(140,140,140);
+  --secondaryaccent: rgb(127,127,127);
+  --bar: rgb(11,82,113);
+  --tertiary: white;
+}
+.pegasi {
+  --primary: rgb(35,43,133);
+  --bar: rgb(35,43,133);
+  --primaryaccent: rgb(30,37,113);
+  --secondary: rgb(255,139,62);
+  --secondaryaccent: rgb(170,93,41);
+  --tertiary: white;
+}
+.stars {
+  /* --primary: rgb(127,127,127);
+  --bar: rgb(127,127,127); */
+  --primary: rgb(60,60,60);
+  --bar: rgb(60,60,60);
+  --primaryaccent: rgb(51,51,51);
+  --secondary: rgb(243,190,7);
+  --secondaryaccent: rgb(194,152,6);
+  --tertiary: white;
+}
+.cheetahs {
+  --primary: rgb(255,201,14);
+  --bar: rgb(255,201,14);
+  --primaryaccent: rgb(235,184,0);
+  --secondary: rgb(127,127,127);
+  --secondaryaccent: rgb(85,85,85);
+  --tertiary: white;
+}
+.zebras {
+  --primary: white;
+  --primaryaccent: #ddd;
+  --bar: #ddd;
+  --secondary: black;
+  --secondaryaccent: #333;
+  --tertiary: rgb(160,160,160);
+}

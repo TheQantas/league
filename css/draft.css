@@ -1,0 +1,902 @@
+body {
+  margin: 0px;
+}
+button:hover {
+  cursor: pointer;
+}
+button:focus {
+  outline: none;
+}
+#header, #navBar, #posBar, #allBar {
+  height: 42px;
+  border-bottom: 3px solid var(--secondary);
+  background-color: var(--primary);
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+#header > img {
+  height: calc(100% - 4px);
+  width: auto;
+  padding: 2px;
+}
+#headerSound {
+  height: 36px;
+  right: 3px;
+  top: 3px;
+  position: absolute;
+  fill: var(--secondary);
+  border-radius: 3px;
+}
+#headerSound:hover {
+  background-color: var(--primaryaccent);
+  cursor: pointer;
+}
+#soundCont {
+  min-height: 30px;
+  min-width: 30px;
+  background-color: #222;
+  position: absolute;
+  right: 3px;
+  top: 45px;
+  z-index: 3;
+  box-shadow:  2px 2px 5px #ddd;
+  border-radius: 3px;
+}
+.soundRow {
+  display: flex;
+}
+.soundRow:hover {
+  background-color: #333;
+  cursor: pointer;
+}
+.speaker {
+  height: 30px;
+  width: 30px;
+  fill: var(--secondary);
+  padding: 5px;
+}
+.soundText {
+  display: inline-block;
+  width: auto;
+  height: 40px;
+  line-height: 40px;
+  color: var(--secondary);
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  padding: 0px 10px;
+}
+.toggle {
+  display: none;
+}
+.navBtn, .posBtn, .allBtn {
+  width: 100%;
+  border: none;
+  background-color: var(--primary);
+  color: var(--secondary);
+  font-family: 'Oswald', sans-serif;
+  height: 100%;
+  border-radius: 0px;
+  font-size: 24px;
+}
+.navBtn:hover, .posBtn:not(.disabled):hover, .allBtn:hover {
+  background-color: var(--primaryaccent);
+}
+.posBtn.disabled:hover {
+  cursor: default;
+}
+#cont {
+  height: calc(100vh - 253px);
+  width: 100%;
+}
+#footer {
+  height: auto;
+  width: 100%;
+}
+#top, #bot {
+  height: 120px;
+  width: 100%;
+  display: flex;
+}
+#bot {
+  height: 40px;
+  display: flex;
+}
+#left {
+  width: auto;
+  display: flex;
+  height: 40px;
+  color: var(--secondary);
+  background-color: var(--primary);
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+#next {
+  padding-right: 10px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+  font-family: 'Oswald', sans-serif;
+}
+#right {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  overflow: hidden;
+}
+#right > span {
+  height: 40px;
+  font-size: 20px;
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--primary);
+  color: var(--secondary);
+  padding: 0 20px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+#right > span.league {
+  color: var(--primary);
+}
+#topLeft {
+  width: auto;
+  display: inline;
+  height: 100%;
+  flex-shrink: 0;
+  background-color: var(--primary);
+  color: var(--secondary);
+  display: flex;
+}
+#pickLogo {
+  height: calc(100% - 10px);
+  width: auto;
+  padding: 5px 25px;
+}
+#pickTont {
+  height: 100%;
+  width: auto;
+  display: inline;
+}
+#pickTont > div:not(#pickClock) {
+  height: 35px;
+  width: auto;
+  display: flex;
+}
+.pickCell, #pickClock {
+  height: 35px;
+  line-height: 35px;
+  min-width: 70px;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+}
+#pickClock {
+  height: 50px;
+  line-height: 50px;
+  background-color: var(--primaryaccent);
+  border-radius: 5px 0 0 0;
+  font-size: 40px;
+}
+#pickMain {
+  height: 120px;
+  line-height: 120px;
+  background-color: var(--secondary);
+  color: var(--tertiary);
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Oswald', sans-serif;
+  font-size: 70px;
+  text-align: center;
+}
+#pickMain.league {
+  color: var(--secondaryaccent);
+  background-color: var(--primary);
+}
+#pickIsIn {
+  display: none;
+  background-color: var(--secondaryaccent);
+  color: var(--primary);
+  letter-spacing: 10px;
+}
+.page {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: relative;
+}
+#mainInner {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  background-color: var(--primary);
+}
+#mainLeft {
+  width: 300px;
+  height: 100%;
+  background-color: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+#mainLogo {
+  height: auto;
+  width: calc(100% - 20px);
+}
+#mainRight {
+  width: 100%;
+  height: 100%;
+  background-color: var(--primaryaccent);
+  display: flex;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+}
+.mainRow, .silRow {
+  height: 80px;
+  line-height: 80px;
+  width: calc(100% - 120px);
+  margin-left: 100px;
+  padding-left: 20px;
+  background-color: var(--secondary);
+  color: var(--tertiary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 50px;
+}
+/* picks */
+#picksCont {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+  background-color: var(--primary);
+}
+.pickRow {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+  color: var(--secondary);
+}
+.pickPos, .pickPlayer {
+  height: 40px;
+  line-height: 40px;
+  padding: 0 20px;
+}
+.pickPos {
+  flex-shrink: 0;
+  width: 280px;
+  text-align: center;
+}
+.pickPlayer {
+  background-color: var(--primaryaccent);
+  width: 100%;
+  border-radius: 5px 0 0 5px;
+}
+.pickPlayer.upcoming {
+  font-style: italic;
+  color: var(--secondaryaccent);
+}
+.pickPlayer.upcoming:after {
+  content: 'Upcoming';
+}
+/* pos */
+.posPage {
+  height: calc(100% - 75px);
+  padding: 15px;
+  background-color: #eee;
+  display: none;
+  overflow: auto;
+}
+.posPage::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.posPage::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.posPage::-webkit-scrollbar-thumb {
+  background: #888;
+}
+.posPage::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.posTable {
+  width: 100%;
+  min-width: 700px;
+  border-collapse: collapse;
+}
+.posTable * td, .posTable * th {
+  color: var(--blue);
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+}
+.posTable * tr {
+  background-color: #bbb;
+}
+.posTable * tr:nth-of-type(even) {
+  background-color: #b0b0b0;
+}
+.posTable * td {
+  color: #333;
+  text-align: center;
+  height: 35px;
+  vertical-align: middle;
+}
+.num {
+  font-size: 0.7em;
+}
+.cellBtn {
+  height: 31px;
+  width: 31px;
+  padding: 2px;
+  fill: #333;
+  border-radius: 5px;
+  display: block;
+  margin: 0 auto;
+}
+.cellBtn:not(.disabled):hover {
+  fill: rgb(38,109,162);
+  background-color: #ccc;
+  cursor: pointer;
+}
+#draftBoard * tr:nth-of-type(2) > td:nth-of-type(8) > svg:hover {
+  fill: #333;
+  background-color: rgb(0,0,0,0);
+  cursor: default;
+}
+#draftBoard * tr:last-of-type > td:nth-of-type(9) > svg:hover {
+  fill: #333;
+  background-color: rgb(0,0,0,0);
+  cursor: default;
+}
+/* announce stuff */
+#announce, #draftPlayer {
+  background-color: var(--primary);
+  color: var(--secondary);
+  position: absolute;
+  z-index: 2;
+  height: 100%;
+  width: 100%;
+  display: none;
+  top: 0;
+  left: 0;
+}
+.announceRow {
+  height: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.announceRow > span {
+  font-family: 'Oswald', sans-serif;
+  color: inherit;
+  font-size: 150px;
+}
+.announceRow > span:last-of-type {
+  display: none;
+}
+#silhouette {
+  width: 300px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+#restSil {
+  width: 100%;
+  height: 100%;
+  background-color: var(--primaryaccent);
+  display: flex;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+}
+.silRow {
+  height: 80px;
+  line-height: 80px;
+  width: calc(100% - 120px);
+  margin-left: 100px;
+  padding-left: 20px;
+  background-color: var(--secondary);
+  color: var(--tertiary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 50px;
+}
+.allPage {
+  height: calc(100% - 45px);
+  width: 100%;
+  display: none;
+  overflow: auto;
+  background-color: #eee;
+}
+#tradePage {
+  overflow: auto;
+  position: relative;
+  height: 100%;
+}
+.allPage::-webkit-scrollbar, #tradePage::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.allPage::-webkit-scrollbar-track, #tradePage::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+.allPage::-webkit-scrollbar-thumb, #tradePage::-webkit-scrollbar-thumb {
+  background: #888;
+}
+.allPage::-webkit-scrollbar-thumb:hover, #tradePage::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.allRow {
+  height: 60px;
+  width: 100%;
+  display: flex;
+  background-color: var(--primary);
+  color: var(--secondary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+}
+.allLogo {
+  height: calc(100% - 10px);
+  padding: 5px;
+  flex-shrink: 0;
+}
+.allPick, .allPlayer {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 10px;
+}
+.allPick {
+  flex-shrink: 0;
+  width: 270px;
+  text-align: center;
+}
+.allPlayer {
+  background-color: var(--primaryaccent);
+  width: 100%;
+}
+.allPlayer.upcoming {
+  font-style: italic;
+}
+.allPlayer.upcoming::after {
+  content: 'Upcoming';
+}
+#allTable {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed;
+}
+#allTable * td, #allTable * th {
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  color: var(--blue);
+  text-align: center;
+}
+#allTable * td {
+  font-weight: bold;
+}
+#allTable * tr:nth-of-type(even) {
+  background-color: #ddd;
+}
+#newTrade {
+  background-color: var(--blue);
+  fill: #eee;
+  border-radius: 25px;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+#newTrade:hover {
+  background-color: var(--bluehover);
+  cursor: pointer;
+}
+#tradeCont {
+  width: 400px;
+  height: 400px;
+  background-color: #222;
+  position: absolute;
+  padding: 5px;
+  border-radius: 10px;
+  top: calc((100% - 410px) / 2);
+  left: calc((100% - 410px) / 2);
+  z-index: 2;
+  display: none;
+}
+.tradeTop {
+  height: 355px;
+  width: 100%;
+  display: flex;
+}
+.tradeBot {
+  height: 50px;
+  width: 100%;
+  display: flex;
+}
+#tradeHalfTeam, #tradeHalfPartner {
+  width: 50%;
+  height: 100%;
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+.tradeBtn {
+  margin-top: 5px;
+  height: 40px;
+  width: 100%;
+  border-radius: 5px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 24px;
+}
+.tradeBtn:first-of-type {
+  margin-right: 5px;
+  color: var(--secondary);
+  border: 2px solid var(--secondary);
+  background-color: #222;
+}
+.tradeBtn:first-of-type:hover {
+  background-color: #333;
+}
+.tradeBtn:last-of-type {
+  border: none;
+  background-color: var(--secondary);
+  color: #222;
+}
+.tradeBtn:last-of-type:hover {
+  background-color: var(--secondaryhover);
+}
+.tradeName {
+  height: 55px;
+  line-height: 55px;
+  width: 100%;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  text-align: center;
+}
+.tradeRow {
+  height: 98px;
+  width: 100%;
+  border-top: 2px solid currentColor;
+  background-color: var(--primaryaccent);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tradeSel, #tradeTeamSel {
+  font-family: 'Oswald', sans-serif;
+  font-size: 16px;
+  padding: 5px;
+  background-color: var(--primaryaccent);
+  color: var(--secondary);
+  border: 2px solid currentColor;
+  border-radius: 5px;
+}
+.tradeSel:focus, #tradeTeamSel:focus {
+  outline: none;
+}
+#tradeTeamSel {
+  background-color: var(--primary);
+  font-size: 20px;
+}
+#tradeTeamSel:hover {
+  background-color: var(--primaryaccent);
+}
+.tradeSel:hover {
+  background-color: var(--primary);
+}
+#errorCont {
+  z-index: 4;
+  width: 100%;
+  position: fixed;
+  bottom: 30px;
+  height: auto;
+  display: none;
+  justify-content: center;
+  pointer-events: none;
+}
+#errorCont > span {
+  padding: 5px 15px;
+  background-color: #222d;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-size: 30px;
+  pointer-events: all;
+  border-radius: 5px;
+}
+.tradeBox {
+  background-color: #bbb;
+  padding: 5px;
+  margin-top: 10px;
+  margin-left: 10px;
+  width: calc(100% - 30px);
+  display: inline-flex;
+}
+.tradeAction {
+  width: 50px;
+  height: auto;
+  flex-shrink: 0;
+  margin-right: 5px;
+  display: flex;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+}
+.tradePickBtn {
+  padding: 3px;
+  height: 40px;
+  width: 40px;
+  fill: #333;
+  border: 2px solid #333;
+  border-radius: 5px;
+}
+.tradePickBtn:not(:first-of-type) {
+  margin-top: 5px;
+}
+.tradePickBtn:hover {
+  background-color: #aaa;
+  cursor: pointer;
+}
+.tradePicksHalf {
+  width: 100%;
+}
+.tradePicksRow {
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--primaryaccent);
+  color: var(--secondary);
+  font-size: 30px;
+}
+.tradePicksRow:first-of-type {
+  background-color: var(--primary);
+}
+#silSvg {
+  width: 90%;
+  height: auto;
+}
+@media only screen and (max-width: 1300px) {
+  #pickMain {
+    font-size: 50px;
+  }
+  .mainRow, .silRow {
+    font-size: 40px;
+    height: 70px;
+    line-height: 70px;
+    margin-left: 80px;
+    width: calc(100% - 100px);
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .announceRow > span {
+    font-size: 120px;
+  }
+}
+@media only screen and (max-width: 1050px) {
+  .announceRow > span {
+    font-size: 100px;
+  }
+  #header, #navBar, #posBar, #allBar {
+    height: 37px;
+  }
+  #headerSound {
+    height: 33px;
+    right: 2px;
+    top: 2px;
+  }
+  #mainLeft, #silhouette {
+    width: 250px;
+  }
+  .mainRow, .silRow {
+    margin-left: 40px;
+    padding-left: 10px;
+    width: calc(100% - 50px);
+  }
+  #pickMain {
+    height: 100px;
+    line-height: 100px;
+    font-size: 45px;
+  }
+  #pickTont > div:not(#pickClock) {
+    height: 30px;
+  }
+  .pickCell {
+    height: 30px;
+    line-height: 30px;
+    font-size: 24px;
+    min-width: 60px;
+  }
+  #pickClock {
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+  }
+  #top {
+    height: 100px;
+  }
+  #pickLogo {
+    padding: 5px 20px;
+  }
+  #cont {
+    height: calc(100vh - 223px);
+  }
+}
+@media only screen and (max-width: 950px) {
+  .announceRow > span:first-of-type {
+    display: none;
+  }
+  .announceRow > span:last-of-type {
+    display: block;
+  }
+  .announceRow > span {
+    font-size: 150px;
+  }
+  .allRow {
+    height: 50px;
+    font-size: 30px;
+  }
+  .allPick, .allPlayer {
+    height: 50px;
+    line-height: 50px;
+  }
+  .allPick {
+    width: 200px;
+  }
+  .mainRow, .silRow {
+    margin-left: 30px;
+    padding-left: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: calc(100% - 35px);
+    font-size: 36px;
+    height: auto;
+    line-height: normal;
+  }
+  #mainLeft, #silhouette {
+    width: 200px;
+  }
+  #pickTont > div:not(#pickClock) {
+    height: 25px;
+  }
+  .pickCell {
+    height: 25px;
+    line-height: 25px;
+    font-size: 20px;
+    min-width: 50px;
+  }
+  #pickClock {
+    height: 30px;
+    line-height: 30px;
+    font-size: 24px;
+  }
+  #pickMain {
+    height: 80px;
+    line-height: 80px;
+    font-size: 40px;
+  }
+  #top {
+    height: 80px;
+  }
+  #pickLogo {
+    padding: 5px 15px;
+  }
+  #cont {
+    height: calc(100vh - 203px);
+  }
+}
+@media only screen and (max-width: 800px) {
+  .tradePicksRow {
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+  }
+  .navBtn, .posBtn, .allBtn {
+    font-size: 20px;
+  }
+  #mainRight, #restSil, #pickMain {
+    display: none;
+  }
+  #mainLeft, #silhouette {
+    width: 100%;
+  }
+  #mainLogo {
+    width: auto;
+    height: calc(100% - 20px);
+  }
+  #silSvg {
+    height: 90%;
+    width: auto;
+  }
+  #top {
+    height: 160px;
+  }
+  #cont {
+    height: calc(100vh - 283px);
+  }
+  #pickClock {
+    height: 60px;
+    line-height: 60px;
+    font-size: 40px;
+  }
+  #pickTont > div:not(#pickClock) {
+    height: 50px;
+  }
+  .pickCell {
+    height: 50px;
+    line-height: 50px;
+    font-size: 36px;
+    min-width: 50px;
+    width: 100%;
+  }
+  #pickTont, #topLeft {
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  #newTrade {
+    bottom: 10px;
+    right: 10px;
+  }
+  .tradeBox {
+    display: inline-block;
+  }
+  .tradeBox:last-of-type {
+    margin-bottom: 10px;
+  }
+  .tradeAction {
+    width: 100%;
+    height: 50px;
+    margin-right: 0px;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    align-content: stretch;
+    margin-bottom: 5px;
+  }
+  .tradePickBtn:not(:first-of-type) {
+    margin-top: 0px;
+  }
+  .allRow {
+    height: 40px;
+    font-size: 24px;
+  }
+  .allPick, .allPlayer {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 10px;
+  }
+  .allPick {
+    width: 170px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .navBtn:nth-of-type(4) {
+    display: none;
+  }
+  .allRow {
+    font-size: 18px;
+  }
+  .allPick, .allPlayer {
+    padding: 0 5px;
+  }
+  .allPick {
+    width: 140px;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .announceRow > span {
+    font-size: 100px;
+  }
+  #next {
+    display: none;
+  }
+  #left {
+    padding: 0 5px 0 8px;
+  }
+  #mainLogo {
+    height: auto;
+    width: calc(100% - 20px);
+  }
+}
