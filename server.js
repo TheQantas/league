@@ -2773,14 +2773,16 @@ app.get('*', function(req, res){
 });
 red.listen(80);
 var server = app.listen(PORT, () => console.log(`Listening for https on ${PORT}`));
-const WebSocket = require('wss');
+// var webSocketServer = require('ws').server;
+// wss = new webSocketServer({server: server});
+const WebSocket = require('wss').Server;
 //const { parse } = require('path');
 //const { send } = require('process');
 //const { isObject } = require('util');
 //const { resolve } = require('path');
 //const { timeStamp } = require('console');
 //const { brotliCompress } = require('zlib');
-const wss = new WebSocket.Server({server : server});
+const wss = new webSocketServer({server: server});
 var activeCxns = {};
 var trades = {};
 var teamCxns = {};
