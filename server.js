@@ -1,8 +1,12 @@
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 443;
 const express = require('express');
+const red = express();
 const app = express();
 app.set('views','./views');
 app.set('view engine','ejs');
+red.get('*', function(req, res) {  
+  res.redirect('https://' + req.headers.host + req.url);
+});
 const ejs = require('ejs');
 const crypto = require('crypto');
 const path = require('path');
@@ -2767,8 +2771,9 @@ app.get('/api', function(req, res)  {
 app.get('*', function(req, res){
   res.sendFile('notfound.html', { root: __dirname });
 });
-var server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-const WebSocket = require('ws');
+red.listen(80);
+var server = app.listen(PORT, () => console.log(`Listening for https on ${PORT}`));
+const WebSocket = require('wss');
 //const { parse } = require('path');
 //const { send } = require('process');
 //const { isObject } = require('util');
