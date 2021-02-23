@@ -32,7 +32,7 @@ var devices = {};
 //sql sim
 const con = mysql.createConnection({
   //host: 'localhost',
-  host: 'http://3.16.148.122/',
+  host: '3.16.148.122',
   port: 3306,
   user: 'root',
   //password: '5$nm12@kbV9)',
