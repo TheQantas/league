@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/styles.min.css" />
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="stylesheet" href="css/header.min.css" />
+  <link rel="stylesheet" href="css/updates.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources.min.js"></script>
+  <script src="scripts/script.min.js"></script>
+  <script src="scripts/teams.min.js"></script>
+  <script src="scripts/update.min.js"></script>
+  <title>The League</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet">Bet</a>
+    <a href="info">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/" style="text-decoration:underline">Home</a>
+        <a href="bet">Bet</a>
+        <a href="info">Info</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <div id="weeklyUniv" class="league">
+    <svg class="weeklyChevron disabled" role="button" onclick="scrollWeeklyGames(-566)" style="left:0" viewBox="0 0 24 24">
+      <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+    </svg>
+    <div id="weeklyGames" class="league">
+      <% function getFormatRecord(w,l,t) {
+        if (t == 0) {
+          return `(${w}-${l})`;
+        } else {
+          return `(${w}-${l}-${t})`;
+        }
+      } %>
+      <% games.forEach(game => { %>
+        <% if (game.status == 'ongoing') { %>
+          <div class="weeklyCont" data-now="true">
+        <% } else { %>
+          <div class="weeklyCont">
+        <% } %>
+          <div class="weeklyHalf">
+            <img src="logos/<%= game.awayTeam.mascot.replace(/\s/g,'').toLowerCase() %>.png">
+            <div class="weeklyInfo"><%= game.away %></div>
+            <% if (game.status == 'upcoming') { %>
+              <div class="weeklyInfo"><%= getFormatRecord(game.awayTeam.w,game.awayTeam.l,game.awayTeam.t) %></div>
+              <div class="weeklyInfo"><%= game.day %></div>
+            <% } else if (game.status == 'ongoing' ) { %>
+              <div class="weeklyInfo"><%= game.awayScore %></div>
+              <div class="weeklyInfo"><%= period %></div>
+            <% } else { %>
+              <div class="weeklyInfo"><%= game.awayScore %></div>
+              <div class="weeklyInfo"><%= game.status.toUpperCase() %></div>
+            <% } %>
+          </div>
+          <div class="weeklyHalf">
+            <img src="logos/<%= game.homeTeam.mascot.replace(/\s/g,'').toLowerCase() %>.png">
+            <div class="weeklyInfo"><%= game.home %></div>
+            <% if (game.status == 'upcoming') { %>
+              <div class="weeklyInfo"><%= getFormatRecord(game.homeTeam.w,game.homeTeam.l,game.homeTeam.t) %></div>
+              <div class="weeklyInfo"><%= game.time %></div>
+            <% } else if (game.status == 'ongoing' ) { %>
+              <div class="weeklyInfo"><%= game.homeScore %></div>
+              <div class="weeklyInfo"><button class="liveUpdates" onclick="reqUpdates()">LIVE</button></div>
+            <% } else { %>
+              <div class="weeklyInfo"><%= game.homeScore %></div>
+              <div class="weeklyInfo"><%= game.day %></div>
+            <% } %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    <svg class="weeklyChevron" role="button" onclick="scrollWeeklyGames(566)" style="right:0" viewBox="0 0 24 24">
+      <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
+    </svg>
+  </div>
+  <section id="banner"><div>
+    <div id="slideCont">
+      <% headlines.forEach(h => { %>
+        <div class="slidePage">
+          <div style="height:auto;width:100%;">
+            <span class="slideLong"><%= h.long %></span>
+            <span class="slideShort"><%= h.short %></span>
+          </div>
+          <div style="height:auto;width:100%;">
+            <span class="slideSub"><%= h.sub %></span>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+    <div id="slideNavCont" class="league">
+      <div id="slideNavGroup">
+        <% for (let i = 0; i < headlines.length; i++) {
+          if (i == 0) { %>
+            <button onclick="goToSlide(0)" class="slideNav selected"></button>
+          <% } else { %>
+            <button onclick="goToSlide(<%= i %>)" class="slideNav"></button>
+          <% }
+        } %>
+      </div>
+    </div>
+  </div></section>
+  <section id="datesCont" class="league">
+    <h>Important Dates</h>
+    <div id="dateBox">
+      <div id="datesSpace"></div>
+      <div id="datesCol">
+        <div id="dateBar"></div>
+        <div class="dateCircle" style="top:10px"></div>
+        <div class="dateCircle" style="top:60px"></div>
+        <div class="dateCircle" style="top:110px"></div>
+        <div class="dateCircle" style="top:160px"></div>
+        <div class="dateCircle" style="top:210px"></div>
+        <div class="dateCircle" style="top:260px"></div>
+        <div class="dateCircle" style="top:310px"></div>
+      </div>
+      <div id="datesTont">
+        <div class="datesText"><%= time %> | League Draft</div>
+        <div class="datesText">27 Feb 9:30A | First Game of the Regular Season</div>
+        <div class="datesText">2 Mar 11:59P | Trade Deadline</div>
+        <div class="datesText">27 Apr 11:59P | Free Agency Deadline</div>
+        <div class="datesText">9 May 6:30P | Last Game of the Regular Season</div>
+        <div class="datesText">12 May 9:00A | First Game of Postseason</div>
+        <div class="datesText">23 May 12:00P | League Championship</div>
+      </div>
+    </div>
+  </section>
+  <section id="headlinesCont" class="league">
+    <h>Headlines</h>
+    <% for (let i = 0, story = stories[0]; i < 3; i++, story = stories[i]) {
+      if (!story) {
+        continue;
+      } %>
+      <div class="headline">
+        <span class="headlineTime"><%= story.stamp %></span><br>
+        <span class="headlineText"><%= story.text %></span>
+      </div>
+    <% } %>
+    <% if (stories.length > 3) { %>
+      <button class="headlineMore" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show More</button>
+      <div style="display:none">
+        <% for (let i = 3, story = stories[3]; i < 6; i++, story = stories[i]) {
+          if (!story) {
+            continue;
+          } %>
+          <div class="headline">
+            <span class="headlineTime"><%= story.stamp %></span><br>
+            <span class="headlineText"><%= story.text %></span>
+          </div>
+        <% } %>
+        <button class="headlineMore" onclick="this.parentElement.previousElementSibling.style.display='block';this.parentElement.style.display='none'">Show Less</button>
+      </div>
+    <% } %>
+  </section>
+  <section id="footer">
+    <div class="cell">
+      <span class="cellTitle">CFC North</span>
+      <div class="cellRow"><img src="logos/flamingos.png" title="Flamingos"></div>
+      <div class="cellRow"><img src="logos/foxes.png" title="Foxes"></div>
+      <div class="cellRow"><img src="logos/nationals.png" title="Nationals"></div>
+      <div class="cellRow"><img src="logos/penguins.png" title="Penguins"></div>
+    </div>
+    <div class="cell">
+      <span class="cellTitle">CFC South</span>
+      <div class="cellRow"><img src="logos/greats.png" title="Greats"></div>
+      <div class="cellRow"><img src="logos/pandas.png" title="Pandas"></div>
+      <div class="cellRow"><img src="logos/pirates.png" title="Pirates"></div>
+      <div class="cellRow"><img src="logos/snakes.png" title="Snakes"></div>
+    </div>
+    <div class="cell">
+      <span class="cellTitle">CFC Central</span>
+      <div class="cellRow"><img src="logos/dragons.png" title="Dragons"></div>
+      <div class="cellRow"><img src="logos/engineers.png" title="Engineers"></div>
+      <div class="cellRow"><img src="logos/pioneers.png" title="Pioneers"></div>
+      <div class="cellRow"><img src="logos/redpandas.png" title="Red Pandas"></div>
+    </div>
+    <div class="cell">
+      <span class="cellTitle">CFC East</span>
+      <div class="cellRow"><img src="logos/cougars.png" title="Cougars"></div>
+      <div class="cellRow"><img src="logos/falcons.png" title="Falcons"></div>
+      <div class="cellRow"><img src="logos/grizzlies.png" title="Grizzlies"></div>
+      <div class="cellRow"><img src="logos/warriors.png" title="Warriors"></div>
+    </div>
+    <div class="cell">
+      <span class="cellTitle">CFC West</span>
+      <div class="cellRow"><img src="logos/aardvarks.png" title="Aardvarks"></div>
+      <div class="cellRow"><img src="logos/coonhounds.png" title="Coonhounds"></div>
+      <div class="cellRow"><img src="logos/rottweilers.png" title="Rottweilers"></div>
+      <div class="cellRow"><img src="logos/senators.png" title="Senators"></div>
+    </div>
+    <div class="cell">
+      <span class="cellTitle">NFC North</span>
+      <div class="cellRow"><img src="logos/badgers.png" title="Badgers"></div>
+      <div class="cellRow"><img src="logos/hummingbirds.png" title="Hummingbirds"></div>
+      <div class="cellRow"><img src="logos/longhorns.png" title="Longhorns"></div>
+      <div class="cellRow"><img src="logos/wolves.png" title="Wolves"></div>
+    </div>
+    <div class="cell">
+      <span class="cellTitle">NFC South</span>
+      <div class="cellRow"><img src="logos/aviators.png" title="Aviators"></div>
+      <div class="cellRow"><img src="logos/chameleons.png" title="Chameleons"></div>
+      <div class="cellRow"><img src="logos/eagles.png" title="Eagles"></div>
+      <div class="cellRow"><img src="logos/galaxy.png" title="Galaxy"></div>
+    </div>
+    <div class="cell">
+      <span class="cellTitle">NFC Central</span>
+      <div class="cellRow"><img src="logos/cheetahs.png" title="Cheetahs"></div>
+      <div class="cellRow"><img src="logos/pegasi.png" title="Pegasi"></div>
+      <div class="cellRow"><img src="logos/stars.png" title="Stars"></div>
+      <div class="cellRow"><img src="logos/zebras.png" title="Zebras"></div>
+    </div>
+    <div class="cell">
+      <span class="cellTitle">NFC East</span>
+      <div class="cellRow"><img src="logos/collies.png" title="Collies"></div>
+      <div class="cellRow"><img src="logos/huskies.png" title="Huskies"></div>
+      <div class="cellRow"><img src="logos/lynx.png" title="Lynx"></div>
+      <div class="cellRow"><img src="logos/stallions.png" title="Stallions"></div>
+    </div>
+    <div class="cell">
+      <span class="cellTitle">NFC West</span>
+      <div class="cellRow"><img src="logos/goldens.png" title="Goldens"></div>
+      <div class="cellRow"><img src="logos/rebels.png" title="Rebels"></div>
+      <div class="cellRow"><img src="logos/sharks.png" title="Sharks"></div>
+      <div class="cellRow"><img src="logos/squirrels.png" title="Squirrels"></div>
+    </div>
+  </section>
+  <section id="updateCont">
+    <div id="updateBox">
+      <svg id="updateClose" role="button" onclick="hideBox()" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="updateTime"></div>
+      <div id="updateTop">
+        <img src="" />
+        <span></span>
+        <span id="updateDash">-</span>
+        <span></span>
+        <img src="" />
+      </div>
+      <div id="updateMiddle">
+        <div class="updateBallCont">
+          <img src="images/ball-light.png" />
+        </div>
+        <div id="updateDown"></div>
+        <div class="updateBallCont">
+          <img src="images/ball-light.png" />
+        </div>
+      </div>
+      <table id="updateTable">
+        
+      </table>
+      <div id="updateTabCont">
+        <button class="updateTab" onclick="updatePage(0)" style="text-decoration:underline">UPDATES</button>
+        <button class="updateTab" onclick="updatePage(1)">PLAYERS</button>
+        <button class="updateTab" onclick="updatePage(2)">STATS</button>
+      </div>
+      <div id="updateBottom">
+        <div class="updatePage" style="display:block">
+          <span id="onlyUpdate">There are no updates</span>
+        </div>
+        <div class="updatePage">
+          <span class="updatePlayerHeader">Quarterbacks</span>
+          <table class="updatePositionTable">
+            <tr>
+              <th colspan="2">Player</th>
+              <th>Comp/Att</th>
+              <th>Yards</th>
+              <th>TD/Int</th>
+              <th>Rating</th>
+            </tr>
+          </table>
+          <span class="updatePlayerHeader">Runningbacks</span>
+          <table class="updatePositionTable">
+            <tr>
+              <th colspan="2">Player</th>
+              <th>Yards</th>
+              <th>Att</th>
+              <th>Avg</th>
+              <th>TD</th>
+            </tr>
+          </table>
+          <span class="updatePlayerHeader">Receivers</span>
+          <table class="updatePositionTable">
+            <tr>
+              <th colspan="2">Player</th>
+              <th>Yards</th>
+              <th>Rec</th>
+              <th>Avg</th>
+              <th>TD</th>
+            </tr>
+          </table>
+          <span class="updatePlayerHeader">Linemen & Linebackers</span>
+          <table class="updatePositionTable">
+            <tr>
+              <th colspan="2">Player</th>
+              <th>Tackles</th>
+              <th>Att</th>
+              <th>Sacks</th>
+              <th>Blitzes</th>
+            </tr>
+          </table>
+          <span class="updatePlayerHeader">Defensive Backs</span>
+          <table class="updatePositionTable">
+            <tr>
+              <th colspan="2">Player</th>
+              <th>Tackles</th>
+              <th>Att</th>
+              <th>Int</th>
+              <th>Targets</th>
+            </tr>
+          </table>
+          <span class="updatePlayerHeader">Kickers</span>
+          <table class="updatePositionTable">
+            <tr>
+              <th colspan="2">Player</th>
+              <th>Under 40</th>
+              <th>Over 40</th>
+              <th>PAT</th>
+              <th>Pts</th>
+            </tr>
+          </table>
+          <span class="updatePlayerHeader">Punters</span>
+          <table class="updatePositionTable">
+            <tr>
+              <th colspan="2">Player</th>
+              <th>Avg</th>
+              <th>Net Avg</th>
+              <th>In 20</th>
+              <th>Blocked</th>
+            </tr>
+          </table>
+        </div>
+        <div class="updatePage">
+          <div class="updateStatHeader">
+            <div class="updateStatNum">0.0</div>
+            <div class="updateStatTitle">Offensive Rating</div>
+            <div class="updateStatNum">0.0</div>
+          </div>
+          <div class="updateStatBar updateStatBox">
+            <div class="updateStatBar"></div>
+            <div class="updateStatBar"></div>
+          </div>
+          <div class="updateStatHeader">
+            <div class="updateStatNum">0.0</div>
+            <div class="updateStatTitle">Defensive Rating</div>
+            <div class="updateStatNum">0.0</div>
+          </div>
+          <div class="updateStatBar updateStatBox">
+            <div class="updateStatBar"></div>
+            <div class="updateStatBar"></div>
+          </div>
+          <div class="updateStatHeader">
+            <div class="updateStatNum">0</div>
+            <div class="updateStatTitle">Total Yards</div>
+            <div class="updateStatNum">0</div>
+          </div>
+          <div class="updateStatBar updateStatBox">
+            <div class="updateStatBar"></div>
+            <div class="updateStatBar"></div>
+          </div>
+          <div class="updateStatHeader">
+            <div class="updateStatNum">0</div>
+            <div class="updateStatTitle">Passing Yards</div>
+            <div class="updateStatNum">0</div>
+          </div>
+          <div class="updateStatBar updateStatBox">
+            <div class="updateStatBar"></div>
+            <div class="updateStatBar"></div>
+          </div>
+          <div class="updateStatHeader">
+            <div class="updateStatNum">0</div>
+            <div class="updateStatTitle">Rushing Yards</div>
+            <div class="updateStatNum">0</div>
+          </div>
+          <div class="updateStatBar updateStatBox">
+            <div class="updateStatBar"></div>
+            <div class="updateStatBar"></div>
+          </div>
+          <div class="updateStatHeader">
+            <div class="updateStatNum">0.0</div>
+            <div class="updateStatTitle">Yards Per Play</div>
+            <div class="updateStatNum">0.0</div>
+          </div>
+          <div class="updateStatBar updateStatBox">
+            <div class="updateStatBar"></div>
+            <div class="updateStatBar"></div>
+          </div>
+          <div class="updateStatHeader">
+            <div class="updateStatNum">0</div>
+            <div class="updateStatTitle">First Downs</div>
+            <div class="updateStatNum">0</div>
+          </div>
+          <div class="updateStatBar updateStatBox">
+            <div class="updateStatBar"></div>
+            <div class="updateStatBar"></div>
+          </div>
+          <div class="updateStatHeader">
+            <div class="updateStatNum">0</div>
+            <div class="updateStatTitle">Sacks</div>
+            <div class="updateStatNum">0</div>
+          </div>
+          <div class="updateStatBar updateStatBox">
+            <div class="updateStatBar"></div>
+            <div class="updateStatBar"></div>
+          </div>
+          <div class="updateStatHeader">
+            <div class="updateStatNum">0</div>
+            <div class="updateStatTitle">Interceptions</div>
+            <div class="updateStatNum">0</div>
+          </div>
+          <div class="updateStatBar updateStatBox">
+            <div class="updateStatBar"></div>
+            <div class="updateStatBar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+</html>

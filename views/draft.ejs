@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="stylesheet" href="css/draft.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources.min.js"></script>
+  <script src="scripts/silhouettes.min.js"></script>
+  <!-- <script src="scripts/games_sch.min.js"></script> -->
+  <script src="scripts/teams.min.js"></script>
+  <script src="scripts/draft.min.js"></script>
+  <title>The League | Draft</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <section id="header" class="league" data-team="<%= abbr %>" data-currTeam="<%= currentTeam.abbr %>">
+    <img src="/images/logo.png"  />
+    <svg id="headerSound" role="button" onclick="document.getElementById('soundCont').classList.toggle('toggle')" viewBox="0 0 24 24">
+      <title>Sound Settings</title>
+      <path d="M3,17V19H9V17H3M3,5V7H13V5H3M13,21V19H21V17H13V15H11V21H13M7,9V11H3V13H7V15H9V9H7M21,13V11H11V13H21M15,9H17V7H21V5H17V3H15V9Z" />
+    </svg>
+  </section>
+  <div id="soundCont" class="league toggle">
+    <div class="soundRow" onclick="toggleMusic()">
+      <svg class="speaker" viewBox="0 0 24 24">
+        <path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
+      </svg>
+      <div class="soundText">Toggle Music</div>
+    </div>
+    <div class="soundRow" onclick="toggleChime()">
+      <svg class="speaker" viewBox="0 0 24 24">
+        <path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" />
+      </svg>
+      <div class="soundText">Toggle Chime</div>
+    </div>
+  </div>
+  <section id="navBar" class="league">
+    <button class="navBtn" onclick="goToPage(0)" style="text-decoration:underline">Home</button>
+    <button class="navBtn" onclick="goToPage(1)">Players</button>
+    <% if (signedIn) { %>
+      <button class="navBtn" onclick="goToPage(2)">Trade</button>
+      <button class="navBtn" onclick="goToPage(3)">My Picks</button>
+      <button class="navBtn" onclick="goToPage(4)">All Picks</button>
+    <% } else { %>
+      <button class="navBtn" onclick="goToPage(2)">Picks</button>
+    <% } %>
+  </section>
+  <section id="cont">
+    <div class="page" style="display:block">
+      <div id="mainInner" class="<%= currentTeam.mascot.replace(/\s/g,'').toLowerCase() %>">
+        <div id="mainLeft">
+          <img id="mainLogo" src="logos/<%= currentTeam.mascot.replace(/\s/g,'').toLowerCase() %>.png" />
+        </div>
+        <div id="mainRight">
+          <div class="mainRow"><%- rows[0] %></div>
+          <div class="mainRow"><%- rows[1] %></div>
+          <div class="mainRow"><%- rows[2] %></div>
+        </div>
+      </div>
+      <div id="announce">
+        <div class="announceRow"><span>Coonhounds</span><span>COO</span></div>
+        <div class="announceRow"><span>Selection</span><span>Pick</span></div>
+      </div>
+      <div id="draftPlayer" style="display:none;">
+        <div id="silhouette">
+          <svg id="silSvg" viewBox="0 0 300 384">
+            <g transform="translate(0,384) scale(0.1,-0.1)" fill="currentColor" stroke="none">
+              <path d="M1051 3789 c-61 -31 -92 -62 -127 -129 -24 -46 -23 -166 1 -235 10
+              -27 19 -63 19 -80 1 -24 5 -30 23 -30 12 0 32 -10 45 -21 12 -12 39 -30 58
+              -40 l35 -19 -40 -3 c-24 -2 -54 -14 -74 -29 -41 -32 -110 -59 -175 -68 -48 -8
+              -119 -57 -185 -129 -14 -14 -31 -26 -38 -26 -8 0 -16 -7 -20 -16 -8 -22 -54
+              -38 -64 -22 -4 6 -11 44 -14 84 -7 71 4 128 30 164 6 8 17 26 23 40 25 50 38
+              67 80 107 46 44 53 73 27 122 -22 43 -100 108 -152 125 -71 24 -177 21 -239
+              -8 -67 -31 -121 -80 -129 -116 -13 -58 66 -144 162 -178 33 -12 49 -24 50 -37
+              7 -61 2 -96 -19 -150 -14 -33 -33 -94 -43 -134 -17 -71 -17 -77 0 -170 26
+              -133 32 -138 155 -143 72 -2 103 -7 116 -19 11 -9 45 -19 78 -22 47 -5 67 -2
+              97 14 50 25 81 24 116 -4 15 -13 49 -33 74 -46 33 -15 51 -31 60 -54 7 -18 34
+              -56 60 -84 47 -52 47 -54 47 -120 0 -81 11 -164 23 -179 6 -7 5 -21 -2 -37
+              -10 -21 -9 -33 5 -62 30 -63 24 -144 -24 -283 -35 -103 -43 -143 -50 -240 -5
+              -64 -16 -137 -24 -161 -9 -24 -25 -84 -37 -133 -16 -69 -26 -92 -45 -105 -13
+              -8 -24 -21 -24 -28 0 -15 -99 -83 -202 -140 -88 -48 -129 -96 -208 -241 -75
+              -140 -137 -218 -186 -234 -18 -6 -42 -22 -51 -34 -10 -12 -30 -26 -44 -29 -14
+              -4 -44 -24 -66 -45 -23 -20 -54 -42 -70 -48 -22 -7 -28 -16 -28 -39 -1 -17 -9
+              -42 -19 -57 -10 -15 -20 -54 -23 -88 -5 -51 -3 -60 11 -60 9 0 16 -7 16 -15 0
+              -18 28 -34 51 -28 11 3 19 0 19 -6 0 -18 51 -13 66 6 8 11 13 13 14 6 0 -7 9
+              -13 20 -13 21 0 32 20 65 113 12 34 22 47 36 47 10 0 19 4 19 9 0 5 8 11 18
+              14 11 2 21 17 25 35 5 23 18 38 52 58 27 16 53 41 65 63 25 48 88 107 185 172
+              111 74 193 140 243 198 23 28 67 65 97 82 29 18 59 43 66 55 6 12 29 30 51 40
+              46 21 125 108 161 179 14 28 37 61 52 75 30 28 94 152 145 280 33 83 106 180
+              136 180 6 0 31 -25 54 -55 81 -105 193 -188 362 -269 94 -45 97 -48 154 -128
+              54 -77 58 -88 71 -173 17 -115 46 -203 84 -252 16 -21 53 -69 84 -107 30 -39
+              64 -90 76 -115 12 -25 26 -54 31 -63 4 -10 8 -27 8 -37 0 -11 4 -23 10 -26 6
+              -4 3 -18 -7 -38 -23 -43 -25 -173 -3 -187 8 -5 21 -8 28 -5 6 2 12 -1 12 -7 0
+              -6 11 -8 31 -4 25 5 38 0 70 -26 21 -17 41 -39 44 -50 4 -10 13 -18 21 -18 8
+              0 23 -6 34 -12 16 -10 24 -10 40 0 12 7 20 8 20 2 0 -5 14 -10 30 -10 22 0 30
+              5 30 18 0 14 2 14 9 3 8 -12 15 -12 45 3 33 16 36 20 36 61 0 47 -23 81 -78
+              117 -26 17 -26 18 -4 18 12 0 25 7 28 15 8 20 -15 47 -36 42 -13 -3 -16 1 -12
+              19 6 30 -11 31 -31 1 -13 -18 -16 -19 -16 -5 -1 10 -10 22 -21 28 -11 6 -20
+              19 -20 30 0 10 -4 22 -10 25 -5 3 -10 15 -10 25 0 10 -11 31 -24 47 -37 44
+              -46 67 -82 202 -50 188 -99 327 -143 400 -47 81 -54 103 -52 164 3 81 -30 153
+              -83 184 -7 4 -23 28 -36 53 -12 25 -33 59 -45 76 -13 17 -34 57 -48 90 -43
+              106 -125 216 -170 228 -12 3 -35 27 -52 53 -16 26 -65 84 -108 127 -67 67 -77
+              83 -73 105 4 14 2 32 -3 40 -5 7 -4 24 2 40 12 32 -15 247 -35 283 -7 13 -13
+              34 -14 48 0 14 -7 57 -14 95 -13 68 -7 225 8 225 22 0 75 -45 83 -70 12 -32
+              31 -42 75 -38 34 2 120 -25 186 -59 59 -31 96 -25 137 22 58 66 53 150 -18
+              317 -21 51 -47 120 -56 153 -9 33 -21 74 -25 90 -5 17 -7 62 -3 101 6 79 -13
+              157 -46 186 -10 9 -21 22 -23 29 -3 8 -11 10 -22 6 -14 -6 -17 -16 -14 -47 l3
+              -40 -36 36 c-38 37 -71 42 -77 12 -2 -9 5 -24 15 -35 50 -50 49 -57 -5 -29
+              -29 15 -57 24 -62 21 -19 -12 -10 -34 25 -61 38 -28 44 -44 19 -44 -14 0 -15
+              -9 -9 -62 7 -56 11 -66 45 -95 43 -37 54 -63 69 -152 12 -70 8 -88 -9 -49 -7
+              14 -24 32 -40 41 -18 11 -36 37 -51 72 -12 30 -30 57 -39 60 -9 3 -32 25 -52
+              48 -29 35 -48 47 -95 60 -74 21 -129 21 -168 1 -35 -18 -131 -44 -160 -43 -19
+              0 -19 1 3 11 20 10 22 18 22 94 0 45 -4 84 -10 86 -5 2 -16 37 -25 78 -9 41
+              -20 76 -25 78 -5 2 -33 27 -63 56 -93 92 -204 111 -316 55z"/>
+            </g>
+          </svg>
+        </div>
+        <div id="restSil">
+          <div class="silRow">Player</div>
+          <div class="silRow">Stat</div>
+          <div class="silRow">Stat</div>
+          <div class="silRow">Stat</div>
+        </div>
+      </div>
+    </div>
+    <div class="page">
+      <div id="posBar" class="league">
+        <button class="posBtn" onclick="goToPosPage(0)" style="text-decoration:underline">QB</button>
+        <button class="posBtn" onclick="goToPosPage(1)">RB</button>
+        <button class="posBtn" onclick="goToPosPage(2)">WR</button>
+        <button class="posBtn" onclick="goToPosPage(3)">TE</button>
+        <button class="posBtn" onclick="goToPosPage(4)">DE</button>
+        <button class="posBtn" onclick="goToPosPage(5)">LB</button>
+        <button class="posBtn" onclick="goToPosPage(6)">CB</button>
+        <button class="posBtn" onclick="goToPosPage(7)">S</button>
+        <button class="posBtn" onclick="goToPosPage(8)">K</button>
+        <button class="posBtn" onclick="goToPosPage(9)">P</button>
+        <% if (signedIn) { %><button class="posBtn" onclick="goToPosPage(10)">Board</button><% } %>
+      </div>
+      <div class="posPage league" style="display:block">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th><abbr title="Accuracy">Acc.</abbr></th>
+            <th><abbr title="Accuracy Rate Over 20 Yards">Long Acc.</abbr></th>
+            <th><abbr title="Pressure">Press.</abbr></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% qbAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <div class="posPage league">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th><abbr title="Yards After Contact">YAC</abbr></th>
+            <th><abbr title="Elusiveness">Elus.</abbr></th>
+            <th>Speed</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% rbAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <div class="posPage league">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th><abbr title="Reception Rate">Recep.</abbr></th>
+            <th><abbr title="Reception Rate Over 20 Yards">Long Recep.</abbr></th>
+            <th>Speed</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% wrAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <div class="posPage league">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th><abbr title="Reception Rate">Recep.</abbr></th>
+            <th>Block</th>
+            <th>Speed</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% teAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <div class="posPage league">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th><abbr title="Pressure Percentage">Press. Perc.</abbr></th>
+            <th>Sack</th>
+            <th>Speed</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% deAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <div class="posPage league">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th><abbr title="Pressure Percentage">Press. Perc.</abbr></th>
+            <th>Sack</th>
+            <th>Speed</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% lbAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <div class="posPage league">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th>Cover</th>
+            <th><abbr title="Interception">Int.</abbr></th>
+            <th>Speed</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% cbAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <div class="posPage league">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th>Cover</th>
+            <th><abbr title="Interception">Int.</abbr></th>
+            <th>Speed</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% sAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <div class="posPage league">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th>PAT</th>
+            <th><abbr title="Field Goals 20 Yards or Under">FG</abbr></th>
+            <th><abbr title="Field Goals Over 20 Yards">Long FG</abbr></th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% kAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <div class="posPage league">
+        <table class="posTable">
+          <tr>
+            <th>Name</th>
+            <th><abbr title="Punt Distance">Dist.</abbr></th>
+            <th><abbr title="Awareness">Aware.</abbr></th>
+            <th>Blocked</th>
+            <th></th>
+            <th></th>
+          </tr>
+          <% pAgents.forEach(function(player) { %>
+            <tr data-pos="<%= player.pos.toUpperCase() %>" data-num="<%= player.id %>" data-fname="<%= player.fName %>" data-lname="<%= player.fName %>">
+              <td><%= player.fName %> <%= player.lName %> <span class="num">#<%= player.id %></span></td>
+              <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+              <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+              <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+              <% if (signedIn) { %>
+                <td>
+                  <svg class="draftPlayer cellBtn <% if (!isPick) {%>disabled<%} %>" onclick="draftPlayer(this)" role="button" viewBox="0 0 24 24">
+                    <title>Draft Player</title>
+                    <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  </svg>
+                </td>
+                <td>
+                  <svg class="draftBoardAdd cellBtn" role="button" onclick="addToBoard(this)" viewBox="0 0 24 24">
+                    <title>Add Player to Draft Board</title>
+                    <path d="M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M13,12H16V14H13V17H11V14H8V12H11V9H13V12Z" />
+                  </svg>
+                </td>
+              <% } %>
+            </tr>
+          <% }); %>
+        </table>
+      </div>
+      <% if (signedIn) { %>
+        <div class="posPage league">
+          <table class="posTable" id="draftBoard">
+            <tr>
+              <th>Name</th>
+              <th><abbr title="Position">Pos.</abbr></th>
+              <th colspan="3">Stats</th>
+              <th colspan="4">Actions</th>
+            </tr>
+          </table>
+        </div>
+      <% } %>
+    </div>
+    <% if (signedIn) { %>
+      <div class="page" style="position:relative;background-color:#eee;">
+        <div id="draftPage">
+          <% trades.forEach(trade => { %>
+            <div class="tradeBox" data-id="<%= trade.id %>">
+              <div class="tradeAction">
+                <% if (trade.status == 'Proposed' && trade.from == abbr) { %>
+                  <svg class="tradePickBtn" role="button" onclick="negateDraftTrade(this)" viewBox="0 0 24 24">
+                    <title>Retract Trade</title>
+                    <path d="M12.5,8C9.85,8 7.45,9 5.6,10.6L2,7V16H11L7.38,12.38C8.77,11.22 10.54,10.5 12.5,10.5C16.04,10.5 19.05,12.81 20.1,16L22.47,15.22C21.08,11.03 17.15,8 12.5,8Z" />
+                  </svg>
+                <% } else if (trade.status == 'Proposed') { %>
+                  <title>Accept Trade</title>
+                  <svg class="tradePickBtn" role="button" onclick="acceptDraftTrade(this)" viewBox="0 0 24 24">
+                    <path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" />
+                  </svg>
+                  <svg class="tradePickBtn" role="button" onclick="negateDraftTrade(this)" viewBox="0 0 24 24">
+                    <title>Decline Trade</title>
+                    <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                  </svg>
+                <% } else if (trade.status == 'accepted') { %>
+                  <svg class="tradePickBtn" viewBox="0 0 24 24">
+                    <title>Trade Accepted</title>
+                    <path d="M21,9L17,5V8H10V10H17V13M7,11L3,15L7,19V16H14V14H7V11Z" />
+                  </svg>
+                <% } %>
+              </div>
+              <div class="tradePicksHalf <%= trade.fromClass %>">
+                <div class="tradePicksRow"><%= trade.fromMascot %></div>
+                <% trade.fromPicks.forEach(pick => { %>
+                  <% let x = getRoundAndPick(pick) %>
+                  <div class="tradePicksRow">RD <%= x.r %> PK <%= x.p %> (<%= ordinal(pick).toUpperCase() %> OVERALL)</div>
+                <% }); %>
+              </div>
+              <div class="tradePicksHalf <%= trade.toClass %>">
+                <div class="tradePicksRow"><%= trade.toMascot %></div>
+                <% trade.toPicks.forEach(pick => { %>
+                  <% let x = getRoundAndPick(pick) %>
+                  <div class="tradePicksRow">RD <%= x.r %> PK <%= x.p %> (<%= ordinal(pick).toUpperCase() %> OVERALL)</div>
+                <% }); %>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+        <svg id="newTrade" class="league" onclick="makeTrade()" role="button" viewBox="0 0 24 24">
+          <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+        </svg>
+        <div id="tradeCont">
+          <div class="tradeTop">
+            <div id="tradeHalfTeam" class="<%= teamClass %>" style="border-radius:5px 0 0 6px;">
+              <div class="tradeName"><%= teamMascot %></div>
+              <div class="tradeRow">
+                <select class="tradeSel teamSel" onchange="changePick(this,true,0)">
+                  <option selected disabled>Select Pick</option>
+                  <% picks.forEach(function(pick) { %>
+                    <% var x = getRoundAndPick(pick) %>
+                    <option value="<%= pick %>">R<%= x.r %> P<%= x.p %> (<%= ordinal(pick).toUpperCase() %> OVERALL)</option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="tradeRow">
+                <select class="tradeSel teamSel" onchange="changePick(this,true,1)">
+                  <option selected disabled>Select Pick</option>
+                  <% picks.forEach(function(pick) { %>
+                    <% var x = getRoundAndPick(pick) %>
+                    <option value="<%= pick %>">R<%= x.r %> P<%= x.p %> (<%= ordinal(pick).toUpperCase() %> OVERALL)</option>
+                  <% }); %>
+                </select>
+              </div>
+              <div class="tradeRow" style="border-radius:0 0 0 5px;">
+                <select class="tradeSel teamSel" onchange="changePick(this,true,2)">
+                  <option selected disabled>Select Pick</option>
+                  <% picks.forEach(function(pick) { %>
+                    <% var x = getRoundAndPick(pick) %>
+                    <option value="<%= pick %>">R<%= x.r %> P<%= x.p %> (<%= ordinal(pick).toUpperCase() %> OVERALL)</option>
+                  <% }); %>
+                </select>
+              </div>
+            </div>
+            <div id="tradeHalfPartner" class="league" style="border-radius:0 5px 6px 0;">
+              <div class="tradeName" style="display:flex;justify-content:center;align-items:center;">
+                <select id="tradeTeamSel" onchange="changePartner()">
+                  <option selected disabled>Select Team</option>
+                  <% if (abbr != 'AAR') { %><option value="AAR">Aardvarks</option><% } %>
+                  <% if (abbr != 'AVI') { %><option value="AVI">Aviators</option><% } %>
+                  <% if (abbr != 'BAD') { %><option value="BAD">Badgers</option><% } %>
+                  <% if (abbr != 'CHA') { %><option value="CHA">Chameleons</option><% } %>
+                  <% if (abbr != 'CHE') { %><option value="CHE">Cheetahs</option><% } %>
+                  <% if (abbr != 'COL') { %><option value="COL">Collies</option><% } %>
+                  <% if (abbr != 'COO') { %><option value="COO">Coonhounds</option><% } %>
+                  <% if (abbr != 'COU') { %><option value="COU">Cougars</option><% } %>
+                  <% if (abbr != 'DRA') { %><option value="DRA">Dragons</option><% } %>
+                  <% if (abbr != 'EAG') { %><option value="EAG">Eagles</option><% } %>
+                  <% if (abbr != 'ENG') { %><option value="ENG">Engineers</option><% } %>
+                  <% if (abbr != 'FAL') { %><option value="FAL">Falcons</option><% } %>
+                  <% if (abbr != 'FLA') { %><option value="FLA">Flamingos</option><% } %>
+                  <% if (abbr != 'FOX') { %><option value="FOX">Foxes</option><% } %>
+                  <% if (abbr != 'GAL') { %><option value="GAL">Galaxy</option><% } %>
+                  <% if (abbr != 'GOL') { %><option value="GOL">Goldens</option><% } %>
+                  <% if (abbr != 'GRE') { %><option value="GRE">Greats</option><% } %>
+                  <% if (abbr != 'GRI') { %><option value="GRI">Grizzlies</option><% } %>
+                  <% if (abbr != 'HUM') { %><option value="HUM">Hummingbirds</option><% } %>
+                  <% if (abbr != 'HUS') { %><option value="HUS">Huskies</option><% } %>
+                  <% if (abbr != 'LON') { %><option value="LON">Longhorns</option><% } %>
+                  <% if (abbr != 'LYN') { %><option value="LYN">Lynx</option><% } %>
+                  <% if (abbr != 'NAT') { %><option value="NAT">Nationals</option><% } %>
+                  <% if (abbr != 'PAN') { %><option value="PAN">Pandas</option><% } %>
+                  <% if (abbr != 'PEG') { %><option value="PEG">Pegasi</option><% } %>
+                  <% if (abbr != 'PEN') { %><option value="PEN">Penguins</option><% } %>
+                  <% if (abbr != 'PIO') { %><option value="PIO">Pioneers</option><% } %>
+                  <% if (abbr != 'PIR') { %><option value="PIR">Pirates</option><% } %>
+                  <% if (abbr != 'REB') { %><option value="REB">Rebels</option><% } %>
+                  <% if (abbr != 'RED') { %><option value="RED">Red Pandas</option><% } %>
+                  <% if (abbr != 'ROT') { %><option value="ROT">Rottweilers</option><% } %>
+                  <% if (abbr != 'SEN') { %><option value="SEN">Senators</option><% } %>
+                  <% if (abbr != 'SHA') { %><option value="SHA">Sharks</option><% } %>
+                  <% if (abbr != 'SNA') { %><option value="SNA">Snakes</option><% } %>
+                  <% if (abbr != 'SQU') { %><option value="SQU">Squirrels</option><% } %>
+                  <% if (abbr != 'STA') { %><option value="STA">Stallions</option><% } %>
+                  <% if (abbr != 'STR') { %><option value="STR">Stars</option><% } %>
+                  <% if (abbr != 'WAR') { %><option value="WAR">Warriors</option><% } %>
+                  <% if (abbr != 'WOL') { %><option value="WOL">Wolves</option><% } %>
+                  <% if (abbr != 'ZEB') { %><option value="ZEB">Zebras</option><% } %>
+                </select>
+              </div>
+              <div class="tradeRow">
+                <select class="tradeSel partnerSel" onchange="changePick(this,false,0)"></select>
+              </div>
+              <div class="tradeRow">
+                <select class="tradeSel partnerSel" onchange="changePick(this,false,1)"></select>
+              </div>
+              <div class="tradeRow" style="border-radius:0 0 5px 0;">
+                <select class="tradeSel partnerSel" onchange="changePick(this,false,2)"></select>
+              </div>
+            </div>
+          </div>
+          <div class="tradeBot league">
+            <button class="tradeBtn" onclick="this.parentElement.parentElement.style.display='none'">Cancel</button>
+            <button class="tradeBtn" onclick="proposeTrade()">Propose</button>
+          </div>
+        </div>
+      </div>
+      <div class="page">
+        <div id="picksCont" class="<%= teamClass %>">
+          <% function ordinal(num) {
+            if (num % 10 == 1 && num % 100 != 11) {
+              return `${num}st`;
+            } else if (num % 10 == 2 && num % 100 != 12) {
+              return `${num}nd`;
+            } else if (num % 10 == 3 && num % 100 != 13) {
+              return `${num}rd`;
+            } else {
+              return `${num}th`;
+            }
+          } %>
+          <% picks.forEach(function(pick) { %>
+            <div class="pickRow">
+              <% var x = getRoundAndPick(pick) %>
+              <div class="pickPos">RD <%= x.r %> PK <%= x.p %> (<%= ordinal(pick).toUpperCase() %> OVERALL)</div>
+              <div class="pickPlayer upcoming"></div>
+            </div>
+          <% }); %>
+        </div>
+      </div>
+    <% } %>
+    <div class="page">
+      <div id="allBar" class="league">
+        <button class="allBtn" onclick="goToAllPage(0)" style="text-decoration:underline">List</button>
+        <button class="allBtn" onclick="goToAllPage(1)">Table</button>
+      </div>
+      <div class="allPage" style="display:block">
+        <% function cleanObj(obj) {
+          return obj.mascot.replace(/\s/g,'').toLowerCase();
+        }
+        function getRoundAndPick(num) {
+          if (num % 40 == 0) {
+            return {
+              r: Math.floor(num / 40),
+              p: 40
+            }
+          }
+          return {
+            r: Math.floor(num / 40) + 1,
+            p: num % 40
+          }
+        } 
+        function ordinal(num) {
+          if (num % 10 == 1 && num % 100 != 11) {
+            return `${num}st`;
+          } else if (num % 10 == 2 && num % 100 != 12) {
+            return `${num}nd`;
+          } else if (num % 10 == 3 && num % 100 != 13) {
+            return `${num}rd`;
+          } else {
+            return `${num}th`;
+          }
+        } %>
+        <% for (let i = 0; i < pickList.length; i++) { %>
+          <div class="allRow <%= cleanObj(pickList[i]) %>">
+            <img class="allLogo" src="logos/<%= cleanObj(pickList[i]) %>.png">
+            <% let r = getRoundAndPick(i + 1); %>
+            <div class="allPick">R<%= r.r %> P<%= r.p %> (<%= ordinal(i + 1).toUpperCase() %>)</div>
+            <% if (drafted[i]) { %>
+              <% let p = drafted[i]; %>
+              <div class="allPlayer"><%= p.fName %> <%= p.lName %> (<%= p.pos %> #<%= p.id %>)</div>
+            <% } else { %>
+              <div class="allPlayer upcoming"></div>
+            <% } %>
+          </div>
+        <% } %>
+      </div>
+      <div class="allPage">
+        <table id="allTable" class="league">
+          <tr>
+            <td></td>
+            <td>QB</td>
+            <td>RB</td>
+            <td>WR</td>
+            <td>TE</td>
+            <td>DE</td>
+            <td>LB</td>
+            <td>CB</td>
+            <td>S</td>
+            <td>K</td>
+            <td>P</td>
+          </tr><tr>
+            <td>AAR</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>AVI</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>BAD</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>CHA</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>CHE</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>COL</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>COO</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>COU</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>DRA</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>EAG</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>ENG</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>FAL</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>FLA</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>FOX</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>GAL</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>GOL</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>GRE</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>GRI</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>HUM</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>HUS</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>LON</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>LYN</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>NAT</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>PAN</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>PEG</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>PEN</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>PIO</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>PIR</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>REB</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>RED</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>ROT</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>SEN</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>SHA</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>SNA</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>SQU</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>STA</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>STR</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>WAR</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>WOL</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td>ZEB</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr><tr>
+            <td></td>
+            <td>QB</td>
+            <td>RB</td>
+            <td>WR</td>
+            <td>TE</td>
+            <td>DE</td>
+            <td>LB</td>
+            <td>CB</td>
+            <td>S</td>
+            <td>K</td>
+            <td>P</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </section>
+  <div style="width:100%;height:3px;background-color:rgb(176,136,47);"></div>
+  <section id="footer">
+    <div id="top">
+      <div id="topLeft" class="<%= currentTeam.mascot.replace(/\s/g,'').toLowerCase() %>">
+        <img src="logos/<%= currentTeam.mascot.replace(/\s/g,'').toLowerCase() %>.png" id="pickLogo" />
+        <div id="pickTont">
+          <div>
+            <div class="pickCell">RD</div>
+            <div class="pickCell">PK</div>
+          </div>
+          <div>
+            <div class="pickCell"><%= round %></div>
+            <div class="pickCell"><%= pick %></div>
+          </div>
+          <div id="pickClock" data-time="<%= time %>">0:<% if (time != 'x') { %><%= time %><% } else { %>30<% } %></div>
+        </div>
+      </div>
+      <% if (!live) { %>
+        <div id="pickMain" class="league">THE DRAFT IS NOT LIVE</div>
+      <% } else { %>
+        <div id="pickMain" class="<%= currentTeam.mascot.replace(/\s/g,'').toLowerCase() %>">THE <%= currentTeam.mascot.toUpperCase() %> ARE ON THE CLOCK</div>
+      <% } %>
+    </div>
+    <div id="bot">
+      <div id="left" class="league">
+        <div id="next">Next</div>
+        <svg style="height:16px;width:16px;margin:12px 0px;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <polygon fill="currentColor" points="0 0, 0 100, 87 50"/>
+        </svg>
+      </div>
+      <div id="right">
+        <% nextTwenty.forEach(function(obj) { %>
+          <% if (obj.n != -1) { %>
+            <span class="<%= obj.c %>" data-pick="<%= obj.p %>"><%= obj.p %>. <%= obj.t %></span>
+          <% } else { %>
+            <span class="league" data-pick="-1">-----</span>
+          <% } %>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+  <audio style="display:none" id="audio">
+    <source src="audio/music/song4.mp3" type="audio/mpeg">
+  </audio>
+  <audio style="display:none" id="chime">
+    <source src="audio/chime.mp3" type="audio/mpeg">
+  </audio>
+  <div id="errorCont">
+    <span></span>
+  </div>
+</body>
+</html>

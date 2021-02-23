@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.min.css" />
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="stylesheet" href="css/schedule.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources.min.js"></script>
+  <script src="scripts/teams.min.js"></script>
+  <script src="scripts/schedule.min.js"></script>
+  <title>The League | Schedule</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet">Bet</a>
+    <a href="info">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule" style="text-decoration: underline">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/">Home</a>
+        <a href="bet">Bet</a>
+        <a href="info">Info</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule" style="text-decoration: underline">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <section id="scheduleSelect" class="league">
+    <select class="select" onchange="changeSortMethod(this)">
+      <option value="week">By Week</option>
+      <option value="team">By Team</option>
+    </select>
+    <select class="select" onchange="requestGames(this,true)" >
+      <option disabled>Select Week</option>
+      <option value="0" <% if (week == 0) { %>selected<% } %>>Week 1</option>
+      <option value="1" <% if (week == 1) { %>selected<% } %>>Week 2</option>
+      <option value="2" <% if (week == 2) { %>selected<% } %>>Week 3</option>
+      <option value="3" <% if (week == 3) { %>selected<% } %>>Week 4</option>
+      <option value="4" <% if (week == 4) { %>selected<% } %>>Week 5</option>
+      <option value="5" <% if (week == 5) { %>selected<% } %>>Week 6</option>
+      <option value="6" <% if (week == 6) { %>selected<% } %>>Week 7</option>
+      <option value="7" <% if (week == 7) { %>selected<% } %>>Week 8</option>
+      <option value="8" <% if (week == 8) { %>selected<% } %>>Week 9</option>
+      <option value="9" <% if (week == 9) { %>selected<% } %>>Week 10</option>
+      <option value="10" <% if (week == 10) { %>selected<% } %>>Week 11</option>
+      <option value="11" <% if (week == 11) { %>selected<% } %>>Wild Card</option>
+      <option value="12" <% if (week == 12) { %>selected<% } %>>Divisional</option>
+      <option value="13" <% if (week == 13) { %>selected<% } %>>Conference</option>
+      <option value="14" <% if (week == 14) { %>selected<% } %>>Championship</option>
+    </select>
+    <select class="select" style="display:none" onchange="requestGames(this,false)" >
+      <option selected disabled>Select Team</option>
+      <option value="AAR">Aardvarks</option>
+      <option value="AVI">Aviators</option>
+      <option value="BAD">Badgers</option>
+      <option value="CHA">Chameleons</option>
+      <option value="CHE">Cheetahs</option>
+      <option value="COL">Collies</option>
+      <option value="COO">Coonhounds</option>
+      <option value="COU">Cougars</option>
+      <option value="DRA">Dragons</option>
+      <option value="EAG">Eagles</option>
+      <option value="ENG">Engineers</option>
+      <option value="FAL">Falcons</option>
+      <option value="FLA">Flamingos</option>
+      <option value="FOX">Foxes</option>
+      <option value="GAL">Galaxy</option>
+      <option value="GOL">Goldens</option>
+      <option value="GRE">Greats</option>
+      <option value="GRI">Grizzlies</option>
+      <option value="HUM">Hummingbirds</option>
+      <option value="HUS">Huskies</option>
+      <option value="LON">Longhorns</option>
+      <option value="LYN">Lynx</option>
+      <option value="NAT">Nationals</option>
+      <option value="PAN">Pandas</option>
+      <option value="PEG">Pegasi</option>
+      <option value="PEN">Penguins</option>
+      <option value="PIO">Pioneers</option>
+      <option value="PIR">Pirates</option>
+      <option value="REB">Rebels</option>
+      <option value="RED">Red Pandas</option>
+      <option value="ROT">Rottweilers</option>
+      <option value="SEN">Senators</option>
+      <option value="SHA">Sharks</option>
+      <option value="SNA">Snakes</option>
+      <option value="SQU">Squirrels</option>
+      <option value="STA">Stallions</option>
+      <option value="STR">Stars</option>
+      <option value="WAR">Warriors</option>
+      <option value="WOL">Wolves</option>
+      <option value="ZEB">Zebras</option>
+    </select>
+  </section>
+  <section id="gamesCont">
+    <% games.forEach(game => { %>
+      <div class="gameBox">
+        <% var d = new Date(game.schedule); %>
+        <%function numToMon(num) {
+          switch (num) {
+            case 0:
+              return 'JAN';
+            case 1:
+              return 'FEB';
+            case 2:
+              return 'MAR';
+            case 3:
+              return 'APR';
+            case 4:
+              return 'MAY';
+          }
+        }
+        
+        function numToDay(num) {
+          switch (num) {
+            case 0:
+              return 'SUN';
+            case 1:
+              return 'MON';
+            case 2:
+              return 'TUE';
+            case 3:
+              return 'WED';
+            case 4:
+              return 'THU';
+            case 5:
+              return 'FRI';
+            case 6:
+              return 'SAT';
+          }
+        }%>
+        <div class="gameTime"><%= numToDay(d.getDay()) %> <%= d.getDate() %> <%= numToMon(d.getMonth()) %> <%= game.time %>
+          <% if (game.status.toLowerCase().indexOf('final') != -1) { %>
+            - <%= game.status.toUpperCase() %>
+          <% } else if (game.status == 'ongoing') { %>
+            - <%= period %>
+          <% }%>
+        </div>
+        <div class="gameTop">
+          <% if (game.status.toLowerCase().indexOf('final') != -1) {
+            if (game.awayScore > game.homeScore) {
+              var ab = 'bold';
+            } else if (game.awayScore < game.homeScore) {
+              var hb = 'bold';
+            }
+          }
+          %>
+          <div class="gameTopHalf <%= game.awayTeam.mascot.toLowerCase().replace(/\s/g,'') %>">
+            <img class="gameLogo" src="logos/<%= game.awayTeam.mascot.toLowerCase().replace(/\s/g,'') %>.png">
+            <div class="gameName"><%= game.awayTeam.mascot %></div>
+            <div class="gameAbbr"><%= game.awayTeam.abbr %></div>
+            <div class="gameScore" <% if (ab) {%>style="font-weight:bold"<%}%>><% if (game.status == 'upcoming') {%>-<%}else{%><%= game.awayScore %><%} %></div>
+          </div><div class="gameTopHalf <%= game.homeTeam.mascot.toLowerCase().replace(/\s/g,'') %>">
+            <div class="gameScore"<% if (hb) {%>style="font-weight:bold"<%}%>><% if (game.status == 'upcoming') {%>-<%}else{%><%= game.homeScore %><%} %></div>
+            <div class="gameName"><%= game.homeTeam.mascot %></div>
+            <div class="gameAbbr"><%= game.homeTeam.abbr %></div>
+            <img class="gameLogo" src="logos/<%= game.homeTeam.mascot.toLowerCase().replace(/\s/g,'') %>.png">
+          </div>
+        </div>
+        <% if (game.status != 'upcoming') { %>
+          <div class="gameBot">
+            <table class="gameTable">
+              <tr>
+                <% var aa = JSON.parse(game.awaySbq) %>
+                <% var hh = JSON.parse(game.homeSbq) %>
+                <th>Team</th>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <% let stx = game.status.toLowerCase(); %>
+                <% if (stx.indexOf('ot') != -1) { %><td>OT</td><% } %>
+                <% if (stx.indexOf('2ot') != -1 || stx.indexOf('3ot') != -1 || stx.indexOf('4ot') != -1) { %><td>2OT</td><% } %>
+                <% if (stx.indexOf('3ot') != -1 || stx.indexOf('4ot') != -1) { %><td>3OT</td><% } %>
+                <% if (stx.indexOf('4ot') != -1) { %><td>4OT</td><% } %>
+                <td>T</td>
+              </tr>
+              <tr>
+                <th><%= game.awayTeam.mascot %></th>
+                <td><%= aa[0] %></td>
+                <td><%= aa[1] %></td>
+                <td><%= aa[2] %></td>
+                <td><%= aa[3] %></td>
+                <% if (aa[4] != undefined) { %><td><%= aa[4] %></td><% } %>
+                <% if (aa[5] != undefined) { %><td><%= aa[5] %></td><% } %>
+                <% if (aa[6] != undefined) { %><td><%= aa[6] %></td><% } %>
+                <% if (aa[7] != undefined) { %><td><%= aa[7] %></td><% } %>
+                <td><%= game.awayScore %></td>
+              </tr>
+              <tr>
+                <th><%= game.homeTeam.mascot %></th>
+                <td><%= hh[0] %></td>
+                <td><%= hh[1] %></td>
+                <td><%= hh[2] %></td>
+                <td><%= hh[3] %></td>
+                <% if (hh[4] != undefined) { %><td><%= hh[4] %></td><% } %>
+                <% if (hh[5] != undefined) { %><td><%= hh[5] %></td><% } %>
+                <% if (hh[6] != undefined) { %><td><%= hh[6] %></td><% } %>
+                <% if (hh[7] != undefined) { %><td><%= hh[7] %></td><% } %>
+                <td><%= game.homeScore %></td>
+              </tr>
+            </table>
+          </div>
+        <% } %>
+      </div>
+    <% }); %>
+  </section>
+</body>
+</html>

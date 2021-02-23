@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.min.css" />
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="stylesheet" href="css/login.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources.min.js"></script>
+  <script src="scripts/teams.min.js"></script>
+  <script src="scripts/login.min.js"></script>
+  <title>The League | Sign In</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet">Bet</a>
+    <a href="info">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/" style="text-decoration:underline">Home</a>
+        <a href="bet">Bet</a>
+        <a href="info">Info</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <section id="cont" class="league" data-id="<%= id %>">
+    <div>
+      <div class="row">
+        <button class="methodBtn" onclick="goTo(0)" style="text-decoration:underline">Sign In</button>
+        <button class="methodBtn" onclick="goTo(1)">Activate</button>
+      </div>
+      <div class="page" style="display:block">
+        <input type="text" name="username" id="unInp" placeholder="Username" /><br />
+        <input type="password" name="password" id="psInp" placeholder="Password" />
+        <button class="btn" id="signIn" onclick="signIn()">Sign In</button>
+        <button id="forgotBtn" onclick="forgotPass()">Forgot Password?</button>
+      </div>
+      <div class="page">
+        <input type="text" name="username" id="actiName" placeholder="Username" /><br />
+        <input type="number" name="code" id="actiCode" min="100000" max="999999" placeholder="Activation Code" /><br />
+        <button class="btn" id="activate" onclick="activate()">Activate</button>
+      </div>
+      <div class="page">
+        <input type="text" name="password" id="setPass1" placeholder="Set Password" oninput="check1(this.value)"/><br />
+        <span id="problem1"></span>
+        <input type="text" name="password" id="setPass2" placeholder="Confirm Password" oninput="check2(this.value)"/><br />
+        <span id="problem2"></span>
+        <button class="btn" id="setPass" onclick="setPass()">Set Password</button>
+      </div>
+      <div class="page">
+        <input type="text" name="username" id="recoUname" placeholder="Username"/><br />
+        <button class="btn" id="setPass" onclick="forgotPass()">Submit</button>
+      </div>
+      <div class="page">
+        <span id="promptCode"></span>
+        <input type="number" name="code" placeholder="######" id="recoEnter" oninput="checkReco(this.value)" /><br />
+      </div>
+      <div class="page">
+        <span id="factPrompt">Enter the code from your 2FA app</span>
+        <input type="number" name="code" placeholder="######" id="factEnter" oninput="checkFact(this.value)" /><br />
+      </div>
+      <span id="errorMess"></span>
+    </div>
+  </section>
+  <% if (offerDraft) { %>
+    <div id="draftBtnCont">
+      <a href="draftguest" id="draftBtn">Watch Draft Live as Guest</a>
+    </div>
+  <% } %>
+</body>
+</html>

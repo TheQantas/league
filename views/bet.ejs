@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.min.css" />
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="stylesheet" href="css/bet.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources.min.js"></script>
+  <script src="scripts/teams.min.js"></script>
+  <script src="scripts/bet.min.js"></script>
+  <title>The League | Bet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet" style="text-decoration:underline;">Bet</a>
+    <a href="info">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/">Home</a>
+        <a href="bet" style="text-decoration:underline;">Bet</a>
+        <a href="info">Info</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <section id="navCont" class="league">
+    <button onclick="changePage(0)" style="text-decoration:underline;">Betting</button>
+    <button onclick="changePage(1)">Leaderboard</button>
+    <button onclick="changePage(2)">About</button>
+    <button onclick="signOut()">Sign Out</button>
+  </section>
+  <section class="page">
+    <div id="balance" data-bal="<%= rawBalance %>" data-cost="<%= rawCost %>">
+      You Have <%= balance %> Tokens - <wbr>
+      All Bets Cost <%= cost %> Tokens
+    </div>
+    <% bets.forEach(bet => { %>
+      <div class="box" data-away="<%= bet.away %>" data-home="<%= bet.home %>" data-type="win">
+        <% if (bet.winChange) { %>
+          <div class="boxTop" style="display:flex;justify-content:center;">
+            <span style="color:<%= bet.winChangeColor %>"><%= bet.winChange.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',') %></span>
+          </div>
+        <% } else { %>
+          <div class="boxTop">
+            <span><%= bet.awayChance %></span>
+            <span class="right"><%= bet.homeChance %></span>
+          </div>
+        <% } %>
+        <div class="boxBot">
+          <div class="boxOpt <%= bet.awayClass %> <% if (bet.awayWinClass) {%><%= bet.awayWinClass %><%} %>" onclick="makeBet(this,'away')">
+            <img src="logos/<%= bet.awayClass %>.png">
+            <div class="boxName"><%= bet.awayMascot %></div>
+            <div class="boxAbbr"><%= bet.away %></div>
+            <div class="boxTri"><div class="topLeft"></div></div>
+          </div>
+          <div class="boxOpt <%= bet.homeClass %> <% if (bet.homeWinClass) {%><%= bet.homeWinClass %><%} %>" onclick="makeBet(this,'home')">
+            <div class="boxTri"><div class="botRight"></div></div>
+            <div class="boxName"><%= bet.homeMascot %></div>
+            <div class="boxAbbr"><%= bet.home %></div>
+            <img src="logos/<%= bet.homeClass %>.png">
+          </div>
+        </div>
+      </div>
+      <div class="box" data-away="<%= bet.away %>" data-home="<%= bet.home %>" data-type="cover">
+        <% if (bet.coverChange) { %>
+          <div class="boxTop" style="display:flex;justify-content:center;">
+            <span style="color:<%= bet.coverChangeColor %>"><%= bet.coverChange.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',') %></span>
+          </div>
+        <% } else { %>
+          <div class="boxTop">
+            <span>O/U <%= bet.ou %></span>
+          </div>
+        <% } %>
+        <div class="boxBot">
+          <div class="boxOpt league over <% if (bet.overCoverClass) {%><%= bet.overCoverClass %><%} %>" onclick="makeBet(this,'over')">
+            <div class="boxName">Over</div>
+            <div class="boxAbbr">Over</div>
+            <div class="boxTri"><div class="topLeft"></div></div>
+          </div>
+          <div class="boxOpt league under <% if (bet.underCoverClass) {%><%= bet.underCoverClass %><%} %>" onclick="makeBet(this,'under')">
+            <div class="boxTri"><div class="botRight"></div></div>
+            <div class="boxName">Under</div>
+            <div class="boxAbbr">Under</div>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </section>
+  <section class="page" style="display:none">
+    <table id="standingsTable">
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Tokens</th>
+      </tr>
+      <% for (let i = 0; i < all.length; i++) {
+        let user = all[i]; %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <% if (user.username == name) { %>
+            <td style="color:chartreuse"><%= user.username %></td>
+          <% } else { %>
+            <td><%= user.username %></td>
+          <% } %>
+          <td><%= user.bal %></td>
+        </tr>
+      <% } %>
+    </table>
+  </section>
+  <section class="page" style="display:none">
+    <div class="sect">
+      <h>Types of Bets</h><br>
+      <p>There are two types of bets: over/under and moneyline.</p><br>
+      <h1>Over/Under Bets</h1><br>
+      <p>Over/Under bets bet on whether the combined points of both teams will be above or below a set amount.
+        If you correctly predict whether the combined total is over or under, you get back double your bet.
+      </p><br>
+      <h1>Moneyline Bets</h1><br>
+      <p>The moneyline is determined by the betters such that all the money from the losers is distributed among the winners.
+        For example, if 80% percent of betters bet on the home team, then the moneyline for the home team is -400 (and +400 
+        for the away team).
+      </p><br>
+      <h>Mechanics</h><br>
+      <p>Every user starts with 1 million "tokens." Depending on the week, the cost for all bets is different. Throughout the 
+        regular season, the cost is 20K tokens. Throughout the playoffs, the cost of bets doubles every round (50K for wild card, 
+        100K for divisional, 200K for conference) until the championship, where bets cost 500K.
+      </p><br>
+      <h>Returns</h><br>
+      <p>After each game is played, the total profit or loss will be listed above each bet that you bet on. "DNB" means "did not bet."</p>
+    </div>
+  </section>
+  <div id="errorCont">
+    <span></span>
+  </div>
+</body>
+</html>

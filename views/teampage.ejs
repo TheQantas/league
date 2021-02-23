@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.min.css" />
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="stylesheet" href="css/teampage.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <script src="scripts/resources.min.js"></script>
+  <script src="scripts/teams.min.js"></script>
+  <script src="scripts/teampage.min.js"></script>
+  <title>The League | Teams</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet">Bet</a>
+    <a href="info">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams" style="text-decoration:underline">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/">Home</a>
+        <a href="bet">Bet</a>
+        <a href="draft">Draft</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams" style="text-decoration:underline">Teams</a>
+      </div>
+    </div>
+  </div>
+  <div id="welcome" class="<%= teamClass %>">Welcome, <%= teamMascot %>!</div>
+  <% if (done) { %>
+  <div id="navBar" class="<%= teamClass %>">
+    <button class="navBtn" onclick="changePage(0)" style="text-decoration:underline">Matchup</button>
+    <button class="navBtn" onclick="changePage(1)">Roster</button>
+    <button class="navBtn" onclick="changePage(2)">Trades</button>
+    <button class="navBtn" <% if (done) { %>onclick="changePage(3)"<% } %>>Account</button>
+  </div>
+  <% } %>
+  <% if (done) { %>
+  <section id="matchup" class="parent">
+    <div id="matchupDate" class="league"><%= day %> <%= date %> <%= month %> <%= time %></div>
+    <div id="matchupCont">
+      <div class="<%= teamClass %>">
+        <div class="matchupTeam">
+          <img src="logos/<%= teamClass %>.png" />
+          <div>
+            <div class="matchupMascot"><%= teamMascot %></div>
+            <div class="matchupRecord"><%= teamRecord %></div>
+          </div>
+        </div>
+        <% for (let p in teamRoster) { %>
+          <% let player = teamRoster[p] %>
+          <div class="playerRow">
+            <div class="playerPos"><%= player.pos %></div>
+            <div class="playerCont">
+              <% if(player.num) { %>
+                <div class="playerName"><%= player.fName%> <%= player.lName%> <span class="playerNum">#<%= player.num %></span></div>
+                <% let stat0 = `${attrs[player.pos.toLowerCase()][0].l}: ${JSON.parse(player.statA).m} (${JSON.parse(player.statA).s})` %>
+                <% let stat1 = `${attrs[player.pos.toLowerCase()][1].l}: ${JSON.parse(player.statB).m} (${JSON.parse(player.statB).s})` %>
+                <% let stat2 = `${attrs[player.pos.toLowerCase()][2].l}: ${JSON.parse(player.statC).m} (${JSON.parse(player.statC).s})` %>
+                <div class="playerStat"><%- stat0 %> | <%- stat1 %> | <%- stat2 %></div>
+              <% } else { %>
+                <div class="playerName"><%= player.fName%> <%= player.lName%></div>
+                <div class="playerStat"></div>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+      <div class="<%= oppoClass %>">
+        <div class="matchupTeam">
+          <div>
+            <div class="matchupMascot" style="text-align:right"><%= oppoMascot %></div>
+            <div class="matchupRecord" style="text-align:right"><%= oppoRecord %></div>
+          </div>
+          <img src="logos/<%= oppoClass %>.png" />
+        </div>
+        <% for (let p in oppoRoster) { %>
+          <% let player = oppoRoster[p] %>
+          <div class="playerRow">
+            <div class="playerPos"><%= player.pos %></div>
+            <div class="playerCont">
+              <% if(player.num) { %>
+                <div class="playerName"><%= player.fName%> <%= player.lName%> <span class="playerNum">#<%= player.num %></span></div>
+                <% let stat0 = `${attrs[player.pos.toLowerCase()][0].l}: ${JSON.parse(player.statA).m} (${JSON.parse(player.statA).s})` %>
+                <% let stat1 = `${attrs[player.pos.toLowerCase()][1].l}: ${JSON.parse(player.statB).m} (${JSON.parse(player.statB).s})` %>
+                <% let stat2 = `${attrs[player.pos.toLowerCase()][2].l}: ${JSON.parse(player.statC).m} (${JSON.parse(player.statC).s})` %>
+                <div class="playerStat"><%- stat0 %> | <%- stat1 %> | <%- stat2 %></div>
+              <% } else { %>
+                <div class="playerName"><%= player.fName%> <%= player.lName%></div>
+                <div class="playerStat"></div>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+    <div id="playCallOff" class="league">
+      <h>Offensive Play Calling</h>
+      <p>Pass Rate on Early Downs <abbr title="This is the rate at which your team will pass on first and second downs">&#x1F6C8;</abbr></p>
+      <div class="sliderCont">
+        <div><%= calls[0].toFixed(2) %></div>
+        <input type="range" step="1" value="<%= calls[0]*100 %>" oninput="this.parentElement.children[0].textContent = (this.value / 100).toFixed(2); checkPlayCalls(0);" />
+      </div>
+      <p>Pass Rate on Late Downs <abbr title="This is the rate at which your team will pass on third and fourth downs">&#x1F6C8;</abbr></p>
+      <div class="sliderCont">
+        <div><%= calls[1].toFixed(2) %></div>
+        <input type="range" step="1" value="<%= calls[1]*100 %>" oninput="this.parentElement.children[0].textContent = (this.value / 100).toFixed(2); checkPlayCalls(0);" />
+      </div>
+      <p>Pass Rate to WR on Early Downs <abbr title="This is the rate at which your team will pass to the wide receiver given that a passing play is run (rest to TE)">&#x1F6C8;</abbr></p>
+      <div class="sliderCont">
+        <div><%= calls[2].toFixed(2) %></div>
+        <input type="range" step="1" value="<%= calls[2]*100 %>" oninput="this.parentElement.children[0].textContent = (this.value / 100).toFixed(2); checkPlayCalls(0);" />
+      </div>
+      <p>Pass Rate to WR on Late Downs <abbr title="This is the rate at which your team will pass to the wide receiver given that a passing play is run (rest to TE)">&#x1F6C8;</abbr></p>
+      <div class="sliderCont">
+        <div><%= calls[3].toFixed(2) %></div>
+        <input type="range" step="1" value="<%= calls[3]*100 %>" oninput="this.parentElement.children[0].textContent = (this.value / 100).toFixed(2); checkPlayCalls(0);" />
+      </div>
+      <button class="saveBtn disabled" onclick="changePlayCalls(this,0)">Save Changes</button>
+    </div>
+    <div id="playCallDef" class="league">
+      <h>Defensive Play Calling</h>
+      <p>DE Rush Rate on Early Downs <abbr title="This is the rate at which your DE will pressure/attempt to sack the quarterback">&#x1F6C8;</abbr></p>
+      <div class="sliderCont">
+        <div><%= calls[4].toFixed(2) %></div>
+        <input type="range" step="1" value="<%= calls[4]*100 %>" oninput="this.parentElement.children[0].textContent = (this.value / 100).toFixed(2); checkPlayCalls(1);" />
+      </div>
+      <p>DE Rush Rate on Late Downs <abbr title="This is the rate at which your DE will pressure/attempt to sack the quarterback">&#x1F6C8;</abbr></p>
+      <div class="sliderCont">
+        <div><%= calls[5].toFixed(2) %></div>
+        <input type="range" step="1" value="<%= calls[5]*100 %>" oninput="this.parentElement.children[0].textContent = (this.value / 100).toFixed(2); checkPlayCalls(1);" />
+      </div>
+      <p>LB Rush Rate on Early Downs <abbr title="This is the rate at which your LB will pressure/attempt to sack the quarterback given that the DE does not rush">&#x1F6C8;</abbr></p>
+      <div class="sliderCont">
+        <div><%= calls[6].toFixed(2) %></div>
+        <input type="range" step="1" value="<%= calls[6]*100 %>" oninput="this.parentElement.children[0].textContent = (this.value / 100).toFixed(2); checkPlayCalls(1);" />
+      </div>
+      <p>LB Rush Rate on Late Downs <abbr title="This is the rate at which your LB will pressure/attempt to sack the quarterback given that the DE does not rush">&#x1F6C8;</abbr></p>
+      <div class="sliderCont">
+        <div><%= calls[7].toFixed(2) %></div>
+        <input type="range" step="1" value="<%= calls[7]*100 %>" oninput="this.parentElement.children[0].textContent = (this.value / 100).toFixed(2); checkPlayCalls(1);" />
+      </div>
+      <button class="saveBtn disabled" onclick="changePlayCalls(this,1)">Save Changes</button>
+    </div>
+  </section>
+  <section id="roster" data-team="<%= abbr %>" class="parent" style="display:none">
+    <div class="rosterChoose">
+      <div class="rosterChooseHalf <%= teamClass %>">Your Roster</div>
+      <% var d = new Date() %>
+      <% var m = d.getMonth() %>
+      <% var t = d.getDate() %>
+      <% if ((m < 2) || (m == 2 && t < 3)) { %>
+        <div id="proposeTradeCont" class="league">
+          <button id="proposeTrade" class="disabled" onclick="showTradeMaker()">Propose Trade</button>
+        </div>
+      <% } %>
+      <div class="rosterChooseHalf league">
+        <select id="rosterSel" onchange="getRoster()">
+          <option selected disabled>Select Team</option>
+          <% if (abbr != 'AAR') { %><option value="AAR">Aardvarks</option><% } %>
+          <% if (abbr != 'AVI') { %><option value="AVI">Aviators</option><% } %>
+          <% if (abbr != 'BAD') { %><option value="BAD">Badgers</option><% } %>
+          <% if (abbr != 'CHA') { %><option value="CHA">Chameleons</option><% } %>
+          <% if (abbr != 'CHE') { %><option value="CHE">Cheetahs</option><% } %>
+          <% if (abbr != 'COL') { %><option value="COL">Collies</option><% } %>
+          <% if (abbr != 'COO') { %><option value="COO">Coonhounds</option><% } %>
+          <% if (abbr != 'COU') { %><option value="COU">Cougars</option><% } %>
+          <% if (abbr != 'DRA') { %><option value="DRA">Dragons</option><% } %>
+          <% if (abbr != 'EAG') { %><option value="EAG">Eagles</option><% } %>
+          <% if (abbr != 'ENG') { %><option value="ENG">Engineers</option><% } %>
+          <% if (abbr != 'FAL') { %><option value="FAL">Falcons</option><% } %>
+          <% if (abbr != 'FLA') { %><option value="FLA">Flamingos</option><% } %>
+          <% if (abbr != 'FOX') { %><option value="FOX">Foxes</option><% } %>
+          <% if (abbr != 'GAL') { %><option value="GAL">Galaxy</option><% } %>
+          <% if (abbr != 'GOL') { %><option value="GOL">Goldens</option><% } %>
+          <% if (abbr != 'GRE') { %><option value="GRE">Greats</option><% } %>
+          <% if (abbr != 'GRI') { %><option value="GRI">Grizzlies</option><% } %>
+          <% if (abbr != 'HUM') { %><option value="HUM">Hummingbirds</option><% } %>
+          <% if (abbr != 'HUS') { %><option value="HUS">Huskies</option><% } %>
+          <% if (abbr != 'LON') { %><option value="LON">Longhorns</option><% } %>
+          <% if (abbr != 'LYN') { %><option value="LYN">Lynx</option><% } %>
+          <% if (abbr != 'NAT') { %><option value="NAT">Nationals</option><% } %>
+          <% if (abbr != 'PAN') { %><option value="PAN">Pandas</option><% } %>
+          <% if (abbr != 'PEG') { %><option value="PEG">Pegasi</option><% } %>
+          <% if (abbr != 'PEN') { %><option value="PEN">Penguins</option><% } %>
+          <% if (abbr != 'PIO') { %><option value="PIO">Pioneers</option><% } %>
+          <% if (abbr != 'PIR') { %><option value="PIR">Pirates</option><% } %>
+          <% if (abbr != 'REB') { %><option value="REB">Rebels</option><% } %>
+          <% if (abbr != 'RED') { %><option value="RED">Red Pandas</option><% } %>
+          <% if (abbr != 'ROT') { %><option value="ROT">Rottweilers</option><% } %>
+          <% if (abbr != 'SEN') { %><option value="SEN">Senators</option><% } %>
+          <% if (abbr != 'SHA') { %><option value="SHA">Sharks</option><% } %>
+          <% if (abbr != 'SNA') { %><option value="SNA">Snakes</option><% } %>
+          <% if (abbr != 'SQU') { %><option value="SQU">Squirrels</option><% } %>
+          <% if (abbr != 'STA') { %><option value="STA">Stallions</option><% } %>
+          <% if (abbr != 'STR') { %><option value="STR">Stars</option><% } %>
+          <% if (abbr != 'WAR') { %><option value="WAR">Warriors</option><% } %>
+          <% if (abbr != 'WOL') { %><option value="WOL">Wolves</option><% } %>
+          <% if (abbr != 'ZEB') { %><option value="ZEB">Zebras</option><% } %>
+        </select>
+      </div>
+    </div>
+    <div class="rosterCont">
+      <div id="rosterHalfTeam" class="<%= teamClass %>">
+        <div id="rosterTeam">
+          <img class="rosterImg" src="logos/<%= teamClass %>.png" />
+          <div class="rosterName"><%= teamMascot %></div>
+        </div>
+        <% for (let p in teamRoster) { %>
+          <% if (p == 'flx1') { %>
+            <div class="playerFlexHead">Flex Spots (Practice Squad)</div>
+          <% } %>
+          <% let player = teamRoster[p] %>
+          <div class="playerRow teamPlayerRow rosterRow" data-num="<%= player.num %>" data-fname="<%= player.fName%>" data-lname="<%= player.lName%>" data-pos="<%= player.pos %>" data-i="<%= p %>">
+            <div class="playerPos"><%= player.pos %></div>
+            <div class="playerCont">
+              <% if (player.num) { %>
+                <div class="playerName"><%= player.fName%> <%= player.lName%> <span class="playerNum">#<%= player.num %></span></div>
+                <% let stat0 = `${attrs[player.pos.toLowerCase()][0].l}: ${JSON.parse(player.statA).m} (${JSON.parse(player.statA).s})` %>
+                <% let stat1 = `${attrs[player.pos.toLowerCase()][1].l}: ${JSON.parse(player.statB).m} (${JSON.parse(player.statB).s})` %>
+                <% let stat2 = `${attrs[player.pos.toLowerCase()][2].l}: ${JSON.parse(player.statC).m} (${JSON.parse(player.statC).s})` %>
+                <div class="playerStat"><%- stat0 %> | <%- stat1 %> | <%- stat2 %></div>
+                <% if (p == 'flx1' || p == 'flx2'|| p == 'flx3') { %>
+                  <div class="playerOpt">
+                    <button class="playerBtn" onclick="activate(this)">Activate</button>
+                    <button class="playerBtn" onclick="this.nextElementSibling.style.display = 'flex'">Release</button>
+                    <div class="playerOptConf">
+                      <div class="playerRelConf">Are You Sure?</div>
+                      <button class="playerBtn relBtn" onclick="release(this)">Yes</button>
+                      <button class="playerBtn relBtn" onclick="this.parentElement.style.display = 'none'">No</button>
+                    </div>
+                  </div>
+                <% } %>
+              <% } else { %>
+                <div class="playerName"><%= player.fName%> <%= player.lName%></div>
+                <div class="playerStat"></div>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+      <div id="rosterHalfOppo" class="league">
+        <div id="rosterOppo">
+          <div class="rosterName">Select Team</div>
+          <img class="rosterImg" src="images/logo_sq.png" />
+        </div>
+      </div>
+    </div>
+    <% if (canFreeAgent) { %>
+      <section id="freeAgency" class="league">
+        <div id="freeAgencyTitle">Free Agency</div>
+        <div id="freeAgencyExp">All players released into free agency are available the following day at noon</div>
+        <div id="freeAgencyNav">
+          <button class="freeAgencyBtn" onclick="changeFreePage(0)" style="text-decoration:underline">QB</button>
+          <button class="freeAgencyBtn" onclick="changeFreePage(1)">RB</button>
+          <button class="freeAgencyBtn" onclick="changeFreePage(2)">WR</button>
+          <button class="freeAgencyBtn" onclick="changeFreePage(3)">TE</button>
+          <button class="freeAgencyBtn" onclick="changeFreePage(4)">DE</button>
+          <button class="freeAgencyBtn" onclick="changeFreePage(5)">LB</button>
+          <button class="freeAgencyBtn" onclick="changeFreePage(6)">CB</button>
+          <button class="freeAgencyBtn" onclick="changeFreePage(7)">S</button>
+          <button class="freeAgencyBtn" onclick="changeFreePage(8)">K</button>
+          <button class="freeAgencyBtn" onclick="changeFreePage(9)">P</button>
+        </div>
+        <div id="freeAgencyCont">
+          <div class="freeAgencyPage" style="display:block" data-pos="qb">
+            <% if (qbAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available quarterbacks in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th><abbr title="Accuracy">Acc.</abbr></th>
+                  <th><abbr title="Accuracy Over 20 Yards">Long Acc.</abbr></th>
+                  <th><abbr title="Pressure">Press.</abbr></th>
+                  <th></th>
+                </tr>
+                <% qbAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+          <div class="freeAgencyPage" data-pos="rb">
+            <% if (rbAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available runningbacks in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th><abbr title="Yards After Contact">YAC</abbr></th>
+                  <th><abbr title="Elusiveness">Elus.</abbr></th>
+                  <th><abbr title="Speed">Speed</abbr></th>
+                  <th></th>
+                </tr>
+                <% rbAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+          <div class="freeAgencyPage" data-pos="wr">
+            <% if (wrAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available wide receivers in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th><abbr title="Reception Rate">Recep.</abbr></th>
+                  <th><abbr title="Reception Rate Over 20 Yards">Long Recep.</abbr></th>
+                  <th>Speed</th>
+                  <th></th>
+                </tr>
+                <% wrAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+          <div class="freeAgencyPage" data-pos="te">
+            <% if (teAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available tight ends in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th><abbr title="Reception Rate">Recep.</abbr></th>
+                  <th>Run Block</th>
+                  <th>Speed</th>
+                  <th></th>
+                </tr>
+                <% teAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+          <div class="freeAgencyPage" data-pos="de">
+            <% if (deAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available defensive ends in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th><abbr title="Pressure Percentage">Press. Perc.</abbr></th>
+                  <th>Sack</th>
+                  <th>Speed</th>
+                  <th></th>
+                </tr>
+                <% deAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+          <div class="freeAgencyPage" data-pos="lb">
+            <% if (lbAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available linebackers in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th><abbr title="Pressure Percentage">Press. Perc.</abbr></th>
+                  <th>Sack</th>
+                  <th>Speed</th>
+                  <th></th>
+                </tr>
+                <% lbAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+          <div class="freeAgencyPage" data-pos="cb">
+            <% if (cbAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available cornerbacks in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th>Cover</th>
+                  <th><abbr title="Interception Rate">Int.</abbr></th>
+                  <th>Speed</th>
+                  <th></th>
+                </tr>
+                <% cbAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+          <div class="freeAgencyPage" data-pos="s">
+            <% if (sAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available safeties in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th>Cover</th>
+                  <th><abbr title="Interception Rate">Int.</abbr></th>
+                  <th>Speed</th>
+                  <th></th>
+                </tr>
+                <% sAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+          <div class="freeAgencyPage" data-pos="k">
+            <% if (kAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available kickers in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th>PAT</th>
+                  <th><abbr title="Field Goals 20 Yards or Under">FG</abbr></th>
+                  <th><abbr title="Field Goals Over 20 Yards">Long FG</abbr></th>
+                  <th></th>
+                </tr>
+                <% kAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+          <div class="freeAgencyPage" data-pos="p">
+            <% if (pAgents.length == 0) { %>
+            <div class="freeAgencyNone">There are no available punters in free agency</div>
+            <table class="freeAgencyTable league" style="display:none"></table>
+            <% } else { %>
+              <table class="freeAgencyTable league">
+                <tr>
+                  <th>Player</th>
+                  <th><abbr title="Distance">Dist.</abbr></th>
+                  <th><abbr title="Awareness">Aware.</abbr></th>
+                  <th>Blocked</th>
+                  <th></th>
+                </tr>
+                <% pAgents.forEach(function(player) { %>
+                  <tr data-num="<%= player.id %>">
+                    <td><%= player.fName %> <%= player.lName %> <span class="freeAgencyNum">#<%= player.id %></span></td>
+                    <td><%= JSON.parse(player.statA).m %> (<%= JSON.parse(player.statA).s %>)</td>
+                    <td><%= JSON.parse(player.statB).m %> (<%= JSON.parse(player.statB).s %>)</td>
+                    <td><%= JSON.parse(player.statC).m %> (<%= JSON.parse(player.statC).s %>)</td>
+                    <td>
+                      <% if (player.team == -2 || openSlot == false) { var c = 'disabled'; } else { var c = ''; } %>
+                      <svg onclick="claim(this)" class="freeAgencySign <%= c %>" role="button" viewBox="0 0 24 24">
+                        <% if (player.team == -2) { %>
+                          <title>Player Not Yet Available</title>
+                        <% } else if (openSlot == false) { %>
+                          <title>You Do Not Have An Open Slot To Sign This Player</title>
+                        <% } else { %>
+                          <title>Sign Player</title>
+                        <% } %>
+                        <path <% if (player.team == -2) { %>fill="white"<% } %>  d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M13,7H11V11H7V13H11V17H13V13H17V11H13V7Z" />
+                      </svg>
+                    </td>
+                  </tr>
+                <% }); %>
+              </table>
+            <% } %>
+          </div>
+        </div>
+      </section>
+    <% } %>
+  </section>
+    <% var dx = new Date() %>
+    <% var mx = dx.getMonth() %>
+    <% var tx = dx.getDate() %>
+    <% if ((mx < 2) || (mx == 2 && tx < 3)) { %>
+      <section id="makeTradeCont">
+        <div>
+          <div id="makeTradeWindow">
+            <svg role="button" viewBox="0 0 24 24" onclick="minimize()">
+              <title>Minimize</title>
+              <path d="M19,13H5V11H19V13Z" />
+            </svg>
+            <svg role="button" viewBox="0 0 24 24" onclick="closeTrade()">
+              <title>Close</title>
+              <path d="M13.46,12L19,17.54V19H17.54L12,13.46L6.46,19H5V17.54L10.54,12L5,6.46V5H6.46L12,10.54L17.54,5H19V6.46L13.46,12Z" />
+            </svg>
+          </div>
+          <div id="tradePosExp" class="league">You can only trade players of the same position</div>
+          <div id="makeTradeLower">
+            <div id="makeTradeTeamHalf">
+              <div class="makeTradeTop">
+                <img class="makeTradeLogo" />
+                <div class="makeTradeName"></div>
+              </div>
+              <div class="makeTradeTrans">You Give:</div>
+              <div class="makeTradeRow">
+                <div class="tradeNum">1</div>
+                <div class="tradeRowRight">
+                  <select class="makeTradeSel makeTradeSelTeam" onchange="changeTradePlayers(0,true)">
+                    <option value="NP0">No Player</option>
+                  </select>
+                </div>
+              </div>
+              <div class="makeTradeRow">
+                <div class="tradeNum">2</div>
+                <div class="tradeRowRight">
+                  <select class="makeTradeSel makeTradeSelTeam" onchange="changeTradePlayers(1,true)">
+                    <option value="NP1">No Player</option>
+                  </select>
+                </div>
+              </div>
+              <div class="makeTradeRow">
+                <div class="tradeNum">3</div>
+                <div class="tradeRowRight">
+                  <select class="makeTradeSel makeTradeSelTeam" onchange="changeTradePlayers(2,true)">
+                    <option value="NP2">No Player</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div id="makeTradeOppoHalf">
+              <div class="makeTradeTop">
+                <div class="makeTradeName" style="text-align:right"></div>
+                <img class="makeTradeLogo" />
+              </div>
+              <div class="makeTradeTrans">You Get:</div>
+              <div class="makeTradeRow">
+                <div class="tradeNum">1</div>
+                <div class="tradeRowRight">
+                  <select class="makeTradeSel makeTradeSelOther" onchange="changeTradePlayers(0,false)">
+                    <option value="NP0">No Player</option>
+                  </select>
+                </div>
+              </div>
+              <div class="makeTradeRow">
+                <div class="tradeNum">2</div>
+                <div class="tradeRowRight">
+                  <select class="makeTradeSel makeTradeSelOther" onchange="changeTradePlayers(1,false)">
+                    <option value="NP1">No Player</option>
+                  </select>
+                </div>
+              </div>
+              <div class="makeTradeRow">
+                <div class="tradeNum">3</div>
+                <div class="tradeRowRight">
+                  <select class="makeTradeSel makeTradeSelOther" onchange="changeTradePlayers(2,false)">
+                    <option value="NP2">No Player</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="addMorePlayers" onclick="addTradeRow()" class="league">
+            <svg role="button" viewBox="0 0 24 24">
+              <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" />
+            </svg>
+          </div>
+          <div id="proposeTradeBot" class="league">
+            <button id="proposeTradeBtn" class="disabled" onclick="showProposalConfirm()">Propose Trade</button>
+          </div>
+          <div id="confirmProposal" class="league">
+            <div>
+              <div id="confirmProposalTxt"><span>Are you sure that you want to make this trade offer?</span></div>
+              <div id="confirmProposalCont">
+                <button class="confirmProposalBtn" onclick="document.getElementById('confirmProposal').style.display = 'none'">Cancel</button>
+                <button class="confirmProposalBtn" onclick="proposeTrade()">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="trade" class="parent" style="display:none">
+        <div id="tradeDeadline" class="league">
+          <% if (mx < 2) { %>
+            <span>The trade deadline is 02 March at 11:59P</span>
+          <% } else { %>
+            <% if (tx == 1) { %>
+              <span>The trade deadline is tomorrow at 11:59P</span>
+            <% } else { %>
+              <span>The trade deadline is tonight at 11:59P</span>
+            <% } %>
+          <% } %>
+        </div>
+        <div id="tradeInst" class="league">
+          <span>To propose a trade, go to the "roster" tab</span>
+        </div>
+        <div id="tradeCont">
+          <% trades.slice().reverse().forEach(function(trade) { %>
+            <div class="tradeBox" data-id="<%= trade.id %>">
+              <div class="tradeTop">
+                <div class="tradeStatus <%= trade.status %>"><%= trade.status.toUpperCase() %></div>
+                <div class="tradeInfo">
+                  <div class="tradeMeta"><%= trade.date %> <%= trade.month %> <%= trade.year %> <%= trade.time %></div>
+                  <div class="tradeMeta"><%= trade.from %> & <%= trade.to %></div>
+                </div>
+                <div class="tradeTopAbs">
+                  <svg role="button" data-hidden="false" class="tradeTopOpt" viewBox="0 0 24 24" onclick="toggle(this)">
+                    <path d="M19,13H5V11H19V13Z"></path>
+                  </svg>
+                  <svg role="button" class="tradeTopOpt" viewBox="0 0 24 24" onclick="hide(this)">
+                    <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+                  </svg>
+                </div>
+              </div>
+              <div class="tradeLower">
+                <div class="tradeLowerHalf <%= trade.fromClass %>">
+                  <div class="tradeLowerTop">
+                    <img class="tradeTeamLogo" src="logos/<%= trade.fromClass %>.png" />
+                    <div class="tradeTeamName"><%= trade.fromMascot %></div>
+                  </div>
+                  <div class="tradeClarify"><%= trade.fromMascot %> give & <%= trade.toMascot %> get</div>
+                  <% trade.fromPlayers.forEach(function(player) { %>
+                    <div class="tradeRow">
+                      <div class="tradePos"><%= player.pos %></div>
+                      <div class="tradeRowName"><%= player.fName %> <%= player.lName %> <span class="playerNum">#<%= player.num %></span></div>
+                    </div>
+                  <% }); %>
+                </div>
+                <div class="tradeLowerHalf <%= trade.toClass %>">
+                  <div class="tradeLowerTop">
+                    <img class="tradeTeamLogo" src="logos/<%= trade.toClass %>.png" />
+                    <div class="tradeTeamName"><%= trade.toMascot %></div>
+                  </div>
+                  <div class="tradeClarify"><%= trade.toMascot %> give & <%= trade.fromMascot %> get</div>
+                  <% trade.toPlayers.forEach(function(player) { %>
+                    <div class="tradeRow">
+                      <div class="tradePos"><%= player.pos %></div>
+                      <div class="tradeRowName"><%= player.fName %> <%= player.lName %> <span class="playerNum">#<%= player.num %></span></div>
+                    </div>
+                  <% }); %>
+                </div>
+              </div>
+              <% if (trade.status == 'proposed' || trade.status == 'counterproposal') { %>
+                <div class="tradeBottom" data-id="<%= trade.id %>" data-to="<%= trade.to %>" data-from="<%= trade.from %>" data-fromplayers="<%= JSON.stringify(trade.fromPlayers) %>" data-toplayers="<%= JSON.stringify(trade.toPlayers) %>">
+                  <% if (trade.from == abbr) { %>
+                    <button class="tradeBtn retracted" onclick="retract(this)">Retract</button>
+                  <% } else { %>
+                    <button class="tradeBtn defOpt accepted" onclick="show(this)">Accept</button>
+                    <button class="tradeBtn defOpt countered"  onclick="counter(this)" style="margin-left:5px">Counter</button>
+                    <button class="tradeBtn defOpt declined" onclick="decline(this)" style="margin-left:5px">Decline</button>
+                    <button class="tradeBtn confOpt cancel" onclick="cancel(this)">Cancel</button>
+                    <button class="tradeBtn confOpt accepted" onclick="accept(this)" style="margin-left:5px">Confirm</button>
+                  <% } %>
+                </div>
+              <% } %>
+            </div>
+          <% }); %>
+        </div>
+      </section>
+      <button id="pill" onclick="maximize() "class="league"></button>
+    <% } %>
+  <% } %>
+  <section id="account" class="parent league" <% if (done) { %>style="display:none"<% } %>>
+    <div class="row">
+      <button class="signOut" onclick="signOut()">Sign Out</button>
+      <button class="signOut" onclick="univSignOut()">Sign Out of All Devices</button>
+    </div>
+    <h class="accHeader">Change Password</h>
+    <div class="row" id="confirmPass">
+      <input type="password" name="password" class="accInp" id="currPass" placeholder="Current Password" />
+      <button class="accAct" onclick="confirmPass()">Confirm Password</button>
+    </div>
+    <div class="row" id="changePass" style="display:none">
+      <input type="text" name="password" class="accInp" id="newPass1" placeholder="New Password" />
+      <input type="text" name="password" class="accInp" id="newPass2" placeholder="Confirm Password" />
+      <button class="accAct" onclick="changePass()">Change Password</button>
+    </div>
+    <span class="resTxt" id="passTxt"></span>
+    <h class="accHeader">Two-Factor Authentication<% if (fact) { %> &#x2713;<% } %></h>
+    <button class="accAct" onclick="enableFact()">Enable 2FA</button><br />
+    <span class="resTxt" id="appTxt" style="display:none">Scan the code below with your 2FA app (such as Google/Microsoft Authenticator, Authy)</span><br />
+    <img height="300" width="300" style="margin-top:10px;display:none;" id="qr" /><br />
+    <span class="resTxt" id="enterTxt" style="display:none">Enter code in app into space below to enable two-factor authentication</span>
+    <input type="number" name="code" class="accInp" id="factCode" style="display:none" oninput="checkFact(this.value)" placeholder="######" /><br />
+    <span class="resTxt" id="factTxt"></span>
+    <h class="accHeader">Verify Email<% if (email) { %> &#x2713;<% } %></h>
+    <div class="row">
+      <input type="email" name="email" class="accInp" id="emailInp" placeholder="Email" />
+      <button class="accAct" id="veriEmail" onclick="getEmailCode()">Verify Email</button>
+    </div>
+    <div class="row" id="emailEnter" style="display:none;margin-top:5px;">
+      <input type="number" name="code" class="accInp" id="eCode" oninput="checkECode(this.value)" placeholder="######" /><br />
+    </div>
+    <label class="container" id="emailOpt1" onclick="enableUpdates(this.children[0].checked)" <% if (!email) { %>style="display:none"<% } %>>Receive occasional updates by email
+      <input type="checkbox" <% if (emailUpdates) { %>checked<% } %>>
+      <span class="checkmark"></span>
+    </label>
+    <label class="container" id="emailOpt2" <% if (!email) { %>style="display:none"<% } %>>Receive constant, nagging, pointless updates that cannot be turned off
+      <input oninput="fakeSett(this.checked)" type="checkbox">
+      <span class="checkmark"></span>
+    </label>
+    <span class="resTxt" id="eTxt"></span>
+    <h class="accHeader">Recovery</h>
+    <label class="container" onclick="changeRecovery('fact','email')">Recover account by email (if verified)
+      <input type="radio" id="emailReco" name="recovery" <% if (emailRecovery) { %>checked<% } %>>
+      <span class="checkmark radio"></span>
+    </label>
+    <label class="container" onclick="changeRecovery('email','fact')">Recover account using two-factor authentication (if enabled)
+      <input type="radio" id="factReco" name=recovery" <% if (factRecovery) { %>checked<% } %>>
+      <span class="checkmark radio"></span>
+    </label>
+    <span class="resTxt" id="recTxt"></span>
+    <h class="accHeader">Devices</h>
+    <table id="devicesTable">
+      <tr>
+        <th>Platform</th>
+        <th>OS</th>
+        <th>Browser</th>
+      </tr>
+      <% devices.forEach(function(dev) { %>
+        <tr>
+          <% if (dev.hash == hash) { %>
+            <td><%= dev.platform %> (This Device)</td>
+          <% } else { %>
+            <td><%= dev.platform %></td>
+          <% } %>
+          <td><%= dev.os %></td>
+          <td><%= dev.browser %></td>
+        </tr>
+      <% }) %>
+    </table>
+  </section>
+  <div id="errorCont">
+    <span></span>
+  </div>
+</body>
+</html>
