@@ -2775,7 +2775,7 @@ red.listen(80);
 var server = app.listen(PORT, () => console.log(`Listening for https on ${PORT}`));
 // var webSocketServer = require('ws').server;
 // wss = new webSocketServer({server: server});
-const WebSocket = require('wss').Server;
+const WebSocketServer = require('wss').Server;
 //const { parse } = require('path');
 //const { send } = require('process');
 //const { isObject } = require('util');
