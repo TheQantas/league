@@ -4282,13 +4282,23 @@ wss.on('connection', ws => {
     } else if (result.method == 'createUser') {
       let cusses = ['ass','bitch','shit','cock','crap','cunt','fuck','nigga','nigger','piss','slut','dick','arse','tit','pussy'];
       for (let cuss of cusses) {
-        if (user.username.toLowerCase().replace(/\s/g,'').indexOf(cuss) != -1) {
+        if (result.username.toLowerCase().replace(/\s/g,'').indexOf(cuss) != -1) {
           let res = {method:'error',type:result.method,mess:'Invalid username'};
           ws.send(JSON.stringify(res));
           return;
         }
       }
+      if (result.username.length >= 20) {
+        let res = {method:'error',type:result.method,mess:'Username cannot exceed 20 characters'};
+        ws.send(JSON.stringify(res));
+        return;
+      }
       users.getAllUsers().then(list => {
+        if (list.length >= 500) {
+          let res = {method:'error',type:result.method,mess:'Max number of players has been reached'};
+          ws.send(JSON.stringify(res));
+          return;
+        }
         for (let user of list) {
           if (user.username.toLowerCase().replace(/\s/g,'') == result.username.toLowerCase().replace(/\s/g,'')) {
             let res = {method:'error',type:result.method,mess:'Username already taken'};
