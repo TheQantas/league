@@ -1,12 +1,8 @@
 const PORT = process.env.PORT || 3000;
 const express = require('express');
-const red = express();
 const app = express();
 app.set('views','./views');
 app.set('view engine','ejs');
-red.get('*', function(req, res) {  
-  res.redirect('https://' + req.headers.host + req.url);
-});
 const ejs = require('ejs');
 const crypto = require('crypto');
 const path = require('path');
@@ -24,7 +20,11 @@ const nodemailer = require('nodemailer');
 const speakeasy = require('speakeasy');
 const qrcode = require('qrcode');
 const useragent = require('express-useragent');
+const requestIp = require('request-ip');
+const geoip = require('geoip-lite');
+const { DateTime } = require('luxon');
 const mysql = require('mysql');
+app.use(requestIp.mw());
 app.use('/css', express.static(__dirname + '/css'));
 app.use('/scripts', express.static(__dirname + '/scripts'));
 app.use('/images', express.static(__dirname + '/images'));
@@ -32,6 +32,82 @@ app.use('/logos', express.static(__dirname + '/logos'));
 app.use('/audio', express.static(__dirname + '/audio'));
 const cookieParser = require('cookie-parser');
 var devices = {};
+
+//time code
+
+const tiempo = {};
+
+tiempo.getFormatTime = (utc,tz) => {
+  let zone = tiempo.getTime(utc,tz);
+  if (zone.error) {
+    return 'Time Error';
+  }
+  var m = zone.minute;
+  if (m < 10) {
+    m = `0${m}`;
+  }
+  if (zone.hour == 0) {
+    var h = 12;
+    var r = 'A';
+  } else if (zone.hour < 12) {
+    var h = zone.hour;
+    var r = 'A';
+  } else if (zone.hour == 12) {
+    var h = 12;
+    var r = 'P';
+  } else {
+    var h = zone.hour - 12;
+    var r = 'P';
+  }
+  return `${zone.weekdayShort} ${zone.day} ${zone.monthShort} ${h}:${m}${r}`;
+}
+
+tiempo.getFormatHour = (utc,tz) => {
+  let zone = tiempo.getTime(utc,tz);
+  if (zone.error) {
+    return 'XX:XX';
+  }
+  var m = zone.minute;
+  if (m < 10) {
+    m = `0${m}`;
+  }
+  if (zone.hour == 0) {
+    var h = 12;
+    var r = 'A';
+  } else if (zone.hour < 12) {
+    var h = zone.hour;
+    var r = 'A';
+  } else if (zone.hour == 12) {
+    var h = 12;
+    var r = 'P';
+  } else {
+    var h = zone.hour - 12;
+    var r = 'P';
+  }
+  return `${h}:${m}${r}`;
+}
+
+tiempo.getTime = (utc,tz) => {
+  if (!utc) {
+    let d = new Date();
+    utc = d.toISOString();
+  }
+  if (typeof utc == 'object') {
+    utc = utc.toISOString();
+  }
+  if (!tz) {
+    tz = 'utc';
+  }
+  var time = DateTime.fromISO(utc, { zone: 'utc' });
+  if (!time.isValid) {
+    return {error:true};
+  }
+  var zone = time.setZone(tz);
+  if (!zone.isValid) {
+    return {error:true};
+  }
+  return zone;
+}
 
 //sql sim
 const con = mysql.createConnection({
@@ -548,8 +624,8 @@ function sqlDraft(abbr,roster,id) {
 //draft code
 
 var draftInt = false;
-var draftStart = '2021-02-26 19:00:00 MST';
-var draftOpen = '2021-02-26 16:00:00 MST';
+var draftStart = '2021-02-27T02:00:00Z';
+var draftOpen = '2021-02-26T22:00:00Z';
 var ddx = new Date(draftStart);
 var draftFinished = false;                               //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 var draftLive = false;
@@ -660,8 +736,9 @@ function advPick() {
 
 //game code
 
+const match = {};
 var fieldGame = {finished:true};
-var firstGame = '2021-02-27 09:30:00 MST';
+var firstGame = '2021-02-27T16:30:00Z';
 function init() {
   if (fieldGame.finished == false) {
     return;
@@ -673,6 +750,7 @@ function init() {
     let unix = Infinity;
     for (let gamex of sch) {
       let d = new Date(gamex.schedule);
+      console.log(gamex.schedule);
       if (d.getTime() < unix && gamex.status == 'upcoming') {
         game = gamex;
         unix = d.getTime();
@@ -716,9 +794,9 @@ function startFirstGame() {
 startFirstGame();
 // setTimeout(() => {
 //   init();
-// },20000);
-//init();                                           !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-const match = {};
+// },200);
+//init();
+
 let Game = class {
   constructor(list,oppos) {
     let d = new Date();
@@ -2140,11 +2218,18 @@ app.use(useragent.express());
 app.get('/', (req, res) => {
   games.getWeek(getCurrentWeek()).then(sch => {
     teams.getAllTeams().then(list => {
+      var geo = geoip.lookup(req.clientIp);
+      var tz = 'utc';
+      if (geo) {
+        if (geo.timezone) {
+          tz = geo.timezone;
+        }
+      }
       sch.sort(sortGame);
       for (let game of sch) {
-        game.time = getTime(game.schedule);
-        let d = new Date(game.schedule);
-        game.day = dayFromNum(d.getDay());
+        let t = tiempo.getTime(game.schedule,tz);
+        game.time = tiempo.getFormatHour(game.schedule,tz);
+        game.day = t.weekdayShort;
       }
       for (let game of sch) {
         for (let team of list) {
@@ -2171,8 +2256,20 @@ app.get('/', (req, res) => {
       stories.sort(function(a,b) {
         return b.time - a.time;
       })
-      var dd = new Date(draftStart);
-      var dt = `${dd.getDate()} ${onlyFirst(monthFromNum(dd.getMonth()))} ${getTime(draftStart)}`;
+      //var dd = new Date(draftStart);
+      //var dt = `${dd.getDate()} ${onlyFirst(monthFromNum(dd.getMonth()))} ${getTime(draftStart)}`;
+      var eventTimes = [];
+      eventTimes[0] = '2021-02-27T02:00:00Z'; //draft
+      eventTimes[1] = '2021-02-27T16:30:00Z'; //first game
+      eventTimes[2] = '2021-04-07T05:59:00Z'; //trade deadline
+      eventTimes[3] = '2021-04-28T05:59:00Z'; //free agency deadline
+      eventTimes[4] = '2021-05-09T00:30:00Z'; //last game
+      eventTimes[5] = '2021-05-12T15:00:00Z'; //first postseason
+      eventTimes[6] = '2021-05-23T18:00:00Z'; //championship
+      var clientTimes = [];
+      for (let time of eventTimes) {
+        clientTimes.push(tiempo.getFormatTime(time,tz));
+      }
       let currWeek = [];
       for (let game of sch) {
         //console.log(game.away,game.home);
@@ -2181,10 +2278,10 @@ app.get('/', (req, res) => {
       //console.log(currWeek);
       res.render('index', {
         games: sch,
-        headlines: getHeadlines(currWeek,list),
+        headlines: getHeadlines(currWeek,list,tz),
         stories: stories,
         period: period,
-        time: dt
+        times: clientTimes
       });
     });
   });
@@ -2657,7 +2754,7 @@ app.get('/teams', function(req, res) {
         players.getAllPlayers().then(p => {
           players.getFreeAgents().then(agents => {
             let d = new Date(game.schedule);
-            res.cookie('test','express');
+            //res.cookie('test','express');
             res.render('teampage', {
               abbr: teamAbbr,
               teamMascot: team.mascot,
@@ -2665,7 +2762,7 @@ app.get('/teams', function(req, res) {
               day: fullDay(d.getDay()),
               month: fullMonth(d.getMonth()),
               date: d.getDate(),
-              time: formatTime(game.schedule),
+              time: tiempo.getFormatHour(game.schedule,tz),
               oppoMascot: oppo.mascot,
               oppoClass: oppoClass,
               teamRecord: `${formatRecord(team,false)} | ${formatRecord(team,true)}`,
@@ -2694,6 +2791,7 @@ app.get('/teams', function(req, res) {
               emailUpdates: team.emailUpdates,
               trades: teamTrades,
               canFreeAgent: canFreeAgent(),
+              canTrade: canMakeTrade(),
               calls: calls
             });
           });
@@ -2771,18 +2869,15 @@ app.get('/api', function(req, res)  {
 app.get('*', function(req, res){
   res.sendFile('notfound.html', { root: __dirname });
 });
-red.listen(8080);
-var server = app.listen(PORT, () => console.log(`Listening for https on ${PORT}`));
-// var webSocketServer = require('ws').server;
-// wss = new webSocketServer({server: server});
-const WebSocketServer = require('wss');
+var server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+const WebSocket = require('ws');
 //const { parse } = require('path');
 //const { send } = require('process');
 //const { isObject } = require('util');
 //const { resolve } = require('path');
 //const { timeStamp } = require('console');
 //const { brotliCompress } = require('zlib');
-const wss = new WebSocketServer({server: server});
+const wss = new WebSocket.Server({server : server});
 var activeCxns = {};
 var trades = {};
 var teamCxns = {};
@@ -3587,17 +3682,18 @@ wss.on('connection', ws => {
               newTrade.status = 'counterproposal';
             }
             let d = new Date();
-            newTrade.month = monthFromNum(d.getMonth());
-            let t = d.getDate();
-            if (t < 10) {
-              newTrade.date = `0${t}`;
-            } else {
-              newTrade.date = String(t);
-            }
-            newTrade.fromMascot = team.mascot;
-            newTrade.toMascot = partner.mascot;
-            newTrade.year = d.getFullYear();
-            newTrade.time = getTimestamp(d.getHours(),d.getMinutes());
+            // newTrade.month = monthFromNum(d.getMonth());
+            // let t = d.getDate();
+            // if (t < 10) {
+            //   newTrade.date = `0${t}`;
+            // } else {
+            //   newTrade.date = String(t);
+            // }
+            // newTrade.fromMascot = team.mascot;
+            // newTrade.toMascot = partner.mascot;
+            // newTrade.year = d.getFullYear();
+            // newTrade.time = getTimestamp(d.getHours(),d.getMinutes());
+            newTrade.unix = d.getTime();
             let id = guid(trades);
             trades[id] = newTrade;
             newTrade.id = id;
@@ -4796,24 +4892,26 @@ function getDraftTimer(x) {
   }
 }
 
-function getHeadlines(gameList,teamList) {
+function getHeadlines(gameList,teamList,tz) {
   var headlines = [];
-  var d = new Date();
-  var m = d.getMonth();
-  var t = d.getDate();
+  //var d = new Date();
+  //var m = d.getMonth();
+  //var t = d.getDate();
   var add = true;
   if (!draftFinished && !draftLive) {
     add = false;
-    let dx = new Date(draftStart);
-    let str = `${onlyFirst(dayFromNum(dx.getDay()))} ${dx.getDate()} ${onlyFirst(monthFromNum(dx.getMonth()))} ${getTime(draftStart)}`;
+    //let dx = new Date(draftStart);
+    //let str = `${onlyFirst(dayFromNum(dx.getDay()))} ${dx.getDate()} ${onlyFirst(monthFromNum(dx.getMonth()))} ${getTime(draftStart)}`;
+    let str = tiempo.getFormatTime(draftStart,tz);
     headlines.push({long:'League Draft',short:'League Draft',sub:str});
   } else if (!draftFinished) {
     add = false;
-    let dx = new Date(draftStart);
-    let str = `${onlyFirst(dayFromNum(dx.getDay()))} ${dx.getDate()} ${onlyFirst(monthFromNum(dx.getMonth()))} ${getTime(draftStart)}`;
+    //let dx = new Date(draftStart);
+    let str = tiempo.getFormatTime(draftStart,tz);
+    //let str = `${onlyFirst(dayFromNum(dx.getDay()))} ${dx.getDate()} ${onlyFirst(monthFromNum(dx.getMonth()))} ${getTime(draftStart)}`;
     headlines.push({long:'League Draft Live Now',short:'League Draft Live',sub:str});
   }
-  if (m < 1 || (m == 1 && t < 23)) {
+  if (getCurrentWeek() < 1) {
     headlines.push({long:'First Week of The League',short:'1st Week of Play',sub:'27 Feb-01 Mar'});
   }
   if (!add) {
@@ -4824,7 +4922,7 @@ function getHeadlines(gameList,teamList) {
   } else if (getCurrentWeek() == 12) {
     headlines.push({long:'Divisional Weekend',short:'Divisional Weekend',sub:'9 May'});
   } else if (getCurrentWeek() == 13) {
-    headlines.push({long:'Conference Round',short:'Conf Round',sub:'12 May'});
+    headlines.push({long:'Conference Round',short:'Conf. Round',sub:'12 May'});
   } else if (getCurrentWeek() == 14) {
     headlines.push({long:'League Championship',short:'League Title Game',sub:'16 May'});
   }
@@ -4971,13 +5069,14 @@ function getHeadlines(gameList,teamList) {
       }
       var sub = `${game.away} ${game.awayScore}, ${game.home} ${game.homeScore}`;
     } else { //game is upcoming
-      var dg = new Date(game.schedule);
-      var mg = dg.getMonth();
-      var tg = dg.getDate();
-      var wg = dg.getDay();
+      //var dg = new Date(game.schedule);
+      //var mg = dg.getMonth();
+      //var tg = dg.getDate();
+      //var wg = dg.getDay();
       var long = `${game.awayMascot} vs. ${game.homeMascot}`;
       var short = `${game.away} vs. ${game.home}`;
-      var sub = `${capFirst(dayFromNum(wg).toLowerCase())} ${tg} ${capFirst(monthFromNum(mg).toLowerCase())} ${getTime(game.schedule)}`;
+      var sub = tiempo.getFormatTime(game.schedule,tz);
+      //var sub = `${capFirst(dayFromNum(wg).toLowerCase())} ${tg} ${capFirst(monthFromNum(mg).toLowerCase())} ${getTime(game.schedule)}`;
     }
     headlines.push({long:long,short:short,sub:sub});
   }
@@ -5066,54 +5165,51 @@ function getNextWeekStart() {
 }
 
 function getCurrentWeek() {
-  var d = new Date();
-  var m = d.getMonth();
-  var t = d.getDate();
-  if (m == 0) { //jan
+  var d = DateTime.now().setZone('America/Denver');
+  //var d = new Date();
+  //var m = d.getMonth();
+  //var t = d.getDate();
+  var m = d.month;
+  var t = d.day;
+  if (m == 0 || m == 1) { //jan or feb
     return 0;
-  } else if (m == 1) { //feb
-    if (t <= 23) {
-      return 0;
-    } else {
-      return 1;
-    }
   } else if (m == 2) { //mar
     if (t <= 2) {
-      return 1;
+      return 0;
     } else if (t <= 9) {
-      return 2;
+      return 1;
     } else if (t <= 16) {
-      return 3;
+      return 2;
     } else if (t <= 23) {
-      return 4;
+      return 3;
     } else if (t <= 30) {
-      return 5;
+      return 4;
     } else {
-      return 6;
+      return 5;
     }
   } else if (m == 3) { //apr
     if (t <= 6) {
-      return 6;
+      return 5;
     } else if (t <= 13) {
-      return 7;
+      return 6;
     } else if (t <= 20) {
-      return 8;
+      return 7;
     } else if (t <= 27) {
-      return 9;
+      return 8;
     } else {
-      return 10;
+      return 9;
     }
   } else if (m == 4) { //may
-    if (t <= 3) {
+    if (t <= 4) {
+      return 9;
+    } else if (t <= 11) {
       return 10;
-    } else if (t <= 6) {
+    } else if (t <= 14) {
       return 11;
-    } else if (t <= 10) {
+    } else if (t <= 18) {
       return 12;
-    } else if (t <= 13) {
+    } else if (t <= 21) {
       return 13;
-    } else {
-      return 14;
     }
   }
   return 14;
@@ -5172,10 +5268,9 @@ function normalRandom(m,s,l,h) {
 }
 
 function canMakeTrade() {
-  var d = new Date();
-  var m = d.getMonth();
-  var t = d.getDate();
-  if ((m > 2) || (m == 2 && t > 2)) {
+  var d = new Date('2021-04-07T05:59:00Z');
+  var n = new Date();
+  if (d.getTime() < n.getTime()) {
     return false;
   } else {
     return true;
@@ -5183,10 +5278,9 @@ function canMakeTrade() {
 }
 
 function canFreeAgent() {
-  var d = new Date();
-  var m = d.getMonth();
-  var t = d.getDate();
-  if ((m > 3) || (m == 3 && t > 27)) {
+  var d = new Date('2021-04-28T05:59:00Z');
+  var n = new Date();
+  if (d.getTime() < n.getTime()) {
     return false;
   } else {
     return true;
@@ -5216,11 +5310,14 @@ function getTimestamp(h,m) {
 }
 
 function untilNextNoon() {
-  var tomorrow = new Date();
-  tomorrow.setDate(new Date().getDate() + 1);
-  var noon = new Date(tomorrow.getFullYear(),tomorrow.getMonth(),tomorrow.getDate(),12,0,0);
+  // var tomorrow = new Date();
+  // tomorrow.setDate(new Date().getDate() + 1);
+  // var noon = new Date(tomorrow.getFullYear(),tomorrow.getMonth(),tomorrow.getDate(),12,0,0);
+  // var d = new Date();
+  var now = DateTime.now().setZone('America/Denver').plus({days: 1});
   var d = new Date();
-  return noon.getTime() - d.getTime();
+  var noon = DateTime.local(now.year,now.month,now.day,12,0,0);
+  return noon.ts - d.getTime();
 }
 
 function validateEmail(email) {
