@@ -2281,7 +2281,7 @@ app.get('/', (req, res) => {
         pseudo.push(story);
       }
       for (let s of pseudo) {
-        pseudo.stamp = tiempo.getFormatTime(s.time,tz);
+        pseudo.stamp = tiempo.getFormatTime(s.time.toISOString(),tz);
          console.log(pseudo.stamp);
       }
       res.render('index', {
