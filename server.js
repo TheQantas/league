@@ -4,7 +4,7 @@ const red = express();
 red.get('*', function(req, res) {  
   res.redirect('https://' + req.headers.host + req.url);
 })
-http.listen(8080);
+red.listen(8080);
 const app = express();
 app.set('views','./views');
 app.set('view engine','ejs');
