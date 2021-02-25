@@ -2627,7 +2627,7 @@ app.get('/schedule', (req, res) => {
       game.awayTeam = clubs.getTeamFromAbbr(game.away);
       game.homeTeam = clubs.getTeamFromAbbr(game.home);
       //game.time = getTime(game.schedule);
-      game.time = tiempo.getFormatTime(game.schedule,tz);
+      game.time = tiempo.getFormatHour(game.schedule,tz);
     }
     list.sort(sortGame);
     if (fieldGame != false && fieldGame.finished == false) {
