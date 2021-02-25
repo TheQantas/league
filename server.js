@@ -2282,6 +2282,7 @@ app.get('/', (req, res) => {
       }
       for (let s of pseudo) {
         pseudo.stamp = tiempo.getFormatTime(s.time,tz);
+         console.log(pseudo.stamp);
       }
       res.render('index', {
         games: sch,
