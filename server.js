@@ -2283,6 +2283,7 @@ app.get('/', (req, res) => {
       for (let s of pseudo) {
         let ps = new Date(s.time);
         pseudo.stamp = tiempo.getFormatTime(ps.toISOString(),tz);
+        console.log(pseudo.stamp);
       }
       res.render('index', {
         games: sch,
