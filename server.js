@@ -1176,7 +1176,7 @@ match.rush = () => {
   var tack;
   var delay;
   for (let tackler of tacklers) {
-    defSpeed = normalRandom(tackler.speedDistr.m,tackler.speedDistr.s);
+    defSpeed = normalRandom(tackler.speedDistr.tackler.speedDistr.s);
     if (!match.canCatchRB(rb,tackler,rbSpeed,defSpeed)) {
       continue;
     }
@@ -5171,7 +5171,7 @@ function getCurrentWeek() {
   //var t = d.getDate();
   var m = d.month - 1;
   var t = d.day;
-  console.log(m,t);
+  //console.log(m,t);
   if (m == 0 || m == 1) { //jan or feb
     return 0;
   } else if (m == 2) { //mar
