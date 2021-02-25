@@ -4853,7 +4853,7 @@ function newStory(str) {
   let story = {text:str};
   let d = new Date();
   story.time = d.getTime();
-  story.stamp = `${dayFromNum(d.getDay())} ${d.getDate()} ${monthFromNum(d.getMonth())} ${getTime(d.getTime())}`;
+  //story.stamp = `${dayFromNum(d.getDay())} ${d.getDate()} ${monthFromNum(d.getMonth())} ${getTime(d.getTime())}`;
   stories.push(story);
 }
 
