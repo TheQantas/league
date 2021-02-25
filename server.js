@@ -2276,10 +2276,17 @@ app.get('/', (req, res) => {
         currWeek.push(game);
       }
       //console.log(currWeek);
+      let pseudo = [];
+      for (let story of stories) {
+        pseudo.push(story);
+      }
+      for (let s of pseudo) {
+        pseudo.stamp = tiempo.getFormatTime(s.time,tz);
+      }
       res.render('index', {
         games: sch,
         headlines: getHeadlines(currWeek,list,tz),
-        stories: stories,
+        stories: pseudo,
         period: period,
         times: clientTimes
       });
