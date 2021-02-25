@@ -2616,10 +2616,18 @@ app.get('/draftguest', (req, res) => {
 });
 app.get('/schedule', (req, res) => {
   games.getWeek(getCurrentWeek()).then(list => {
+    var geo = geoip.lookup(req.clientIp);
+    var tz = 'utc';
+    if (geo) {
+      if (geo.timezone) {
+        tz = geo.timezone;
+      }
+    }
     for (let game of list) {
       game.awayTeam = clubs.getTeamFromAbbr(game.away);
       game.homeTeam = clubs.getTeamFromAbbr(game.home);
-      game.time = getTime(game.schedule);
+      //game.time = getTime(game.schedule);
+      game.time = tiempo.getFormatTime(game.schedule,tz);
     }
     list.sort(sortGame);
     if (fieldGame != false && fieldGame.finished == false) {
