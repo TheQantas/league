@@ -139,13 +139,13 @@
         <div class="dateCircle" style="top:310px"></div>
       </div>
       <div id="datesTont">
-        <div class="datesText"><%= time %> | League Draft</div>
-        <div class="datesText">27 Feb 9:30A | First Game of the Regular Season</div>
-        <div class="datesText">2 Mar 11:59P | Trade Deadline</div>
-        <div class="datesText">27 Apr 11:59P | Free Agency Deadline</div>
-        <div class="datesText">9 May 6:30P | Last Game of the Regular Season</div>
-        <div class="datesText">12 May 9:00A | First Game of Postseason</div>
-        <div class="datesText">23 May 12:00P | League Championship</div>
+        <div class="datesText"><%= times[0] %> | League Draft</div>
+        <div class="datesText"><%= times[1] %> | First Game of the Regular Season</div>
+        <div class="datesText"><%= times[2] %> | Trade Deadline</div>
+        <div class="datesText"><%= times[3] %> | Free Agency Deadline</div>
+        <div class="datesText"><%= times[4] %> | Last Game of the Regular Season</div>
+        <div class="datesText"><%= times[5] %> | First Game of Postseason</div>
+        <div class="datesText"><%= times[6] %> | League Championship</div>
       </div>
     </div>
   </section>
@@ -163,7 +163,7 @@
     <% if (stories.length > 3) { %>
       <button class="headlineMore" onclick="this.nextElementSibling.style.display='block';this.style.display='none'">Show More</button>
       <div style="display:none">
-        <% for (let i = 3, story = stories[3]; i < 6; i++, story = stories[i]) {
+        <% for (let i = 3, story = stories[3]; i < 9; i++, story = stories[i]) {
           if (!story) {
             continue;
           } %>
