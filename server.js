@@ -5169,8 +5169,9 @@ function getCurrentWeek() {
   //var d = new Date();
   //var m = d.getMonth();
   //var t = d.getDate();
-  var m = d.month;
+  var m = d.month - 1;
   var t = d.day;
+  console.log(m,t);
   if (m == 0 || m == 1) { //jan or feb
     return 0;
   } else if (m == 2) { //mar
