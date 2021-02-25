@@ -163,10 +163,7 @@
   <section id="roster" data-team="<%= abbr %>" class="parent" style="display:none">
     <div class="rosterChoose">
       <div class="rosterChooseHalf <%= teamClass %>">Your Roster</div>
-      <% var d = new Date() %>
-      <% var m = d.getMonth() %>
-      <% var t = d.getDate() %>
-      <% if ((m < 2) || (m == 2 && t < 3)) { %>
+      <% if (canTrade) { %>
         <div id="proposeTradeCont" class="league">
           <button id="proposeTrade" class="disabled" onclick="showTradeMaker()">Propose Trade</button>
         </div>
@@ -654,10 +651,7 @@
       </section>
     <% } %>
   </section>
-    <% var dx = new Date() %>
-    <% var mx = dx.getMonth() %>
-    <% var tx = dx.getDate() %>
-    <% if ((mx < 2) || (mx == 2 && tx < 3)) { %>
+    <% if (canTrade) { %>
       <section id="makeTradeCont">
         <div>
           <div id="makeTradeWindow">
