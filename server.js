@@ -2748,6 +2748,13 @@ app.get('/teams', function(req, res) {
       });
       return;
     }
+    var geo = geoip.lookup(req.clientIp);
+    var tz = 'utc';
+    if (geo) {
+      if (geo.timezone) {
+        tz = geo.timezone;
+      }
+    }
     //console.log(acc);
     var teamAbbr = acc.abbr;
     games.getNextGame(teamAbbr).then(game => {
