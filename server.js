@@ -40,36 +40,51 @@ var devices = {};
 
 //block
 
-var url = require('url');
-var WebSocket = require('ws');
-var HttpsProxyAgent = require('https-proxy-agent');
+// var url = require('url');
+// var WebSocket = require('ws');
+// var HttpsProxyAgent = require('https-proxy-agent');
 
-// HTTP/HTTPS proxy to connect to
-var proxy = process.env.http_proxy || 'http://3.131.119.119:3128';
-console.log('using proxy server %j', proxy);
+// // HTTP/HTTPS proxy to connect to
+// var proxy = process.env.http_proxy || 'http://3.131.119.119:3128';
+// console.log('using proxy server %j', proxy);
 
-// WebSocket endpoint for the proxy to connect to
-var endpoint = process.argv[2] || 'ws://echo.websocket.org';
-var parsed = url.parse(endpoint);
-console.log('attempting to connect to WebSocket %j', endpoint);
+// // WebSocket endpoint for the proxy to connect to
+// var endpoint = process.argv[2] || 'ws://echo.websocket.org';
+// var parsed = url.parse(endpoint);
+// console.log('attempting to connect to WebSocket %j', endpoint);
 
-// create an instance of the `HttpsProxyAgent` class with the proxy server information
-var options = url.parse(proxy);
+// // create an instance of the `HttpsProxyAgent` class with the proxy server information
+// var options = url.parse(proxy);
 
-var agent = new HttpsProxyAgent(options);
+// var agent = new HttpsProxyAgent(options);
 
-// finally, initiate the WebSocket connection
-var socket = new WebSocket(endpoint, { agent: agent });
+// // finally, initiate the WebSocket connection
+// var socket = new WebSocket(endpoint, { agent: agent });
 
-socket.on('open', function () {
-  console.log('"open" event!');
-  socket.send('hello world');
-});
+// socket.on('open', function () {
+//   console.log('"open" event!');
+//   socket.send('hello world');
+// });
 
-socket.on('message', function (data, flags) {
-  console.log('"message" event! %j %j', data, flags);
-  socket.close();
-});
+// socket.on('message', function (data, flags) {
+//   console.log('"message" event! %j %j', data, flags);
+//   socket.close();
+// });
+
+//v2
+
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('/etc/letsencrypt/live/theleague.football/fullchain.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/theleague.football/privkey.pem')
+};
+
+var server = https.createServer(options, (req, res) => {
+  console.log(3000);
+  console.log(`Listening on ${PORT}`)
+}).listen(3000);
 
 //time code
 
@@ -2923,7 +2938,7 @@ app.get('/api', function(req, res)  {
 app.get('*', function(req, res){
   res.sendFile('notfound.html', { root: __dirname });
 });
-var server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+//var server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 //const WebSocket = require('ws');
 //const { parse } = require('path');
 //const { send } = require('process');
