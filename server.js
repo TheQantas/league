@@ -11,6 +11,7 @@ app.set('view engine','ejs');
 const ejs = require('ejs');
 const crypto = require('crypto');
 const path = require('path');
+const WebSocket = require('ws');
 //const players = require('./players.js');
 const players = {};
 //const games = require('./games.js');
