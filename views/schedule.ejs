@@ -112,41 +112,7 @@
   <section id="gamesCont">
     <% games.forEach(game => { %>
       <div class="gameBox">
-        <% var d = new Date(game.schedule); %>
-        <%function numToMon(num) {
-          switch (num) {
-            case 0:
-              return 'JAN';
-            case 1:
-              return 'FEB';
-            case 2:
-              return 'MAR';
-            case 3:
-              return 'APR';
-            case 4:
-              return 'MAY';
-          }
-        }
-        
-        function numToDay(num) {
-          switch (num) {
-            case 0:
-              return 'SUN';
-            case 1:
-              return 'MON';
-            case 2:
-              return 'TUE';
-            case 3:
-              return 'WED';
-            case 4:
-              return 'THU';
-            case 5:
-              return 'FRI';
-            case 6:
-              return 'SAT';
-          }
-        }%>
-        <div class="gameTime"><%= numToDay(d.getDay()) %> <%= d.getDate() %> <%= numToMon(d.getMonth()) %> <%= game.time %>
+        <div class="gameTime"><%= game.time %>
           <% if (game.status.toLowerCase().indexOf('final') != -1) { %>
             - <%= game.status.toUpperCase() %>
           <% } else if (game.status == 'ongoing') { %>
