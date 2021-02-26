@@ -226,22 +226,23 @@ teams.getAllTeamsByConf = function(conf) {
 
 teams.getAccountFromToken = function(token) {
   return request('SELECT * FROM teams').then(list => {
-    let matches = [];
+    //let matches = [];
     for (let team of list) {
       let tokenSalt = JSON.parse(team.tokenSalt);
       let tokenHash = JSON.parse(team.tokenHash);
       for (let i = 0; i < tokenSalt.length; i++) {
         if (crypto.createHash('sha512').update(token + tokenSalt[i]).digest('hex') == tokenHash[i]) {
-          matches.push(team);
-          break;
+          //matches.push(team);
+          return team;
+          //break;
         }
       }
     }
-    if (matches.length == 1) {
-      return matches[0];
-    } else {
-      return;
-    }
+//     if (matches.length == 1) {
+//       return matches[0];
+//     } else {
+//       return;
+//     }
   });
 }
 
