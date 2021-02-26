@@ -2891,7 +2891,7 @@ app.get('*', function(req, res){
   res.sendFile('notfound.html', { root: __dirname });
 });
 var server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-const WebSocket = require('wss');
+const WebSocket = require('ws');
 //const { parse } = require('path');
 //const { send } = require('process');
 //const { isObject } = require('util');
