@@ -73,18 +73,18 @@ var devices = {};
 
 //v2
 
-const https = require('https');
-const fs = require('fs');
+// const https = require('https');
+// const fs = require('fs');
 
-const options = {
-  key: fs.readFileSync('fullchain1.pem'),
-  cert: fs.readFileSync('privkey1.pem')
-};
+// const options = {
+//   key: fs.readFileSync('fullchain1.pem'),
+//   cert: fs.readFileSync('privkey1.pem')
+// };
 
-var server = https.createServer(options, (req, res) => {
-  console.log(3000);
-  console.log(`Listening on ${PORT}`)
-}).listen(3000);
+// var server = https.createServer(options, (req, res) => {
+//   console.log(3000);
+//   console.log(`Listening on ${PORT}`)
+// }).listen(3000);
 
 //time code
 
@@ -2938,7 +2938,7 @@ app.get('/api', function(req, res)  {
 app.get('*', function(req, res){
   res.sendFile('notfound.html', { root: __dirname });
 });
-//var server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+var server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 //const WebSocket = require('ws');
 //const { parse } = require('path');
 //const { send } = require('process');
