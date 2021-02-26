@@ -77,8 +77,8 @@ const https = require('https');
 const fs = require('fs');
 
 const options = {
-  key: fs.readFileSync('live/theleague.football/fullchain.pem'),
-  cert: fs.readFileSync('live/theleague.football/privkey.pem')
+  key: fs.readFileSync('fullchain1.pem'),
+  cert: fs.readFileSync('privkey1.pem')
 };
 
 var server = https.createServer(options, (req, res) => {
