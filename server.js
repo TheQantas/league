@@ -1,4 +1,4 @@
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 const express = require('express');
 const red = express();
 //red.get('*', function(req, res) {  
