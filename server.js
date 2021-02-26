@@ -2313,13 +2313,14 @@ app.get('/', (req, res) => {
       //var dd = new Date(draftStart);
       //var dt = `${dd.getDate()} ${onlyFirst(monthFromNum(dd.getMonth()))} ${getTime(draftStart)}`;
       var eventTimes = [];
-      eventTimes[0] = '2021-02-27T02:00:00Z'; //draft
-      eventTimes[1] = '2021-02-27T16:30:00Z'; //first game
-      eventTimes[2] = '2021-04-07T05:59:00Z'; //trade deadline
-      eventTimes[3] = '2021-04-28T05:59:00Z'; //free agency deadline
-      eventTimes[4] = '2021-05-09T00:30:00Z'; //last game
-      eventTimes[5] = '2021-05-12T15:00:00Z'; //first postseason
-      eventTimes[6] = '2021-05-23T18:00:00Z'; //championship
+      eventTimes[0] = '2021-02-26T22:00:00Z'; //draft open
+      eventTimes[1] = '2021-02-27T02:00:00Z'; //draft
+      eventTimes[2] = '2021-02-27T16:30:00Z'; //first game
+      eventTimes[3] = '2021-04-07T05:59:00Z'; //trade deadline
+      eventTimes[4] = '2021-04-28T05:59:00Z'; //free agency deadline
+      eventTimes[5] = '2021-05-09T00:30:00Z'; //last game
+      eventTimes[6] = '2021-05-12T15:00:00Z'; //first postseason
+      eventTimes[7] = '2021-05-23T18:00:00Z'; //championship
       var clientTimes = [];
       for (let time of eventTimes) {
         clientTimes.push(tiempo.getFormatTime(time,tz));
