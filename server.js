@@ -3323,7 +3323,7 @@ wss.on('connection', ws => {
             }
           });
           setTimeout(function() {
-            updateTeam(acc.abbr,['tempSalt','tempHash','email'],[null,null,null]);
+            updateTeam(acc.abbr,['tempSalt','tempHash'],[null,null]);
           }, 120 * 1000);
         });
       });
