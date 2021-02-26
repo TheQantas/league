@@ -45,7 +45,7 @@ var WebSocket = require('ws');
 var HttpsProxyAgent = require('https-proxy-agent');
 
 // HTTP/HTTPS proxy to connect to
-var proxy = process.env.http_proxy || 'http://168.63.76.32:3128';
+var proxy = process.env.http_proxy || 'http://3.131.119.119:3128';
 console.log('using proxy server %j', proxy);
 
 // WebSocket endpoint for the proxy to connect to
