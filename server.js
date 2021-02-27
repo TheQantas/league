@@ -893,6 +893,7 @@ let Game = class {
         if (stat.name != 'speed' && stat.name != 'dist' && stat.name != 'yac') {
           player[stat.name] = normalRandom(stat.m,stat.s);
         } else {
+          console.log(`${stat.name}Distr`,{m:stat.m,s:stat.s});
           player[`${stat.name}Distr`] = {m:stat.m,s:stat.s};
         }
       }
