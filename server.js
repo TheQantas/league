@@ -877,7 +877,7 @@ let Game = class {
         continue;
       }
       let player = awayRoster[pos];
-      console.log(player);
+      //console.log(player);
       player.statsArch = JSON.parse(player.stats);
       player.stats = {};
       for (let attr in player.statsArch) {
@@ -897,6 +897,7 @@ let Game = class {
         continue;
       }
       let player = homeRoster[pos];
+      console.log(player,pos);
       player.statsArch = JSON.parse(player.stats);
       player.stats = {};
       for (let attr in player.statsArch) {
