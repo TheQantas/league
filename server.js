@@ -842,8 +842,8 @@ var dgx = new Date(firstGame);
 function startFirstGame() {
   let delay = dgx.getTime() - dnx.getTime();
   console.log(delay,'init');
-  if (delay < 5 * 60 * 1000) {
-    delay = 5 * 60 * 1000;
+  if (delay < 0.05 * 60 * 1000) {
+    delay = 0.05 * 60 * 1000;
   }
   console.log(delay);
   setTimeout(() => {
