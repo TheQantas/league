@@ -1,18 +1,11 @@
 const PORT = process.env.PORT || 3000;
 const express = require('express');
-//const red = express();
-//red.get('*', function(req, res) {  
-//  res.redirect('https://' + req.headers.host + req.url);
-//})
-//red.listen(8080);
 const app = express();
 app.set('views','./views');
 app.set('view engine','ejs');
-app.use(express.static('/var/www/html'));
 const ejs = require('ejs');
 const crypto = require('crypto');
 const path = require('path');
-const WebSocket = require('ws');
 //const players = require('./players.js');
 const players = {};
 //const games = require('./games.js');
@@ -40,54 +33,6 @@ app.use('/audio', express.static(__dirname + '/audio'));
 const cookieParser = require('cookie-parser');
 var devices = {};
 
-//block
-
-// var url = require('url');
-// var WebSocket = require('ws');
-// var HttpsProxyAgent = require('https-proxy-agent');
-
-// // HTTP/HTTPS proxy to connect to
-// var proxy = process.env.http_proxy || 'http://3.131.119.119:3128';
-// console.log('using proxy server %j', proxy);
-
-// // WebSocket endpoint for the proxy to connect to
-// var endpoint = process.argv[2] || 'ws://echo.websocket.org';
-// var parsed = url.parse(endpoint);
-// console.log('attempting to connect to WebSocket %j', endpoint);
-
-// // create an instance of the `HttpsProxyAgent` class with the proxy server information
-// var options = url.parse(proxy);
-
-// var agent = new HttpsProxyAgent(options);
-
-// // finally, initiate the WebSocket connection
-// var socket = new WebSocket(endpoint, { agent: agent });
-
-// socket.on('open', function () {
-//   console.log('"open" event!');
-//   socket.send('hello world');
-// });
-
-// socket.on('message', function (data, flags) {
-//   console.log('"message" event! %j %j', data, flags);
-//   socket.close();
-// });
-
-//v2
-
-// const https = require('https');
-// const fs = require('fs');
-
-// const options = {
-//   key: fs.readFileSync('fullchain1.pem'),
-//   cert: fs.readFileSync('privkey1.pem')
-// };
-
-// var server = https.createServer(options, (req, res) => {
-//   console.log(3000);
-//   console.log(`Listening on ${PORT}`)
-// }).listen(3000);
-
 //time code
 
 const tiempo = {};
@@ -110,6 +55,7 @@ tiempo.getFormatTime = (utc,tz) => {
   } else if (zone.hour == 12) {
     var h = 12;
     var r = 'P';
+    console.log('noon');
   } else {
     var h = zone.hour - 12;
     var r = 'P';
@@ -166,12 +112,12 @@ tiempo.getTime = (utc,tz) => {
 
 //sql sim
 const con = mysql.createConnection({
-  //host: 'localhost',
   host: 'localhost',
+  //host: '3.16.148.122',
   port: 3306,
   user: 'root',
-  //password: '5$nm12@kbV9)',
-  password: 'eHL0cThfzctM4d3ece#12kx0nLfvYkDU',
+  password: '5$nm12@kbV9)',
+  //password: 'eHL0cThfzctM4d3ece#12kx0nLfvYkDU',
   database: 'league',
   multipleStatements: true
 });
@@ -226,23 +172,22 @@ teams.getAllTeamsByConf = function(conf) {
 
 teams.getAccountFromToken = function(token) {
   return request('SELECT * FROM teams').then(list => {
-    //let matches = [];
+    let matches = [];
     for (let team of list) {
       let tokenSalt = JSON.parse(team.tokenSalt);
       let tokenHash = JSON.parse(team.tokenHash);
       for (let i = 0; i < tokenSalt.length; i++) {
         if (crypto.createHash('sha512').update(token + tokenSalt[i]).digest('hex') == tokenHash[i]) {
-          //matches.push(team);
-          return team;
-          //break;
+          matches.push(team);
+          break;
         }
       }
     }
-//     if (matches.length == 1) {
-//       return matches[0];
-//     } else {
-//       return;
-//     }
+    if (matches.length == 1) {
+      return matches[0];
+    } else {
+      return;
+    }
   });
 }
 
@@ -683,9 +628,9 @@ var draftInt = false;
 var draftStart = '2021-02-27T02:00:00Z';
 var draftOpen = '2021-02-26T22:00:00Z';
 var ddx = new Date(draftStart);
-var draftFinished = true;                               //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+var draftFinished = false;                               //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 var draftLive = false;
-var currentPick = 384;
+var currentPick = 0;
 var canPick = true;
 var draftTimer = 30;
 var draftResolved;
@@ -695,16 +640,16 @@ var cfcLeague = [];
 var nfcLeague = [];
 var dnx = new Date();
 var tradesDone = {};
-// setTimeout(() => {
-//   draftLive = true;
-//   for (let a in draftCxns) {
-//     for (let cxn of draftCxns[a]) {
-//       cxn.send(JSON.stringify({method:'draftStarted'}));
-//     }
-//   }
-//   startDraftTimer();
-// //}, ddx.getTime() - dnx.getTime());
-// }, 10000);
+setTimeout(() => {
+  draftLive = true;
+  for (let a in draftCxns) {
+    for (let cxn of draftCxns[a]) {
+      cxn.send(JSON.stringify({method:'draftStarted'}));
+    }
+  }
+  startDraftTimer();
+}, ddx.getTime() - dnx.getTime());
+//}, 10000);
 
 function startDraftTimer() {
   if (draftInt != false) {
@@ -1232,7 +1177,7 @@ match.rush = () => {
   var tack;
   var delay;
   for (let tackler of tacklers) {
-    defSpeed = normalRandom(tackler.speedDistr.tackler.speedDistr.s);
+    defSpeed = normalRandom(tackler.speedDistr.m,tackler.speedDistr.s);
     if (!match.canCatchRB(rb,tackler,rbSpeed,defSpeed)) {
       continue;
     }
@@ -2315,14 +2260,13 @@ app.get('/', (req, res) => {
       //var dd = new Date(draftStart);
       //var dt = `${dd.getDate()} ${onlyFirst(monthFromNum(dd.getMonth()))} ${getTime(draftStart)}`;
       var eventTimes = [];
-      eventTimes[0] = '2021-02-26T23:00:00Z'; //draft open
-      eventTimes[1] = '2021-02-27T02:00:00Z'; //draft
-      eventTimes[2] = '2021-02-27T16:30:00Z'; //first game
-      eventTimes[3] = '2021-04-07T05:59:00Z'; //trade deadline
-      eventTimes[4] = '2021-04-28T05:59:00Z'; //free agency deadline
-      eventTimes[5] = '2021-05-09T00:30:00Z'; //last game
-      eventTimes[6] = '2021-05-12T15:00:00Z'; //first postseason
-      eventTimes[7] = '2021-05-23T18:00:00Z'; //championship
+      eventTimes[0] = '2021-02-27T02:00:00Z'; //draft
+      eventTimes[1] = '2021-02-27T16:30:00Z'; //first game
+      eventTimes[2] = '2021-04-07T05:59:00Z'; //trade deadline
+      eventTimes[3] = '2021-04-28T05:59:00Z'; //free agency deadline
+      eventTimes[4] = '2021-05-09T00:30:00Z'; //last game
+      eventTimes[5] = '2021-05-12T15:00:00Z'; //first postseason
+      eventTimes[6] = '2021-05-23T18:00:00Z'; //championship
       var clientTimes = [];
       for (let time of eventTimes) {
         clientTimes.push(tiempo.getFormatTime(time,tz));
@@ -2692,7 +2636,7 @@ app.get('/schedule', (req, res) => {
       game.awayTeam = clubs.getTeamFromAbbr(game.away);
       game.homeTeam = clubs.getTeamFromAbbr(game.home);
       //game.time = getTime(game.schedule);
-      game.time = tiempo.getFormatTime(game.schedule,tz).toUpperCase();
+      game.time = tiempo.getFormatHour(game.schedule,tz);
     }
     list.sort(sortGame);
     if (fieldGame != false && fieldGame.finished == false) {
@@ -2747,13 +2691,6 @@ app.get('/teams', function(req, res) {
         offerDraft: false
       });
       return;
-    }
-    var geo = geoip.lookup(req.clientIp);
-    var tz = 'utc';
-    if (geo) {
-      if (geo.timezone) {
-        tz = geo.timezone;
-      }
     }
     //console.log(acc);
     var teamAbbr = acc.abbr;
@@ -2950,7 +2887,7 @@ app.get('*', function(req, res){
   res.sendFile('notfound.html', { root: __dirname });
 });
 var server = app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-//const WebSocket = require('ws');
+const WebSocket = require('ws');
 //const { parse } = require('path');
 //const { send } = require('process');
 //const { isObject } = require('util');
@@ -3323,7 +3260,7 @@ wss.on('connection', ws => {
             }
           });
           setTimeout(function() {
-            updateTeam(acc.abbr,['tempSalt','tempHash'],[null,null]);
+            updateTeam(acc.abbr,['tempSalt','tempHash','email'],[null,null,null]);
           }, 120 * 1000);
         });
       });
@@ -3744,6 +3681,7 @@ wss.on('connection', ws => {
               toPlayers.push({num:num,fName:player.fName,lName:player.lName,pos:player.pos});
             }
             let newTrade = {from:result.from,to:result.to,fromPlayers:fromPlayers,toPlayers:toPlayers,status:'proposed'};
+            console.log(newTrade);
             if (result.counter == true) {
               let counteredTrade = trades[result.id];
               if (counteredTrade.to != team.abbr) {
@@ -5249,9 +5187,8 @@ function getCurrentWeek() {
   //var d = new Date();
   //var m = d.getMonth();
   //var t = d.getDate();
-  var m = d.month - 1;
+  var m = d.month + 1;
   var t = d.day;
-  //console.log(m,t);
   if (m == 0 || m == 1) { //jan or feb
     return 0;
   } else if (m == 2) { //mar
