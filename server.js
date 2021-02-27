@@ -840,8 +840,8 @@ function init() {
 var dgx = new Date(firstGame);
 function startFirstGame() {
   let delay = dgx.getTime() - dnx.getTime();
-  if (delay < 1 * 60 * 1000) {
-    delay = 1 * 60 * 1000;
+  if (delay < 0.2 * 60 * 1000) {
+    delay = 0.2 * 60 * 1000;
   }
   console.log(delay);
   setTimeout(() => {
@@ -877,6 +877,7 @@ let Game = class {
         continue;
       }
       let player = awayRoster[pos];
+      console.log(player);
       player.statsArch = JSON.parse(player.stats);
       player.stats = {};
       for (let attr in player.statsArch) {
