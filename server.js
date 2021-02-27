@@ -685,7 +685,7 @@ var draftOpen = '2021-02-26T22:00:00Z';
 var ddx = new Date(draftStart);
 var draftFinished = false;                               //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 var draftLive = false;
-var currentPick = 0;
+var currentPick = 384;
 var canPick = true;
 var draftTimer = 30;
 var draftResolved;
@@ -703,8 +703,8 @@ setTimeout(() => {
     }
   }
   startDraftTimer();
-}, ddx.getTime() - dnx.getTime());
-//}, 10000);
+//}, ddx.getTime() - dnx.getTime());
+}, 10000);
 
 function startDraftTimer() {
   if (draftInt != false) {
