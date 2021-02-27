@@ -863,6 +863,7 @@ let Game = class {
     this.awayTeam = oppos.away;
     this.homeTeam = oppos.home;
     let awayRoster = getFullRoster(list,JSON.parse(oppos.away.roster));
+    console.log(JSON.parse(oppos.home.roster));
     let homeRoster = getFullRoster(list,JSON.parse(oppos.home.roster));
     this.awayRoster = awayRoster;
     this.homeRoster = homeRoster;
