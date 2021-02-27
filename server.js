@@ -3744,6 +3744,7 @@ wss.on('connection', ws => {
               toPlayers.push({num:num,fName:player.fName,lName:player.lName,pos:player.pos});
             }
             let newTrade = {from:result.from,to:result.to,fromPlayers:fromPlayers,toPlayers:toPlayers,status:'proposed'};
+            console.log(newTrade);
             if (result.counter == true) {
               let counteredTrade = trades[result.id];
               if (counteredTrade.to != team.abbr) {
