@@ -1242,7 +1242,7 @@ match.rush = () => {
   var tack;
   var delay;
   for (let tackler of tacklers) {
-    defSpeed = normalRandom(tackler.speedDistr.tackler.speedDistr.s);
+    defSpeed = normalRandom(tackler.speedDistr.m,tackler.speedDistr.s);
     if (!match.canCatchRB(rb,tackler,rbSpeed,defSpeed)) {
       continue;
     }
