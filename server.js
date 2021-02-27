@@ -912,6 +912,7 @@ let Game = class {
         }
       }
     }
+    console.log(homeRoster):
     this.awayPlayers = awayRoster;
     this.homePlayers = homeRoster;
     this.awayPlayers.de.tackle = 0.7;
