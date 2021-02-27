@@ -1971,7 +1971,7 @@ match.setNextGame = () => {
       var dnx = new Date(getNextWeekStart());
       setTimeout(() => {
         getBets();
-      },dnx.getTime() + dbx.getTime() + 100);
+      },dnx.getTime() - dbx.getTime() + 100);
       //},3000);
     }
     let dx = new Date();
