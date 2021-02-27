@@ -806,7 +806,7 @@ function init() {
     let unix = Infinity;
     for (let gamex of sch) {
       let d = new Date(gamex.schedule);
-      console.log(gamex.schedule);
+      //console.log(gamex.schedule);
       if (d.getTime() < unix && gamex.status == 'upcoming') {
         game = gamex;
         unix = d.getTime();
@@ -892,6 +892,7 @@ let Game = class {
         }
       }
     }
+    console.log(homeRoster);
     for (let pos in homeRoster) {
       if (pos.indexOf('flx') != -1) {
         continue;
@@ -912,7 +913,6 @@ let Game = class {
         }
       }
     }
-    console.log(homeRoster);
     this.awayPlayers = awayRoster;
     this.homePlayers = homeRoster;
     this.awayPlayers.de.tackle = 0.7;
