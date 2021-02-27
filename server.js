@@ -865,9 +865,9 @@ let Game = class {
     console.log(oppos.away.abbr,oppos.home.abbr);
     this.awayTeam = oppos.away;
     this.homeTeam = oppos.home;
-    console.log(oppos.home);
+    //console.log(oppos.home);
     let awayRoster = getFullRoster(list,JSON.parse(oppos.away.roster));
-    console.log(JSON.parse(oppos.home.roster));
+    //console.log(JSON.parse(oppos.home.roster));
     let homeRoster = getFullRoster(list,JSON.parse(oppos.home.roster));
     this.awayRoster = awayRoster;
     this.homeRoster = homeRoster;
@@ -897,13 +897,13 @@ let Game = class {
         }
       }
     }
-    console.log(homeRoster);
+    //console.log(homeRoster);
     for (let pos in homeRoster) {
       if (pos.indexOf('flx') != -1) {
         continue;
       }
       let player = homeRoster[pos];
-      console.log(player,pos);
+      //console.log(player,pos);
       player.statsArch = JSON.parse(player.stats);
       player.stats = {};
       for (let attr in player.statsArch) {
