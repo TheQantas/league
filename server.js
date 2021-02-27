@@ -808,6 +808,7 @@ function init() {
       let d = new Date(gamex.schedule);
       //console.log(gamex.schedule);
       if (d.getTime() < unix && gamex.status == 'upcoming') {
+        console.log(gamex.schedule,d.getTime());
         game = gamex;
         unix = d.getTime();
       }
