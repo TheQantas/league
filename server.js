@@ -840,8 +840,8 @@ function init() {
 var dgx = new Date(firstGame);
 function startFirstGame() {
   let delay = dgx.getTime() - dnx.getTime();
-  if (delay < 0.2 * 60 * 1000) {
-    delay = 0.2 * 60 * 1000;
+  if (delay < 0.1 * 60 * 1000) {
+    delay = 0.1 * 60 * 1000;
   }
   console.log(delay);
   setTimeout(() => {
@@ -912,7 +912,7 @@ let Game = class {
         }
       }
     }
-    console.log(homeRoster):
+    console.log(homeRoster);
     this.awayPlayers = awayRoster;
     this.homePlayers = homeRoster;
     this.awayPlayers.de.tackle = 0.7;
