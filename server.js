@@ -860,6 +860,7 @@ let Game = class {
     this.prevPlay = d.getTime();
     this.away = oppos.away.abbr;
     this.home = oppos.home.abbr;
+    console.log(oppos.away.abbr,oppos.home.abbr);
     this.awayTeam = oppos.away;
     this.homeTeam = oppos.home;
     console.log(oppos.home);
