@@ -683,7 +683,7 @@ var draftInt = false;
 var draftStart = '2021-02-27T02:00:00Z';
 var draftOpen = '2021-02-26T22:00:00Z';
 var ddx = new Date(draftStart);
-var draftFinished = false;                               //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+var draftFinished = true;                               //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 var draftLive = false;
 var currentPick = 384;
 var canPick = true;
@@ -695,16 +695,16 @@ var cfcLeague = [];
 var nfcLeague = [];
 var dnx = new Date();
 var tradesDone = {};
-setTimeout(() => {
-  draftLive = true;
-  for (let a in draftCxns) {
-    for (let cxn of draftCxns[a]) {
-      cxn.send(JSON.stringify({method:'draftStarted'}));
-    }
-  }
-  startDraftTimer();
-//}, ddx.getTime() - dnx.getTime());
-}, 10000);
+// setTimeout(() => {
+//   draftLive = true;
+//   for (let a in draftCxns) {
+//     for (let cxn of draftCxns[a]) {
+//       cxn.send(JSON.stringify({method:'draftStarted'}));
+//     }
+//   }
+//   startDraftTimer();
+// //}, ddx.getTime() - dnx.getTime());
+// }, 10000);
 
 function startDraftTimer() {
   if (draftInt != false) {
