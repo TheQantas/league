@@ -2222,7 +2222,7 @@ function setPlayoffWeek() {
       var dnx = new Date(getNextWeekStart());
       setTimeout(() => {
         getBets();
-      },dnx.getTime() + dbx.getTime() + 100);
+      },dnx.getTime() - dbx.getTime() + 100);
     });
   });
 }
