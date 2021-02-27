@@ -2830,6 +2830,9 @@ app.get('/teams', function(req, res) {
             trade.toClass = trade.toMascot.toLowerCase().replace(/\s/g,'');
           }
         }
+        for (let trade of teamTrades) {
+          trade.time = tiempo.getFormatTime(trade.stamp,tz);
+        }
         let calls = [team.passEarly,team.passLate,team.wrEarly,team.wrLate,team.deRushEarly,team.deRushLate,team.lbRushEarly,team.lbRushLate];
         players.getAllPlayers().then(p => {
           players.getFreeAgents().then(agents => {
@@ -3744,6 +3747,8 @@ wss.on('connection', ws => {
               toPlayers.push({num:num,fName:player.fName,lName:player.lName,pos:player.pos});
             }
             let newTrade = {from:result.from,to:result.to,fromPlayers:fromPlayers,toPlayers:toPlayers,status:'proposed',fromMascot:team.mascot,toMascot:partner.mascot};
+            let now = new Date();
+            newTrade.stamp = now.toISOString();
             console.log(newTrade);
             if (result.counter == true) {
               let counteredTrade = trades[result.id];
