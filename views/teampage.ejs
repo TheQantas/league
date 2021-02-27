@@ -750,15 +750,9 @@
       </section>
       <section id="trade" class="parent" style="display:none">
         <div id="tradeDeadline" class="league">
-          <% if (mx < 2) { %>
-            <span>The trade deadline is 02 March at 11:59P</span>
-          <% } else { %>
-            <% if (tx == 1) { %>
-              <span>The trade deadline is tomorrow at 11:59P</span>
-            <% } else { %>
-              <span>The trade deadline is tonight at 11:59P</span>
-            <% } %>
-          <% } %>
+          <% if (canTrade) { %>
+            <span>The trade deadline is 06 April at 11:59P</span>
+          <% }%>
         </div>
         <div id="tradeInst" class="league">
           <span>To propose a trade, go to the "roster" tab</span>
