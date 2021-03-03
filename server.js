@@ -5103,7 +5103,7 @@ function getHeadlines(gameList,teamList,tz) {
   gameList.sort(function(a,b) {
     return b.score - a.score;
   })
-  gameList = gameList.slice(0,6);
+  gameList = gameList.slice(0,8);
   for (let game of gameList) {
     game.awayMascot = clubs.getTeamFromAbbr(game.away).mascot;
     game.homeMascot = clubs.getTeamFromAbbr(game.home).mascot;
