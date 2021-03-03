@@ -106,12 +106,18 @@ function calc(away,home,week) {
     }
     for (let p in g) {
       console.log(g[p].statA);
-      if (typeof statA == 'string') {
+      if (typeof g[p].statA == 'string') {
         g[p].statA = JSON.parse(g[p].statA);
       }
-      g[p].statB = JSON.parse(g[p].statB);
-      g[p].statC = JSON.parse(g[p].statC);
-      g[p].stats = JSON.parse(g[p].stats);
+      if (typeof g[p].statB == 'string') {
+        g[p].statA = JSON.parse(g[p].statB);
+      }
+      if (typeof g[p].statC == 'string') {
+        g[p].statA = JSON.parse(g[p].statC);
+      }
+      if (typeof g[p].stats == 'string') {
+        g[p].statA = JSON.parse(g[p].stats);
+      }
     }
     if (g.qb.stats.att[week] == undefined || 0) {
       let q = new Q(0,0);
