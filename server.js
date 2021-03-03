@@ -2242,9 +2242,12 @@ function setPlayoffWeek() {
 var weekWinBets = [];
 var weekOverBets = [];
 var bets = [];
-getBets();
-function getBets() {
+getBets(true);
+function getBets(init) {
   var week = getCurrentWeek();
+  if (init) {
+    week++;
+  }
   weekWinBets.length = 0;
   weekOverBets.length = 0;
   bets.length = 0;
@@ -2728,6 +2731,9 @@ app.get('/info', (req, res) => {
 });
 app.get('/playoffs', (req, res) => {
   res.sendFile('playoffs.html', { root: __dirname });
+});
+app.get('/purple', (req, res) => {
+  res.sendFile('purple.html', { root: __dirname });
 });
 app.get('/teams', function(req, res) {
   //console.log(req.useragent);
@@ -4700,218 +4706,223 @@ function draftPlayer(team,roster,player,picks,comp) {
 
 function requestData(req,ws,res) {
   let data = {method:'requested',type:req.type,qual:req.qual,crit:req.crit};
-  if (req.type == 'games' && req.qual == 'week') {
-    games.getWeek(req.crit).then(list => {
-      for (let game of list) {
-        game.awayTeam = clubs.getTeamFromAbbr(game.away);
-        game.homeTeam = clubs.getTeamFromAbbr(game.home);
-        game.time = getTime(game.schedule);
-        if (game.status == 'ongoing') {
-          if (fieldGame.q < 5) {
-            game.period = `${getPeriod(fieldGame.q)} ${toMins(fieldGame.t).m}:${toMins(fieldGame.t).s}`;
-          } else {
-            game.period = getPeriod(fieldGame.q);
+  try {
+    if (req.type == 'games' && req.qual == 'week') {
+      games.getWeek(req.crit).then(list => {
+        for (let game of list) {
+          game.awayTeam = clubs.getTeamFromAbbr(game.away);
+          game.homeTeam = clubs.getTeamFromAbbr(game.home);
+          game.time = getTime(game.schedule);
+          if (game.status == 'ongoing') {
+            if (fieldGame.q < 5) {
+              game.period = `${getPeriod(fieldGame.q)} ${toMins(fieldGame.t).m}:${toMins(fieldGame.t).s}`;
+            } else {
+              game.period = getPeriod(fieldGame.q);
+            }
           }
         }
-      }
-      list.sort(sortGame);
-      data.data = list;
-      sendData(data,ws,res);
-    });
-  } else if (req.type == 'games' && req.qual == 'team') {
-    games.getTeamSchedule(req.crit).then(list => {
-      for (let game of list) {
-        game.awayTeam = clubs.getTeamFromAbbr(game.away);
-        game.homeTeam = clubs.getTeamFromAbbr(game.home);
-        game.time = getTime(game.schedule);
-        if (game.status == 'ongoing') {
-          if (fieldGame.q < 5) {
-            game.period = `${getPeriod(fieldGame.q)} ${toMins(fieldGame.t).m}:${toMins(fieldGame.t).s}`;
-          } else {
-            game.period = getPeriod(fieldGame.q);
+        list.sort(sortGame);
+        data.data = list;
+        sendData(data,ws,res);
+      });
+    } else if (req.type == 'games' && req.qual == 'team') {
+      games.getTeamSchedule(req.crit).then(list => {
+        for (let game of list) {
+          game.awayTeam = clubs.getTeamFromAbbr(game.away);
+          game.homeTeam = clubs.getTeamFromAbbr(game.home);
+          game.time = getTime(game.schedule);
+          if (game.status == 'ongoing') {
+            if (fieldGame.q < 5) {
+              game.period = `${getPeriod(fieldGame.q)} ${toMins(fieldGame.t).m}:${toMins(fieldGame.t).s}`;
+            } else {
+              game.period = getPeriod(fieldGame.q);
+            }
           }
         }
-      }
-      list.sort(sortGame);
-      data.data = list;
-      sendData(data,ws,res);
-    });
-  } else if (req.type == 'playoffOrder') {
-    teams.getAllTeamsByConf(req.qual.toUpperCase()).then(conf => {
-      games.getAllGames().then(sch => {
-        for (let team of conf) {
-          if (team.w + team.l + team.t != 0) {
-            team.record = (team.w + team.t / 2) / (team.w + team.l + team.t);
-          } else {
-            team.record = 0.01;
-          }
-          if (team.dw + team.dl + team.dt != 0) {
-            team.divRecord = (team.dw + team.dt / 2) / (team.dw + team.dl + team.dt);
-          } else {
-            team.divRecord = 0.01;
-          }
-        }
-        conf.sort(teamCompare(sch));
-        let divisions = [];
-        let leaders = [];
-        let leaderAbbrs = [];
-        let playoffs = [];
-        //order playoff teams
-        for (let team of conf) {
-          if (!divisions.includes(team.division)) {
-            divisions.push(team.division);
-            leaders.push(team);
-            leaderAbbrs.push(team.abbr);
-            playoffs.push(team);
-            team.eliminated = false;
-          }
-        }
-        for (let team of conf) {
-          if (!leaderAbbrs.includes(team.abbr)) {
-            playoffs.push(team);
-            team.clinchedDiv = false;
-          }
-        }
-        for (let i = 5; i < 8; i++) { //check elim
-          playoffs[i].eliminated = false;
-        }
-        //check clinches/elims
-        for (let leader of leaders) { //check div clinch
-          let restOfDiv = [];
+        list.sort(sortGame);
+        data.data = list;
+        sendData(data,ws,res);
+      });
+    } else if (req.type == 'playoffOrder') {
+      teams.getAllTeamsByConf(req.qual.toUpperCase()).then(conf => {
+        games.getAllGames().then(sch => {
           for (let team of conf) {
-            if (team.division == leader.division && team.abbr != leader.abbr) {
-              restOfDiv.push(team);
+            if (team.w + team.l + team.t != 0) {
+              team.record = (team.w + team.t / 2) / (team.w + team.l + team.t);
+            } else {
+              team.record = 0.01;
+            }
+            if (team.dw + team.dl + team.dt != 0) {
+              team.divRecord = (team.dw + team.dt / 2) / (team.dw + team.dl + team.dt);
+            } else {
+              team.divRecord = 0.01;
             }
           }
-          leader.clinchedDiv = checkClinch(leader,restOfDiv,sch);
-          leader.clinched = checkClinch(leader,restOfDiv,sch);
-        }
-        let inTheHunt = [];
-        for (let i = 8; i < 20; i++) { //check elim
-          let huntTeam = playoffs[i];
-          inTheHunt.push(huntTeam);
-          let blockers = [];
-          for (let leader of leaders) {
-            if (huntTeam.division == leader.division) {
-              blockers.push(leader);
-              break;
+          conf.sort(teamCompare(sch));
+          let divisions = [];
+          let leaders = [];
+          let leaderAbbrs = [];
+          let playoffs = [];
+          //order playoff teams
+          for (let team of conf) {
+            if (!divisions.includes(team.division)) {
+              divisions.push(team.division);
+              leaders.push(team);
+              leaderAbbrs.push(team.abbr);
+              playoffs.push(team);
+              team.eliminated = false;
             }
           }
-          for (let j = 5; j < 8; j++) {
-            blockers.push(playoffs[j]);
-          }
-          let eliminated = true;
-          let arr = [huntTeam];
-          for (let team of blockers) {
-            if (checkClinch(team,arr,sch) == false) {
-              eliminated = false;
-              break;
+          for (let team of conf) {
+            if (!leaderAbbrs.includes(team.abbr)) {
+              playoffs.push(team);
+              team.clinchedDiv = false;
             }
           }
-          playoffs[i].eliminated = eliminated;
-          playoffs[i].clinched = false;
-        }
-        for (let i = 0; i < 8; i++) { //check playoff clinch
-          if (!conf[i].clinchedDiv) {
-            conf[i].clinched = checkClinch(conf[i],inTheHunt);
+          for (let i = 5; i < 8; i++) { //check elim
+            playoffs[i].eliminated = false;
           }
-        }
-        //send data
-        let safeConf = [];
-        for (let i = 0; i < playoffs.length; i++) {
-          let team = playoffs[i];
-          let obj = {};
-          obj.abbr = team.abbr;
-          obj.mascot = team.mascot;
-          obj.clinched = team.clinched;
-          obj.clinchedDiv = team.clinchedDiv;
-          obj.eliminated = team.eliminated;
-          obj.division = team.division;
-          obj.w = team.w;
-          obj.l = team.l;
-          obj.t = team.t;
-          obj.seed = i + 1;
-          safeConf.push(obj);
-        }
-        data.data = safeConf;
-        sendData(data,ws,res);
+          //check clinches/elims
+          for (let leader of leaders) { //check div clinch
+            let restOfDiv = [];
+            for (let team of conf) {
+              if (team.division == leader.division && team.abbr != leader.abbr) {
+                restOfDiv.push(team);
+              }
+            }
+            leader.clinchedDiv = checkClinch(leader,restOfDiv,sch);
+            leader.clinched = checkClinch(leader,restOfDiv,sch);
+          }
+          let inTheHunt = [];
+          for (let i = 8; i < 20; i++) { //check elim
+            let huntTeam = playoffs[i];
+            inTheHunt.push(huntTeam);
+            let blockers = [];
+            for (let leader of leaders) {
+              if (huntTeam.division == leader.division) {
+                blockers.push(leader);
+                break;
+              }
+            }
+            for (let j = 5; j < 8; j++) {
+              blockers.push(playoffs[j]);
+            }
+            let eliminated = true;
+            let arr = [huntTeam];
+            for (let team of blockers) {
+              if (checkClinch(team,arr,sch) == false) {
+                eliminated = false;
+                break;
+              }
+            }
+            playoffs[i].eliminated = eliminated;
+            playoffs[i].clinched = false;
+          }
+          for (let i = 0; i < 8; i++) { //check playoff clinch
+            if (!conf[i].clinchedDiv) {
+              conf[i].clinched = checkClinch(conf[i],inTheHunt);
+            }
+          }
+          //send data
+          let safeConf = [];
+          for (let i = 0; i < playoffs.length; i++) {
+            let team = playoffs[i];
+            let obj = {};
+            obj.abbr = team.abbr;
+            obj.mascot = team.mascot;
+            obj.clinched = team.clinched;
+            obj.clinchedDiv = team.clinchedDiv;
+            obj.eliminated = team.eliminated;
+            obj.division = team.division;
+            obj.w = team.w;
+            obj.l = team.l;
+            obj.t = team.t;
+            obj.seed = i + 1;
+            safeConf.push(obj);
+          }
+          data.data = safeConf;
+          sendData(data,ws,res);
+        });
       });
-    });
-  } else if (req.type == 'players') {
-    if (req.qual.toLowerCase() == 'all') {
+    } else if (req.type == 'players') {
+      if (req.qual.toLowerCase() == 'all') {
+        players.getAllPlayers().then(list => {
+          data.data = list;
+          sendData(data,ws,res);
+        });
+      } else if (req.qual.toLowerCase() == 'off') {
+        teams.getAllTeams().then(list => {
+          let exp = [];
+          for (let team of list) {
+            let obj = {};
+            obj.abbr = team.abbr;
+            obj.mascot = team.mascot;
+            obj.offStats = team.offStats;
+            obj.fName = team.mascot;
+            obj.lName = 'Offense';
+            exp.push(obj);
+          }
+          data.data = exp;
+          sendData(data,ws,res);
+        });
+      } else if (req.qual.toLowerCase() == 'def') {
+        teams.getAllTeams().then(list => {
+          let exp = [];
+          for (let team of list) {
+            let obj = {};
+            obj.abbr = team.abbr;
+            obj.mascot = team.mascot;
+            obj.defStats = team.defStats;
+            obj.fName = team.mascot;
+            obj.lName = 'Defense';
+            exp.push(obj);
+          }
+          data.data = exp;
+          sendData(data,ws,res);
+        });
+      } else {
+        players.getPlayersByPos(req.qual.toUpperCase()).then(list => {
+          for (let player of list) {
+            if (player.team >= 0) {
+              let team = clubs.getTeamFromIndex(player.team);
+              player.teamAbbr = team.abbr;
+              player.teamMascot = team.mascot;
+            } else {
+              player.teamAbbr = 'UFA';
+              player.teamMascot = 'league';
+            }
+          }
+          data.data = list;
+          sendData(data,ws,res);
+        });
+      }
+    } else if (req.type == 'roster') {
       players.getAllPlayers().then(list => {
-        data.data = list;
-        sendData(data,ws,res);
+        teams.getTeamFromAbbr(req.crit.toUpperCase()).then(team => {
+          data.data = getFullRoster(list,JSON.parse(team.roster));
+          sendData(data,ws,res);
+        });
       });
-    } else if (req.qual.toLowerCase() == 'off') {
-      teams.getAllTeams().then(list => {
-        let exp = [];
-        for (let team of list) {
-          let obj = {};
-          obj.abbr = team.abbr;
-          obj.mascot = team.mascot;
-          obj.offStats = team.offStats;
-          obj.fName = team.mascot;
-          obj.lName = 'Offense';
-          exp.push(obj);
+    } else if (req.type == 'draftOrder') {
+      draft.getWholeDraft().then(picks => {
+        let club = [];
+        for (let pick of picks) {
+          club.push(clubs.getTeamFromIndex(pick));
         }
-        data.data = exp;
-        sendData(data,ws,res);
-      });
-    } else if (req.qual.toLowerCase() == 'def') {
-      teams.getAllTeams().then(list => {
-        let exp = [];
-        for (let team of list) {
-          let obj = {};
-          obj.abbr = team.abbr;
-          obj.mascot = team.mascot;
-          obj.defStats = team.defStats;
-          obj.fName = team.mascot;
-          obj.lName = 'Defense';
-          exp.push(obj);
+        let format = [];
+        for (let i = 0; i < 10; i++) {
+          format[i] = [];
         }
-        data.data = exp;
-        sendData(data,ws,res);
-      });
-    } else {
-      players.getPlayersByPos(req.qual.toUpperCase()).then(list => {
-        for (let player of list) {
-          if (player.team >= 0) {
-            let team = clubs.getTeamFromIndex(player.team);
-            player.teamAbbr = team.abbr;
-            player.teamMascot = team.mascot;
-          } else {
-            player.teamAbbr = 'UFA';
-            player.teamMascot = 'league';
-          }
+        for (let i = 0; i < club.length; i++) {
+          format[Math.floor(i / 40)][i % 40] = club[i];
         }
-        data.data = list;
+        data.data = format;
         sendData(data,ws,res);
       });
     }
-  } else if (req.type == 'roster') {
-    players.getAllPlayers().then(list => {
-      teams.getTeamFromAbbr(req.crit.toUpperCase()).then(team => {
-        data.data = getFullRoster(list,JSON.parse(team.roster));
-        sendData(data,ws,res);
-      });
-    });
-  } else if (req.type == 'draftOrder') {
-    draft.getWholeDraft().then(picks => {
-      let club = [];
-      for (let pick of picks) {
-        club.push(clubs.getTeamFromIndex(pick));
-      }
-      let format = [];
-      for (let i = 0; i < 10; i++) {
-        format[i] = [];
-      }
-      for (let i = 0; i < club.length; i++) {
-        format[Math.floor(i / 40)][i % 40] = club[i];
-      }
-      data.data = format;
-      sendData(data,ws,res);
-    });
+  } catch(err) {
+    data.data = 'An unknown error occurred';
+    sendData(data,ws,res);
   }
 }
 
@@ -5407,13 +5418,9 @@ function getTimestamp(h,m) {
 }
 
 function untilNextNoon() {
-  // var tomorrow = new Date();
-  // tomorrow.setDate(new Date().getDate() + 1);
-  // var noon = new Date(tomorrow.getFullYear(),tomorrow.getMonth(),tomorrow.getDate(),12,0,0);
-  // var d = new Date();
   var now = DateTime.now().setZone('America/Denver').plus({days: 1});
   var d = new Date();
-  var noon = DateTime.local(now.year,now.month,now.day,12,0,0);
+  var noon = DateTime.local(now.year,now.month,now.day,19,0,0);
   return noon.ts - d.getTime();
 }
 
