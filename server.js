@@ -850,7 +850,30 @@ function startFirstGame() {
     init();
   },delay);
 }
-startFirstGame();
+//startFirstGame();
+function restartTimeout() {
+  let game;
+  let unix = Infinity;
+  for (let gamex of sch) {
+    let d = new Date(gamex.schedule);
+    //console.log(gamex.schedule);
+    if (d.getTime() < unix && gamex.status == 'upcoming') {
+      console.log(gamex.schedule,d.getTime());
+      game = gamex;
+      unix = d.getTime();
+    }
+  }
+  let d = new Date();
+  let delay = unix - d.getTime();
+  if (delay < 2 * 60 * 1000) {
+    delay = 2 * 60 * 1000;
+  }
+  console.log(delay);
+  setTimeout(() => {
+    init();
+  },delay);
+}
+restartTimeout();
 // setTimeout(() => {
 //   init();
 // },200);
