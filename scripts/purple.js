@@ -110,13 +110,13 @@ function calc(away,home,week) {
         g[p].statA = JSON.parse(g[p].statA);
       }
       if (typeof g[p].statB == 'string') {
-        g[p].statA = JSON.parse(g[p].statB);
+        g[p].statB = JSON.parse(g[p].statB);
       }
       if (typeof g[p].statC == 'string') {
-        g[p].statA = JSON.parse(g[p].statC);
+        g[p].statC = JSON.parse(g[p].statC);
       }
       if (typeof g[p].stats == 'string') {
-        g[p].statA = JSON.parse(g[p].stats);
+        g[p].stats = JSON.parse(g[p].stats);
       }
     }
     if (g.qb.stats.att[week] == undefined || 0) {
