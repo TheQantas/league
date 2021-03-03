@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/header.min.css" />
+  <link rel="stylesheet" href="css/teams.min.css" />
+  <link rel="shortcut icon" href="images/favicon.png" />
+  <link rel="stylesheet" href="css/purple.min.css">
+  <script src="scripts/resources.min.js"></script>
+  <script src="scripts/stats_mod.min.js"></script>
+  <script src="scripts/purple.min.js"></script>
+  <title>The League | Purple</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div id="header" class="league">
+    <a href="/"><img src="images/logo.png" /><img src="images/favicon.png" /></a>
+    <a href="bet">Bet</a>
+    <a href="info">Info</a>
+    <a href="playoffs">Playoffs</a>
+    <a href="schedule">Schedule</a>
+    <a href="stats">Stats</a>
+    <a href="teams">Teams</a>
+    <svg id="hamburger" onclick="document.getElementById('fullScreenNav').style.display = 'block';" viewBox="0 0 24 24">
+      <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+    </svg>
+  </div>
+  <div id="fullScreenNav" class="league">
+    <div>
+      <svg id="fullScreenClose" onclick="this.parentElement.parentElement.style.display = 'none';" viewBox="0 0 24 24">
+        <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+      </svg>
+      <div id="fullLinksCont">
+        <a href="/" style="text-decoration:underline">Home</a>
+        <a href="bet">Bet</a>
+        <a href="info">Info</a>
+        <a href="playoffs">Playoffs</a>
+        <a href="schedule">Schedule</a>
+        <a href="stats">Stats</a>
+        <a href="teams">Teams</a>
+      </div>
+    </div>
+  </div>
+  <section id="top">Stat Chances</section>
+  <section id="cont">
+    <table class="table">
+      <tr>
+        <th>Teams</th>
+        <th>p&#770;</th>
+        <th>z</th>
+        <th>p</th>
+        <th>&mu;</th>
+        <th>&sigma;</th>
+        <th>&tau;</th>
+        <th>&lambda;</th>
+      </tr>
+    </table>
+  </section>
+</body>
+</html>
