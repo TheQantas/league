@@ -105,6 +105,7 @@ function calc(away,home,week) {
       continue;
     }
     for (let p in g) {
+      console.log(g[p]);
       g[p].statA = JSON.parse(g[p].statA);
       g[p].statB = JSON.parse(g[p].statB);
       g[p].statC = JSON.parse(g[p].statC);
