@@ -1856,6 +1856,9 @@ match.advPeriod = () => {
 }
 match.endGame = () => {
   console.log('END OF GAME',fieldGame.away,fieldGame.home);
+  if (game.finished) {
+    return;
+  }
   fieldGame.finished = true;
   match.sendUpdate({method:'declareFinal',q:fieldGame.q});
   match.updateGame().then(() => {
@@ -1923,10 +1926,6 @@ match.endGame = () => {
     sql += `UPDATE teams SET dw=${at.dw},dl=${at.dl},dt=${at.dt} WHERE abbr='${fieldGame.away}';`;
     sql += `UPDATE teams SET w=${ht.w},l=${ht.l},t=${ht.t} WHERE abbr='${fieldGame.home}';`;
     sql += `UPDATE teams SET dw=${ht.dw},dl=${ht.dl},dt=${ht.dt} WHERE abbr='${fieldGame.home}';`;
-    if (at.w + at.t + at.l > getCurrentWeek() + 1) { //game has already been ended
-      console.log('no double end');
-      return;
-    }
     console.log(sql);
     //award bets
     var sqlx = '';
