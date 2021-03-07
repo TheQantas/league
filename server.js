@@ -1856,7 +1856,7 @@ match.advPeriod = () => {
 }
 match.endGame = () => {
   console.log('END OF GAME',fieldGame.away,fieldGame.home);
-  if (game.finished) {
+  if (fieldGame.finished) {
     console.log('game already ended');
     return;
   }
