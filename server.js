@@ -797,6 +797,7 @@ var fieldGame = {finished:true};
 var firstGame = '2021-02-27T16:30:00Z';
 function init() {
   if (fieldGame.finished == false) {
+    console.log('no double end');
     return;
   }
   console.log('game starting');
