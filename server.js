@@ -1973,6 +1973,7 @@ match.endGame = () => {
       }
     }
     request(sql).then(() => { //update game
+      console.log('sqlx',sqlx);
       if (sqlx != '') {
         request(sqlx).then(() => { //update user balances if needed
           match.setNextGame();
