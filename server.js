@@ -1934,6 +1934,7 @@ match.endGame = () => {
     for (let bet of weekWinBets) {
       if (bet.away == fieldGame.away && bet.home == fieldGame.home) {
         var winBet = bet;
+        winBet.resolved = true;
         winBet.winningBet = winner;
         break;
       }
@@ -1941,11 +1942,10 @@ match.endGame = () => {
     for (let bet of weekOverBets) {
       if (bet.away == fieldGame.away && bet.home == fieldGame.home) {
         var overBet = bet;
+        overBet.resolved = true;
         break;
       }
     }
-    winBet.resolved = true;
-    overBet.resolved = true;
     if (winBet.awayCoins + winBet.homeCoins != 0) {
       var winnings = roundToE3(winBet[`${other(winner)}Coins`] / (winBet.awayCoins + winBet.homeCoins));
       winBet.winnings = winnings;
@@ -2269,7 +2269,7 @@ function setPlayoffWeek() {
 var weekWinBets = [];
 var weekOverBets = [];
 var bets = [];
-getBets(true);
+getBets();
 function getBets(init) {
   var week = getCurrentWeek();
   if (init) {
