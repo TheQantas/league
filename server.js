@@ -1227,7 +1227,11 @@ match.pass = () => {
         fieldGame.updates.push(u);
         match.sendUpdate(u);
         fieldGame[`${fieldGame.def}DefStats`].int++;
-        match.newDrive(100 - def.x);
+        if (def.x >= 100) {
+          match.newDrive(20);
+        } else {
+          match.newDrive(100 - def.x);
+        }
       } else { //incomplete
         console.log('incomplete !acc');
         qb.x += 3;
