@@ -23,9 +23,14 @@ window.onload = function() {
       }
     }
   }
+  //let mess = {method:'connectAsTeam',token:getCookie('token')};
+  //ws.send(JSON.stringify(mess));
+};
+
+ws.onopen = () => {
   let mess = {method:'connectAsTeam',token:getCookie('token')};
   ws.send(JSON.stringify(mess));
-};
+}
 var playCalls = [];
 playCalls[0] = [0.5,0.5,0.5,0.5]; //offense
 playCalls[1] = [0.5,0.5,0.5,0.5]; //defense
