@@ -690,7 +690,7 @@ var canPick = true;
 var draftTimer = 30;
 var draftResolved;
 var draftTrades = [];
-var stories = [{time:ddx.getTime(),text:'Draft is upcoming',stamp:`${dayFromNum(ddx.getDay())} ${ddx.getDate()} ${monthFromNum(ddx.getMonth())} ${getTime(draftStart)}`}];
+var stories = [{time:ddx.getTime(),text:'Restart done',stamp:`${dayFromNum(ddx.getDay())} ${ddx.getDate()} ${monthFromNum(ddx.getMonth())} ${getTime(draftStart)}`}];
 var cfcLeague = [];
 var nfcLeague = [];
 var dnx = new Date();
