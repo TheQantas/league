@@ -5672,6 +5672,44 @@ function teamCompare(list) {
   }
 }
 
+function compare(a,b) {
+  if (a.record != b.record) {
+    return b.record - a.record;
+  }
+  if (a.record == 1 && b.record == 1 && a.w != b.w) {
+    return b.w - a.w;
+  }
+  if (a.record == 0 && b.record == 0 && a.l != b.l) {
+    return a.l - b.l;
+  }
+  var win = games.wonMatchup(a.abbr,b.abbr);
+  if (win == true) {
+    return -1;
+  } else if (win == false) {
+    return 1;
+  }
+  if (a.divRecord != b.divRecord) {
+    return b.divRecord - a.divRecord;
+  }
+  if (a.divRecord == 1 && b.divRecord == 1 && a.dw != b.dw) {
+    return b.dw - a.dw;
+  }
+  if (a.divRecord == 0 && b.divRecord == 0 && a.dl != b.dl) {
+    return a.dl - b.dl;
+  }
+  var at = games.getTotalPointsScored(a.abbr);
+  var bt = games.getTotalPointsScored(b.abbr);
+  if (at != bt) {
+    return bt - at;
+  }
+  var ad = games.getAvgPointDiff(a.abbr);
+  var bd = games.getAvgPointDiff(b.abbr);
+  if (ad != bd) {
+    return bd - ad;
+  }
+  return 0;
+}
+
 function checkClinch(team,checks,list) {
   var pseudoTeam = {};
   pseudoTeam.abbr = team.abbr;
@@ -5685,7 +5723,7 @@ function checkClinch(team,checks,list) {
     var divGamesLeft = 3 - oppo.dw - oppo.dl - oppo.dt;
     pseudoOppo.divRecord = (divGamesLeft + oppo.dw + oppo.dt / 2) / 3;
     //console.log(team.abbr,compare(pseudoTeam,pseudoOppo));
-    if (teamCompare(pseudoTeam,pseudoOppo,list) > 0) {
+    if (compare(pseudoTeam,pseudoOppo,list) > 0) {
       return false;
     }
   }
