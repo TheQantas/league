@@ -49,7 +49,8 @@
     <button class="navBtn" onclick="changePage(0)" style="text-decoration:underline">Matchup</button>
     <button class="navBtn" onclick="changePage(1)">Roster</button>
     <% if (canTrade) { %><button class="navBtn" onclick="changePage(2)">Trades</button><% } %>
-    <button class="navBtn" <% if (done) { %>onclick="changePage(3)"<% } %>>Account</button>
+    <% if (done && canTrade) { %><button class="navBtn" onclick="changePage(3)">Account</button><% } %>
+    <% if (done && !canTrade) { %><button class="navBtn" onclick="changePage(2)">Account</button><% } %>
   </div>
   <% } %>
   <% if (done) { %>
