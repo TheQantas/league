@@ -48,7 +48,7 @@
   <div id="navBar" class="<%= teamClass %>">
     <button class="navBtn" onclick="changePage(0)" style="text-decoration:underline">Matchup</button>
     <button class="navBtn" onclick="changePage(1)">Roster</button>
-    <button class="navBtn" onclick="changePage(2)">Trades</button>
+    <% if (canTrade) { %><button class="navBtn" onclick="changePage(2)">Trades</button><% } %>
     <button class="navBtn" <% if (done) { %>onclick="changePage(3)"<% } %>>Account</button>
   </div>
   <% } %>
