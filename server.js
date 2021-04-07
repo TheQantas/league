@@ -330,7 +330,7 @@ games.getOppo = function(abbr,game) {
   }
 }
 
-games.wonMatchup = function(teamA,teamB,list) {
+games.getMatchup = function(teamA,teamB,list) {
   for (let game of list) {
     if (((game.away == teamA && game.home == teamB) || (game.away == teamB && game.home == teamA)) && game.week < 11) {
       return game;
@@ -341,7 +341,7 @@ games.wonMatchup = function(teamA,teamB,list) {
   return undefined;
 }
 
-games.wonGame = function(teamA,teamB,list) {
+games.wonMatchup = function(teamA,teamB,list) {
   var game = games.getMatchup(teamA,teamB,list);
   if (!game) {
     return undefined;
@@ -370,10 +370,8 @@ games.getTotalPointsScored = function(abbr,list) {
   for (let game of list) {
     if (game.week > 10) {
       break;
-    } else if (game.away == abbr && game.status.toLowerCase().indexOf('final') != -1) {
+    } else if ((game.away == abbr || game.home == abbr) && game.status.toLowerCase().indexOf('final') != -1) {
       total += game.awayScore;
-    } else if (game.home == abbr && game.status.toLowerCase().indexOf('final') != -1) {
-      total += game.homeScore;
     }
   }
   return total;
@@ -384,10 +382,8 @@ games.getTotalPointDiff = function(abbr,list) {
   for (let game of list) {
     if (game.week > 10) {
       break;
-    } else if (game.away == abbr && game.status.toLowerCase().indexOf('final') != -1) {
+    } else if ((game.away == abbr || game.home == abbr) && game.status.toLowerCase().indexOf('final') != -1) {
       total += (game.awayScore - game.homeScore);
-    } else if (game.home == abbr && game.status.toLowerCase().indexOf('final') != -1) {
-      total += (game.homeScore - game.awayScore);
     }
   }
   return total;
@@ -5672,7 +5668,7 @@ function teamCompare(list) {
   }
 }
 
-function compare(a,b) {
+function compare(a,b,g) {
   if (a.record != b.record) {
     return b.record - a.record;
   }
@@ -5682,7 +5678,7 @@ function compare(a,b) {
   if (a.record == 0 && b.record == 0 && a.l != b.l) {
     return a.l - b.l;
   }
-  var win = games.wonMatchup(a.abbr,b.abbr);
+  var win = games.wonMatchup(a.abbr,b.abbr,g);
   if (win == true) {
     return -1;
   } else if (win == false) {
@@ -5697,13 +5693,13 @@ function compare(a,b) {
   if (a.divRecord == 0 && b.divRecord == 0 && a.dl != b.dl) {
     return a.dl - b.dl;
   }
-  var at = games.getTotalPointsScored(a.abbr);
-  var bt = games.getTotalPointsScored(b.abbr);
+  var at = games.getTotalPointsScored(a.abbr,g);
+  var bt = games.getTotalPointsScored(b.abbr,g);
   if (at != bt) {
     return bt - at;
   }
-  var ad = games.getAvgPointDiff(a.abbr);
-  var bd = games.getAvgPointDiff(b.abbr);
+  var ad = games.getAvgPointDiff(a.abbr,g);
+  var bd = games.getAvgPointDiff(b.abbr,g);
   if (ad != bd) {
     return bd - ad;
   }
