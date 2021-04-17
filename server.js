@@ -5669,6 +5669,7 @@ function teamCompare(list) {
 }
 
 function compare(a,b,g) {
+  console.log(5672,g);
   if (a.record != b.record) {
     return b.record - a.record;
   }
