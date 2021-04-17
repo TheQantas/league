@@ -1,10 +1,5 @@
 const PORT = process.env.PORT || 3000;
 const express = require('express');
-//const red = express();
-//red.get('*', function(req, res) {  
-//  res.redirect('https://' + req.headers.host + req.url);
-//})
-//red.listen(8080);
 const app = express();
 app.set('views','./views');
 app.set('view engine','ejs');
@@ -13,13 +8,9 @@ const ejs = require('ejs');
 const crypto = require('crypto');
 const path = require('path');
 const WebSocket = require('ws');
-//const players = require('./players.js');
 const players = {};
-//const games = require('./games.js');
 const games = {};
-//const teams = require('./teams.js');
 const teams = {};
-//const draft = require('./draft.js');
 const draft = {};
 const users = {};
 const clubs = require('./clubs.js');
@@ -39,54 +30,6 @@ app.use('/logos', express.static(__dirname + '/logos'));
 app.use('/audio', express.static(__dirname + '/audio'));
 const cookieParser = require('cookie-parser');
 var devices = {};
-
-//block
-
-// var url = require('url');
-// var WebSocket = require('ws');
-// var HttpsProxyAgent = require('https-proxy-agent');
-
-// // HTTP/HTTPS proxy to connect to
-// var proxy = process.env.http_proxy || 'http://3.131.119.119:3128';
-// console.log('using proxy server %j', proxy);
-
-// // WebSocket endpoint for the proxy to connect to
-// var endpoint = process.argv[2] || 'ws://echo.websocket.org';
-// var parsed = url.parse(endpoint);
-// console.log('attempting to connect to WebSocket %j', endpoint);
-
-// // create an instance of the `HttpsProxyAgent` class with the proxy server information
-// var options = url.parse(proxy);
-
-// var agent = new HttpsProxyAgent(options);
-
-// // finally, initiate the WebSocket connection
-// var socket = new WebSocket(endpoint, { agent: agent });
-
-// socket.on('open', function () {
-//   console.log('"open" event!');
-//   socket.send('hello world');
-// });
-
-// socket.on('message', function (data, flags) {
-//   console.log('"message" event! %j %j', data, flags);
-//   socket.close();
-// });
-
-//v2
-
-// const https = require('https');
-// const fs = require('fs');
-
-// const options = {
-//   key: fs.readFileSync('fullchain1.pem'),
-//   cert: fs.readFileSync('privkey1.pem')
-// };
-
-// var server = https.createServer(options, (req, res) => {
-//   console.log(3000);
-//   console.log(`Listening on ${PORT}`)
-// }).listen(3000);
 
 //time code
 
