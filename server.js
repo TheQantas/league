@@ -2175,7 +2175,7 @@ function getPlayoffs() {
         }
         for (let i = 0; i < 8; i++) { //check playoff clinch
           if (!conf[i].clinchedDiv) {
-            conf[i].clinched = checkClinch(conf[i],inTheHunt);
+            conf[i].clinched = checkClinch(conf[i],inTheHunt,sch);
           }
         }
         //send data
@@ -4847,7 +4847,7 @@ function requestData(req,ws,res) {
           }
           for (let i = 0; i < 8; i++) { //check playoff clinch
             if (!conf[i].clinchedDiv) {
-              conf[i].clinched = checkClinch(conf[i],inTheHunt);
+              conf[i].clinched = checkClinch(conf[i],inTheHunt,sch);
             }
           }
           //send data
