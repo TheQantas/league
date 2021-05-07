@@ -5645,8 +5645,8 @@ function compare(a,b,g) {
   if (at != bt) {
     return bt - at;
   }
-  var ad = games.getAvgPointDiff(a.abbr,g);
-  var bd = games.getAvgPointDiff(b.abbr,g);
+  var ad = games.getTotalPointDiff(a.abbr,g);
+  var bd = games.getTotalPointDiff(b.abbr,g);
   if (ad != bd) {
     return bd - ad;
   }
