@@ -4995,13 +4995,13 @@ function getHeadlines(gameList,teamList,tz) {
     return headlines;
   }
   if (getCurrentWeek() == 11) {
-    headlines.push({long:'Wild Card Wednesday',short:'Wild Card WED',sub:'5 May'});
+    headlines.push({long:'Wild Card Wednesday',short:'Wild Card WED',sub:'12 May'});
   } else if (getCurrentWeek() == 12) {
-    headlines.push({long:'Divisional Weekend',short:'Divisional Weekend',sub:'9 May'});
+    headlines.push({long:'Divisional Weekend',short:'Divisional Weekend',sub:'16 May'});
   } else if (getCurrentWeek() == 13) {
-    headlines.push({long:'Conference Round',short:'Conf. Round',sub:'12 May'});
+    headlines.push({long:'Conference Round',short:'Conf. Round',sub:'19 May'});
   } else if (getCurrentWeek() == 14) {
-    headlines.push({long:'League Championship',short:'League Title Game',sub:'16 May'});
+    headlines.push({long:'League Championship',short:'League Title Game',sub:'23 May'});
   }
   let weekGames = [];
   for (let game of gameList) {
