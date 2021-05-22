@@ -2305,7 +2305,7 @@ app.get('/', (req, res) => {
       eventTimes[4] = '2021-04-28T05:59:00Z'; //free agency deadline
       eventTimes[5] = '2021-05-09T00:30:00Z'; //last game
       eventTimes[6] = '2021-05-12T15:00:00Z'; //first postseason
-      eventTimes[7] = '2021-05-23T18:00:00Z'; //championship
+      eventTimes[7] = '2021-05-23T22:30:00Z'; //championship
       var clientTimes = [];
       for (let time of eventTimes) {
         clientTimes.push(tiempo.getFormatTime(time,tz));
