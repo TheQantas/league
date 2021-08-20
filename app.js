@@ -2576,7 +2576,8 @@ app.get('/', (req,res) => {
           tz = geo.timezone;
         }
       }
-      console.log('tz',tz,'ip',req.ip);
+	    let qrs = req.header('x-forwarded-for') || req.connection.remoteAddress;
+      console.log('tz',tz,'ip',req.ip,'ip2',qrs);
       for (let g of games) {
         g.time = tiempo.getFormatDayAndHour(g.schedule,tz);
         g.fullTime = tiempo.getFormatTime(g.schedule,tz);
