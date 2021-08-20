@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>The League | Draft</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/colors.min.css">
+    <link rel="stylesheet" href="css/draft.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/resources.min.js"></script>
+    <script src="scripts/draft.min.js"></script>
+    <% if (team) { %>
+      <link rel="stylesheet" href="css/trade.min.css">
+      <link rel="stylesheet" href="css/chat.min.css">
+      <script src="scripts/trade.min.js"></script>
+      <script src="scripts/chat.min.js"></script>
+    <% } %>
+  </head>
+  <body data-abbr="<%= abbr %>" <% if (dark == 'true') { %>class="dark"<% } %>>
+    <header>
+      <button class="navBtn" onclick="toPage('page','navBtn',0)" style="text-decoration:underline;">Home</button>
+      <button class="navBtn" onclick="toPage('page','navBtn',1)">Players</button>
+      <button class="navBtn" onclick="toPage('page','navBtn',2)">Picks</button>
+      <% if (team) { %>
+        <button class="navBtn" onclick="toPage('page','navBtn',3)" id="tradeBtn">Trades</button>
+        <button class="navBtn" onclick="toPage('page','navBtn',4)" id="chatBtn">Chat</button>
+      <% } %>
+      <svg id="songToggle" role="button" onclick="toggleMusic()" viewBox="0 0 24 24">
+        <title>Mute Music</title>
+        <path d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z" />
+      </svg>
+    </header>
+    <main>
+      <section class="page" style="display:block;"> <!-- main -->
+        <div id="homeCont" class="<%= current.clean %>">
+          <div id="leftCont">
+            <img id="homeLogo" src="logos/<%= current.clean %>_t.png">
+          </div>
+          <div id="rightCont">
+            <div class="rightRow"><%= three[0] %></div>
+            <div class="rightRow"><%= three[1] %></div>
+            <div class="rightRow"><%= three[2] %></div>
+          </div>
+        </div>
+        <div id="announceCont" class="<%= current.clean %>">
+          <div class="announceRow"></div>
+          <div class="announceRow">SELECTION</div>
+        </div>
+        <div id="silhCont" class="<%= current.clean %>">
+          <div class="silhPart" style="width:100%;position:relative;">
+            <div class="silhAttr" id="silhFName"></div>
+            <div class="silhAttr" id="silhPos"></div>
+          </div>
+          <div class="silhPart" style="flex-shrink:0;">
+            <svg id="silhouette" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 400 512" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0,512) scale(0.1,-0.1)" stroke="none">
+              <path d="M2700 5110 c-80 -14 -158 -50 -210 -97 -58 -52 -123 -174 -143 -268 -8 -39 -17 -60 -28 -62 -21 -6 -39 -73 -39 -142 0 -55 -5 -59 -51 -35 -17 8 -38 14 -47 12 -9 -1 -28 5 -42 15 -14 10 -43 17 -68 17 -24 0 -52 5 -63 11 -17 8 -40 1 -133 -45 -122 -60 -170 -98 -161 -128 13 -40 6 -75 -24 -120 -32 -47 -38 -62 -62 -151 -13 -47 -15 -48 -116 -102 -81 -44 -112 -55 -148 -55 -58 0 -80 -12 -101 -53 -9 -18 -45 -61 -80 -97 -102 -104 -162 -187 -278 -379 l-110 -181 -64 0 c-58 0 -66 -3 -94 -30 -28 -28 -30 -35 -24 -78 6 -45 4 -51 -44 -116 -27 -38 -50 -76 -50 -85 0 -27 28 -123 39 -134 17 -17 13 -59 -11 -97 -11 -19 -27 -54 -34 -77 -11 -35 -10 -44 2 -54 13 -10 25 -2 72 49 70 75 96 80 137 26 46 -60 95 -29 95 62 0 28 9 54 26 80 41 60 54 97 61 181 6 68 10 81 35 105 17 16 26 32 22 42 -10 25 98 158 280 343 161 165 170 172 205 170 31 -2 36 1 36 21 0 31 21 42 80 42 28 1 82 7 120 14 62 12 72 12 87 -1 12 -11 26 -13 45 -8 15 4 48 8 72 9 35 0 47 -5 67 -27 22 -26 24 -37 24 -133 0 -58 7 -155 16 -215 15 -103 15 -112 -2 -158 -17 -48 -17 -51 2 -103 23 -63 22 -148 -2 -148 -21 0 -116 -72 -152 -116 -32 -38 -80 -156 -107 -259 -30 -115 -10 -287 45 -395 l21 -42 -63 -66 c-87 -91 -104 -115 -193 -277 -92 -166 -168 -279 -204 -304 -14 -10 -71 -26 -126 -36 -118 -20 -159 -36 -200 -74 -16 -16 -45 -36 -63 -45 -57 -29 -109 -84 -157 -165 -51 -88 -77 -116 -100 -108 -9 4 -38 -14 -77 -49 -35 -31 -76 -63 -92 -71 -27 -14 -31 -13 -55 6 -99 80 -204 80 -264 -1 -36 -48 -45 -89 -50 -228 -6 -139 -11 -156 -67 -250 -72 -120 -100 -231 -80 -324 14 -69 49 -113 97 -122 74 -14 130 38 187 173 19 44 46 104 61 133 26 51 28 53 36 32 14 -38 34 -20 34 31 0 26 5 48 10 49 6 2 12 -36 15 -92 6 -117 20 -98 29 40 l6 95 48 0 c59 0 71 15 56 70 -10 33 -8 41 8 54 11 9 27 28 36 43 11 17 26 28 40 28 43 0 96 21 102 39 3 12 19 21 40 25 27 5 35 12 35 29 0 28 9 33 165 102 176 78 326 155 332 170 9 24 35 26 102 9 109 -28 126 -21 266 115 159 155 237 210 314 221 41 6 72 18 101 39 24 17 45 29 47 27 7 -7 -120 -231 -151 -266 -18 -20 -38 -57 -44 -81 -6 -25 -45 -95 -88 -159 -113 -169 -144 -208 -218 -280 -89 -86 -130 -143 -150 -209 -22 -75 -21 -78 21 -98 27 -13 44 -31 59 -64 26 -55 56 -81 169 -149 108 -65 153 -74 189 -35 34 37 40 74 25 167 -12 73 -11 82 6 113 10 19 22 32 28 28 7 -4 8 1 3 13 -13 35 -19 74 -10 74 5 0 20 -9 34 -20 14 -11 28 -20 33 -20 15 0 6 22 -15 40 -23 19 -23 20 -5 50 9 18 17 51 17 74 0 54 53 164 110 229 22 25 40 50 40 57 0 6 12 15 28 21 15 5 33 22 40 37 6 15 47 59 89 97 136 121 187 179 234 266 42 78 53 90 152 165 59 45 127 99 152 120 24 22 57 49 74 62 29 22 31 28 31 85 0 66 -17 143 -42 192 -20 38 -145 194 -198 247 -47 47 -51 78 -15 102 19 12 25 25 25 50 0 50 8 65 50 86 43 22 100 83 100 108 1 42 42 127 119 247 120 186 122 190 131 372 4 84 9 156 11 158 3 2 22 0 44 -5 86 -20 146 -13 232 29 l82 40 17 -26 c66 -102 152 -153 270 -161 92 -6 109 4 130 75 20 68 13 130 -18 182 -13 20 -35 61 -49 92 -25 51 -32 58 -76 73 -37 12 -61 31 -106 81 -32 36 -64 65 -72 65 -39 0 -25 46 20 65 51 21 68 55 73 149 6 106 -12 221 -42 266 -12 19 -30 55 -40 80 -23 59 -31 67 -89 97 -37 18 -81 28 -171 38 -147 17 -276 44 -276 59 0 6 6 31 14 56 23 75 29 163 16 227 -22 103 -93 221 -162 269 -65 46 -193 64 -308 44z"/>
+            </g>
+            </svg>
+          </div>
+          <div class="silhPart" style="width:100%;position:relative;">
+            <div class="silhAttr" id="silhLName"></div>
+            <div class="silhAttr" style="right:0px" id="silhId"></div>
+          </div>
+        </div>
+      </section>
+      <section class="page" id="playersCont"> <!-- players -->
+        <div id="playerNav">
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',0)" style="text-decoration:underline;">QB</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',1)">RB</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',2)">WR</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',3)">TE</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',4)">OL</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',5)">DL</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',6)">LB</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',7)">CB</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',8)">S</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',9)">K</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',10)">P</button>
+          <button class="playerNav" onclick="toPage('playerPage','playerNav',11)">PIN</button>
+        </div>
+        <% for (let pos in draftable) { %>
+          <div class="playerPage" <% if (pos=='qb') { %>style="display:block"<% } %>>
+            <% for (let p of draftable[pos]) { %>
+              <div class="playerRow" data-id="<%= p.id %>" data-pos="<%= p.pos %>">
+                <div class="playerTop">
+                  <%= p.fName %> <%= p.lName %>&nbsp;<span class="num">(<%= p.pos %> #<%= p.id %>)</span>
+                  <svg viewBox="0 0 24 24" role="button" onclick="this.parentElement.nextElementSibling.classList.toggle('show')">
+                    <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+                    <title>More Details</title>
+                  </svg>
+                  <% if (team) { %>
+                    <svg class="draft" role="button" viewBox="0 0 24 24" onclick="draftPlayer(this)">
+                      <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                      <title>Draft Player</title>
+                    </svg>
+                  <% } %>
+                  <svg class="pin" viewBox="0 0 24 24" role="button" onclick="pin(this)">
+                    <path fill="currentColor" d="M16,12V4H17V2H7V4H8V12L6,14V16H11.2V22H12.8V16H18V14L16,12Z" />
+                    <title>Pin Player</title>
+                  </svg>
+                </div>
+                <div class="playerBot">
+                  <div class="playerCell">Stat</div>
+                  <div class="playerCell">Mean</div>
+                  <div class="playerCell"><abbr title="Standard Deviation">Std. Dev.</abbr></div>
+                  <div class="playerCell">Rank</div>
+                  <% let a = [p.stat1,p.stat2,p.stat3,p.stat4]; %>
+                  <% for (let x of a) { %>
+                    <div class="playerCell"><%- x.h %></div>
+                    <div class="playerCell"><%= x.m %></div>
+                    <div class="playerCell"><%= x.s %></div>
+                    <div class="playerCell">
+                      <div class="ranking <%= x.r.cls %>" title="<%= x.r.name %>">
+                        <%= x.r.abbr %>
+                      </div>
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        <% } %>
+        <div class="playerPage">
+          <div class="tip" style="background-color:var(--orange);" id="playersPin">Pin Players Here</div>
+          <div class="tip" style="background-color:var(--orange);">Drag and Drop to Change Order <span onclick="this.parentElement.style.display='none'">Dismiss</span></div>
+          <% for (let p of board) { %>
+            <div class="playerRow" data-id="<%= p.id %>" data-pos="<%= p.pos %>">
+              <div class="playerTop">
+                <%= p.fName %> <%= p.lName %>&nbsp;<span class="num">(<%= p.pos %> #<%= p.id %>)</span>
+                <svg viewBox="0 0 24 24" role="button" onclick="this.parentElement.nextElementSibling.classList.toggle('show')">
+                  <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+                  <title>More Details</title>
+                </svg>
+                <svg class="draft" role="button" viewBox="0 0 24 24" onclick="console.log('draft')">
+                  <path d="M15,14C12.33,14 7,15.33 7,18V20H23V18C23,15.33 17.67,14 15,14M6,10V7H4V10H1V12H4V15H6V12H9V10M15,12A4,4 0 0,0 19,8A4,4 0 0,0 15,4A4,4 0 0,0 11,8A4,4 0 0,0 15,12Z" />
+                  <title>Draft Player</title>
+                </svg>
+                <svg class="pin" viewBox="0 0 24 24" role="button" onclick="unpin(this)">
+                  <path fill="currentColor" d="M2,5.27L3.28,4L20,20.72L18.73,22L12.8,16.07V22H11.2V16H6V14L8,12V11.27L2,5.27M16,12L18,14V16H17.82L8,6.18V4H7V2H17V4H16V12Z" />
+                  <title>Unpin Player</title>
+                </svg>
+              </div>
+              <div class="playerBot">
+                <div class="playerCell">Stat</div>
+                <div class="playerCell">Mean</div>
+                <div class="playerCell"><abbr title="Standard Deviation">Std. Dev.</abbr></div>
+                <div class="playerCell">Rank</div>
+                <% let a = [p.stat1,p.stat2,p.stat3,p.stat4]; %>
+                <% for (let x of a) { %>
+                  <div class="playerCell"><%- x.h %></div>
+                  <div class="playerCell"><%= x.m %></div>
+                  <div class="playerCell"><%= x.s %></div>
+                  <div class="playerCell">
+                    <div class="ranking <%= x.r.cls %>" title="<%= x.r.name %>">
+                      <%= x.r.abbr %>
+                    </div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+        </div>
+      </section>
+      <section class="page"> <!-- picks -->
+        <div id="roundNav">
+          <button class="pickNav" onclick="toPage('pickPage','pickNav',0)" style="text-decoration:underline;">RD 1</button>
+          <button class="pickNav" onclick="toPage('pickPage','pickNav',1)">RD 2</button>
+          <button class="pickNav" onclick="toPage('pickPage','pickNav',2)">RD 3</button>
+          <button class="pickNav" onclick="toPage('pickPage','pickNav',3)">RD 4</button>
+          <button class="pickNav" onclick="toPage('pickPage','pickNav',4)">RD 5</button>
+          <button class="pickNav" onclick="toPage('pickPage','pickNav',5)">RD 6</button>
+          <button class="pickNav" onclick="toPage('pickPage','pickNav',6)">RD 7</button>
+          <button class="pickNav" onclick="toPage('pickPage','pickNav',7)">RD 8</button>
+        </div>
+        <% for (let i = 0; i < 8; i++) { %>
+          <div class="pickPage" <% if (i == 0) { %>style="display:block"<%}%>>
+          <% for (let j = i * 40; j < (i + 1) * 40; j++) { %>
+            <div class="pickRow" id="pick<%= j %>">
+              <img class="pickLogo" src="logos/<%= draft[j].clean %>_g.png">
+              <div class="pickInfo">RD <%= draft[j].round %> PK <%= draft[j].pick %> (<%= draft[j].ordinal.toUpperCase() %>)</div>
+              <div class="pickTransfer">
+                <% if (JSON.parse(draft[j].trades).length > 1) { %>
+                  <%=JSON.parse(draft[j].trades)[0]%>&nbsp;
+                  <% for (let k = 1; k < JSON.parse(draft[j].trades).length; k++) { %>
+                    &#9654;&nbsp;<%=JSON.parse(draft[j].trades)[k]%>
+                  <% } %>
+                <% } %>
+              </div>
+              <div class="pickName">
+                <% if (draft[j].player) { %>
+                  <%= draft[j].player.fName %> <%= draft[j].player.lName %> <span class="num">(<%= draft[j].player.pos %> #<%= draft[j].player.id %>)</span>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+          </div>
+        <% } %>
+      </section>
+      <% if (team) { %>
+        <section class="page" id="tradeCont"> <!-- trades -->
+          <% for (let t of trades) { %>
+            <div class="tradeRow" data-id="<%= t.id %>">
+              <div class="tradeTop">
+                <img class="tradeLogo" src="logos/<%= t.fromClean %>_g.png">
+                <div class="tradeTopText"><%= t.fromTeam %>	&#9654; <%= t.toTeam %></div>
+                <img class="tradeLogo" src="logos/<%= t.toClean %>_g.png">
+                <div class="tradeTopText"> | <%= t.format %> &middot; <%= t.status.toUpperCase() %></div>
+                <svg viewBox="0 0 24 24" role="button" onclick="this.parentElement.nextElementSibling.classList.toggle('show')">
+                  <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z" />
+                  <title>Show Details</title>
+                </svg>
+                <svg class="delete" onclick="hideTrade(this)" viewBox="0 0 24 24">
+                  <path d="M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.08L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.74,7.13 11.35,7 12,7Z" />
+                  <title>Hide Trade</title>
+                </svg>
+              </div>
+              <div class="tradeBot">
+                <div class="tradeTable">
+                  <% for (let c of t.cells) { %>
+                    <div class="tradeCell"><%- c %></div>
+                  <% } %>
+                </div>
+                <% if (t.status == 'offered' || t.status == 'counter') { %>
+                  <% if (t.toTeam == abbr) { %>
+                    <div class="tradeActionCont">
+                      <button class="tradeAction discuss" onclick="discussTrade(this)">Discuss</button>
+                      <button class="tradeAction accept" onclick="this.parentElement.style.display='none';this.parentElement.nextElementSibling.style.display='flex';">Accept</button>
+                      <button class="tradeAction counter" onclick="counterTrade(this,'<%= t.fromTeam %>')">Counter</button>
+                      <button class="tradeAction decline" onclick="declineTrade(this)">Decline</button>
+                    </div>
+                    <div class="tradeActionCont" style="display:none">
+                      <button class="tradeAction cancel" onclick="this.parentElement.style.display='none';this.parentElement.previousElementSibling.style.display='flex';">Cancel</button>
+                      <button class="tradeAction confirm" onclick="confirmTrade(this)">Confirm</button>
+                    </div>
+                  <% } else { %>
+                    <div class="tradeActionCont">
+                      <button class="tradeAction discuss" onclick="discussTrade(this)">Discuss</button>
+                      <button class="tradeAction retract" onclick="retractTrade(this)">Retract</button>
+                    </div>
+                  <% } %>
+                <% } %>
+                <span class="tradeId">ID: <%= t.id.toUpperCase() %></span>
+              </div>
+            </div>
+          <% } %>
+          <button id="tradeMake" onclick="makeTrade()">
+            <svg viewBox="0 0 24 24">
+              <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
+            </svg>
+            <span>Make Trade</span>
+          </button>
+          <div id="tradeMain">
+            <div>
+              <div id="tradeSelCont">
+                <div id="tradeSelText">Make trade with:</div>
+                <select id="tradeSel" onchange="getAssets(this.value)">
+                  <option value="" disabled selected>Select Team</option>
+                  <% if (abbr != 'AAR') { %><option value="AAR">Aardvarks</option><% } %>
+                  <% if (abbr != 'AVI') { %><option value="AVI">Aviators</option><% } %>
+                  <% if (abbr != 'BAD') { %><option value="BAD">Badgers</option><% } %>
+                  <% if (abbr != 'CHA') { %><option value="CHA">Chameleons</option><% } %>
+                  <% if (abbr != 'CHE') { %><option value="CHE">Cheetahs</option><% } %>
+                  <% if (abbr != 'COL') { %><option value="COL">Collies</option><% } %>
+                  <% if (abbr != 'COO') { %><option value="COO">Coonhounds</option><% } %>
+                  <% if (abbr != 'COU') { %><option value="COU">Cougars</option><% } %>
+                  <% if (abbr != 'DRA') { %><option value="DRA">Dragons</option><% } %>
+                  <% if (abbr != 'EAG') { %><option value="EAG">Eagles</option><% } %>
+                  <% if (abbr != 'ENG') { %><option value="ENG">Engineers</option><% } %>
+                  <% if (abbr != 'FAL') { %><option value="FAL">Falcons</option><% } %>
+                  <% if (abbr != 'FLA') { %><option value="FLA">Flamingos</option><% } %>
+                  <% if (abbr != 'FOX') { %><option value="FOX">Foxes</option><% } %>
+                  <% if (abbr != 'GAL') { %><option value="GAL">Galaxy</option><% } %>
+                  <% if (abbr != 'GOL') { %><option value="GOL">Goldens</option><% } %>
+                  <% if (abbr != 'GRE') { %><option value="GRE">Greats</option><% } %>
+                  <% if (abbr != 'GRI') { %><option value="GRI">Grizzlies</option><% } %>
+                  <% if (abbr != 'HUM') { %><option value="HUM">Hummingbirds</option><% } %>
+                  <% if (abbr != 'HUS') { %><option value="HUS">Huskies</option><% } %>
+                  <% if (abbr != 'LON') { %><option value="LON">Longhorns</option><% } %>
+                  <% if (abbr != 'LYN') { %><option value="LYN">Lynx</option><% } %>
+                  <% if (abbr != 'NAT') { %><option value="NAT">Nationals</option><% } %>
+                  <% if (abbr != 'PAN') { %><option value="PAN">Pandas</option><% } %>
+                  <% if (abbr != 'PEG') { %><option value="PEG">Pegasi</option><% } %>
+                  <% if (abbr != 'PEN') { %><option value="PEN">Penguins</option><% } %>
+                  <% if (abbr != 'PIO') { %><option value="PIO">Pioneers</option><% } %>
+                  <% if (abbr != 'PIR') { %><option value="PIR">Pirates</option><% } %>
+                  <% if (abbr != 'REB') { %><option value="REB">Rebels</option><% } %>
+                  <% if (abbr != 'RED') { %><option value="RED">Red Pandas</option><% } %>
+                  <% if (abbr != 'ROT') { %><option value="ROT">Rottweilers</option><% } %>
+                  <% if (abbr != 'SEN') { %><option value="SEN">Senators</option><% } %>
+                  <% if (abbr != 'SHA') { %><option value="SHA">Sharks</option><% } %>
+                  <% if (abbr != 'SNA') { %><option value="SNA">Snakes</option><% } %>
+                  <% if (abbr != 'SQU') { %><option value="SQU">Squirrels</option><% } %>
+                  <% if (abbr != 'STA') { %><option value="STA">Stallions</option><% } %>
+                  <% if (abbr != 'STR') { %><option value="STR">Stars</option><% } %>
+                  <% if (abbr != 'WAR') { %><option value="WAR">Warriors</option><% } %>
+                  <% if (abbr != 'WOL') { %><option value="WOL">Wolves</option><% } %>
+                  <% if (abbr != 'ZEB') { %><option value="ZEB">Zebras</option><% } %>
+                </select>
+              </div>
+              <div style="width:100%;display:flex;">
+                <div class="tradeDesc">-</div>
+                <div class="tradeDesc">-</div>
+              </div>
+              <div style="width:100%;display:flex;">
+                <div id="tradeOptLeft" style="width:50%"></div>
+                <div id="tradeOptRight" style="width:50%"></div>
+              </div>
+              <div style="width:100%;display:flex;">
+                <button id="tradeClose" onclick="closeTradeWindow(this)">Close/Cancel</button>
+                <button id="tradeOffer" onclick="offerTrade()">Offer Trade</button>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="page" id="chatCont"> <!-- chat -->
+          <div id="chatMain">
+            <div class="relConv">
+              <div id="chatMainLeft">
+                <div class="chatButton" title="Alerts" id="chatWithALE" onclick="showChat('ALE')"><img src="logos/alerts_g.png"></div>
+                <% if (abbr != 'AAR') { %><div class="chatButton" onclick="showChat('AAR')" title="Aardvarks" id="chatWithAAR"><img src="logos/aardvarks_g.png"></div><% } %>
+                <% if (abbr != 'AVI') { %><div class="chatButton" onclick="showChat('AVI')" title="Aviators" id="chatWithAVI"><img src="logos/aviators_g.png"></div><% } %>
+                <% if (abbr != 'BAD') { %><div class="chatButton" onclick="showChat('BAD')" title="Badgers" id="chatWithBAD"><img src="logos/badgers_g.png"></div><% } %>
+                <% if (abbr != 'CHA') { %><div class="chatButton" onclick="showChat('CHA')" title="Chameleons" id="chatWithCHA"><img src="logos/chameleons_g.png"></div><% } %>
+                <% if (abbr != 'CHE') { %><div class="chatButton" onclick="showChat('CHE')" title="Cheetahs" id="chatWithCHE"><img src="logos/cheetahs_g.png"></div><% } %>
+                <% if (abbr != 'COL') { %><div class="chatButton" onclick="showChat('COL')" title="Collies" id="chatWithCOL"><img src="logos/collies_g.png"></div><% } %>
+                <% if (abbr != 'COO') { %><div class="chatButton" onclick="showChat('COO')" title="Coonhounds" id="chatWithCOO"><img src="logos/coonhounds_g.png"></div><% } %>
+                <% if (abbr != 'COU') { %><div class="chatButton" onclick="showChat('COU')" title="Cougars" id="chatWithCOU"><img src="logos/cougars_g.png"></div><% } %>
+                <% if (abbr != 'DRA') { %><div class="chatButton" onclick="showChat('DRA')" title="Dragons" id="chatWithDRA"><img src="logos/dragons_g.png"></div><% } %>
+                <% if (abbr != 'EAG') { %><div class="chatButton" onclick="showChat('EAG')" title="Eagles" id="chatWithEAG"><img src="logos/eagles_g.png"></div><% } %>
+                <% if (abbr != 'ENG') { %><div class="chatButton" onclick="showChat('ENG')" title="Engineers" id="chatWithENG"><img src="logos/engineers_g.png"></div><% } %>
+                <% if (abbr != 'FAL') { %><div class="chatButton" onclick="showChat('FAL')" title="Falcons" id="chatWithFAL"><img src="logos/falcons_g.png"></div><% } %>
+                <% if (abbr != 'FLA') { %><div class="chatButton" onclick="showChat('FLA')" title="Flamingos" id="chatWithFLA"><img src="logos/flamingos_g.png"></div><% } %>
+                <% if (abbr != 'FOX') { %><div class="chatButton" onclick="showChat('FOX')" title="Foxes" id="chatWithFOX"><img src="logos/foxes_g.png"></div><% } %>
+                <% if (abbr != 'GAL') { %><div class="chatButton" onclick="showChat('GAL')" title="Galaxy" id="chatWithGAL"><img src="logos/galaxy_g.png"></div><% } %>
+                <% if (abbr != 'GOL') { %><div class="chatButton" onclick="showChat('GOL')" title="Goldens" id="chatWithGOL"><img src="logos/goldens_g.png"></div><% } %>
+                <% if (abbr != 'GRE') { %><div class="chatButton" onclick="showChat('GRE')" title="Greats" id="chatWithGRE"><img src="logos/greats_g.png"></div><% } %>
+                <% if (abbr != 'GRI') { %><div class="chatButton" onclick="showChat('GRI')" title="Grizzlies" id="chatWithGRI"><img src="logos/grizzlies_g.png"></div><% } %>
+                <% if (abbr != 'HUM') { %><div class="chatButton" onclick="showChat('HUM')" title="Hummingbirds" id="chatWithHUM"><img src="logos/hummingbirds_g.png"></div><% } %>
+                <% if (abbr != 'HUS') { %><div class="chatButton" onclick="showChat('HUS')" title="Huskies" id="chatWithHUS"><img src="logos/huskies_g.png"></div><% } %>
+                <% if (abbr != 'LON') { %><div class="chatButton" onclick="showChat('LON')" title="Longhorns" id="chatWithLON"><img src="logos/longhorns_g.png"></div><% } %>
+                <% if (abbr != 'LYN') { %><div class="chatButton" onclick="showChat('LYN')" title="Lynx" id="chatWithLYN"><img src="logos/lynx_g.png"></div><% } %>
+                <% if (abbr != 'NAT') { %><div class="chatButton" onclick="showChat('NAT')" title="Nationals" id="chatWithNAT"><img src="logos/nationals_g.png"></div><% } %>
+                <% if (abbr != 'PAN') { %><div class="chatButton" onclick="showChat('PAN')" title="Pandas" id="chatWithPAN"><img src="logos/pandas_g.png"></div><% } %>
+                <% if (abbr != 'PEG') { %><div class="chatButton" onclick="showChat('PEG')" title="Pegasi" id="chatWithPEG"><img src="logos/pegasi_g.png"></div><% } %>
+                <% if (abbr != 'PEN') { %><div class="chatButton" onclick="showChat('PEN')" title="Penguins" id="chatWithPEN"><img src="logos/penguins_g.png"></div><% } %>
+                <% if (abbr != 'PIO') { %><div class="chatButton" onclick="showChat('PIO')" title="Pioneers" id="chatWithPIO"><img src="logos/pioneers_g.png"></div><% } %>
+                <% if (abbr != 'PIR') { %><div class="chatButton" onclick="showChat('PIR')" title="Pirates" id="chatWithPIR"><img src="logos/pirates_g.png"></div><% } %>
+                <% if (abbr != 'REB') { %><div class="chatButton" onclick="showChat('REB')" title="Rebels" id="chatWithREB"><img src="logos/rebels_g.png"></div><% } %>
+                <% if (abbr != 'RED') { %><div class="chatButton" onclick="showChat('RED')" title="Red Pandas" id="chatWithRED"><img src="logos/redpandas_g.png"></div><% } %>
+                <% if (abbr != 'ROT') { %><div class="chatButton" onclick="showChat('ROT')" title="Rottweilers" id="chatWithROT"><img src="logos/rottweilers_g.png"></div><% } %>
+                <% if (abbr != 'SEN') { %><div class="chatButton" onclick="showChat('SEN')" title="Senators" id="chatWithSEN"><img src="logos/senators_g.png"></div><% } %>
+                <% if (abbr != 'SHA') { %><div class="chatButton" onclick="showChat('SHA')" title="Sharks" id="chatWithSHA"><img src="logos/sharks_g.png"></div><% } %>
+                <% if (abbr != 'SNA') { %><div class="chatButton" onclick="showChat('SNA')" title="Snakes" id="chatWithSNA"><img src="logos/snakes_g.png"></div><% } %>
+                <% if (abbr != 'SQU') { %><div class="chatButton" onclick="showChat('SQU')" title="Squirrels" id="chatWithSQU"><img src="logos/squirrels_g.png"></div><% } %>
+                <% if (abbr != 'STA') { %><div class="chatButton" onclick="showChat('STA')" title="Stallions" id="chatWithSTA"><img src="logos/stallions_g.png"></div><% } %>
+                <% if (abbr != 'STR') { %><div class="chatButton" onclick="showChat('STR')" title="Stars" id="chatWithSTR"><img src="logos/stars_g.png"></div><% } %>
+                <% if (abbr != 'WAR') { %><div class="chatButton" onclick="showChat('WAR')" title="Warriors" id="chatWithWAR"><img src="logos/warriors_g.png"></div><% } %>
+                <% if (abbr != 'WOL') { %><div class="chatButton" onclick="showChat('WOL')" title="Wolves" id="chatWithWOL"><img src="logos/wolves_g.png"></div><% } %>
+                <% if (abbr != 'ZEB') { %><div class="chatButton" onclick="showChat('ZEB')" title="Zebras" id="chatWithZEB"><img src="logos/zebras_g.png"></div><% } %>
+              </div>
+              <div id="chatMainRight">
+                <div id="chatMainTop"></div>
+                <div id="chatMainBot">
+                  <textarea placeholder="Enter Message Here" id="chatBox"></textarea>
+                  <svg id="chatSend" role="button" viewBox="0 0 24 24">
+                    <title>Send (Ctrl+Enter)</title>
+                    <path d="M2,21L23,12L2,3V10L17,12L2,14V21Z" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% for (let r of recent) { %>
+            <div class="chatHomeRow" onclick="showChat('<%= r.abbr %>')">
+              <div class="chatHomeLogo"><img src="logos/<%= r.clean %>_g.png"></div>
+              <div class="chatHomeMess" <% if (r.none) { %>style="font-style:italic;"<% } %>><%= r.mess %></div>
+              <div class="chatHomeDate"><%= r.since %></div>
+            </div>
+          <% } %>
+        </section>
+      <% } %>
+    </main>
+    <footer>
+      <div id="footTop" class="<%= current.clean %>">
+        <div id="pickLogoCont" style="background-image:url('../logos/<%= current.clean %>.png');"></div>
+        <img id="pickLogo" src="logos/<%= current.clean %>_c.png">
+        <div id="pickClock" data-time="<%= timer %>" data-started="<%= started %>">0:<%= ((timer<10)?`0${timer}`:timer) %></div>
+        <div id="pickMatrix">
+          <div class="pickCell">RD</div>
+          <div class="pickCell">PK</div>
+          <div class="pickCell"><%= pr.r %></div>
+          <div class="pickCell"><%= pr.p %></div>
+        </div>
+        <div id="pickText"><%= current.text %></div>
+      </div>
+      <div id="footBot">
+        <div class="footBotCell">Next:</div>
+        <% for (let s of picks) { %>
+          <div class="footBotCell" id="slide<%= s.index - 1 %>"><%= s.index %>. <%= s.abbr %></div>
+        <% } %>
+      </div>
+      <% if (!team) { %>
+        <div id="warning">
+          <div>you're not signed in&nbsp;&nbsp;
+            <span onclick="this.parentElement.parentElement.style.display='none'">Dismiss</span>&nbsp;&nbsp;
+            <a href="office"><span>Sign In</span></a>
+          </div>
+        </div>
+      <% } %>
+      <div id="breaking">
+        <div>
+          <span id="bn">breaking news</span>
+          <span id="tx"></span>
+        </div>
+      </div>
+    </footer>
+    <div id="errorCont">
+      <span></span>
+    </div>
+    <audio style="display:none" id="audio">
+      <source src="audio/chime.mp3" type="audio/mpeg">
+    </audio>
+    <audio style="display:none" id="music">
+      <source src="audio/music/song4.mp3" type="audio/mpeg">
+    </audio>
+  </body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>The League | Schedule</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/colors.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/schedule.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/resources.min.js"></script>
+    <script src="scripts/schedule.min.js"></script>
+  </head>
+  <body <% if (dark == 'true') { %>class="dark"<% } %>>
+    <header>
+      <img src="images/logo_sq_mono.png" ondblclick="toggleDark()">
+      <a href="/">Home</a>
+      <svg id="hamburger" onclick="toggleNav()" viewBox="0 0 24 24">
+        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+      </svg>
+      <a href="info">Info</a>
+      <a href="office">Office</a>
+      <a href="playoffs">Playoffs</a>
+      <a href="schedule" style="text-decoration:underline;">Schedule</a>
+      <a href="stats">Stats</a>
+      <a href="teams">Teams</a>
+    </header>
+    <section id="mobileNav">
+      <div class="relConv">
+        <svg id="close" onclick="toggleNav()" viewBox="0 0 24 24">
+          <path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+        </svg>
+        <div class="centerConv">
+          <div style="width:100%;height:auto;">
+            <a class="navLink" href="/">Home</a>
+            <a class="navLink" href="info">Info</a>
+            <a class="navLink" href="office">Office</a>
+            <a class="navLink" href="playoffs">Playoffs</a>
+            <a class="navLink" href="schedule" style="text-decoration:underline;">Schedule</a>
+            <a class="navLink" href="stats">Stats</a>
+            <a class="navLink" href="teams">Teams</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <main>
+      <div id="navCont">
+        <select onchange="changeMethod(this)">
+          <option value="0">By Week</option>
+          <option value="1">By Team</option>
+        </select>
+        <select onchange="getWeek(this.value)">
+          <option disabled>Select Week</option>
+          <option value="0" <% if (week == 0) { %>selected<% } %>>Preseason</option>
+          <option value="1" <% if (week == 1) { %>selected<% } %>>Week 1</option>
+          <option value="2" <% if (week == 2) { %>selected<% } %>>Week 2</option>
+          <option value="3" <% if (week == 3) { %>selected<% } %>>Week 3</option>
+          <option value="4" <% if (week == 4) { %>selected<% } %>>Week 4</option>
+          <option value="5" <% if (week == 5) { %>selected<% } %>>Week 5</option>
+          <option value="6" <% if (week == 6) { %>selected<% } %>>Week 6</option>
+          <option value="7" <% if (week == 7) { %>selected<% } %>>Week 7</option>
+          <option value="8" <% if (week == 8) { %>selected<% } %>>Week 8</option>
+          <option value="9" <% if (week == 9) { %>selected<% } %>>Week 9</option>
+          <option value="10" <% if (week == 10) { %>selected<% } %>>Week 10</option>
+          <option value="11" <% if (week == 11) { %>selected<% } %>>Week 11</option>
+          <option value="12" <% if (week == 12) { %>selected<% } %>>Week 12</option>
+          <option value="13" <% if (week == 13) { %>selected<% } %>>Week 13</option>
+          <option value="14" <% if (week == 14) { %>selected<% } %>>Week 14</option>
+          <option value="15" <% if (week == 15) { %>selected<% } %>>Week 15</option>
+          <option value="16" <% if (week == 16) { %>selected<% } %>>Week 16</option>
+          <option value="17" <% if (week == 17) { %>selected<% } %>>Week 17</option>
+          <option value="18" <% if (week == 18) { %>selected<% } %>>Week 18</option>
+          <option value="19" <% if (week == 19) { %>selected<% } %>>Week 19</option>
+          <option value="20" <% if (week == 20) { %>selected<% } %>>Week 20</option>
+          <option value="21" <% if (week == 21) { %>selected<% } %>>Wild Card</option>
+          <option value="22" <% if (week == 22) { %>selected<% } %>>Divisional</option>
+          <option value="23" <% if (week == 23) { %>selected<% } %>>Conference</option>
+          <option value="24" <% if (week == 24) { %>selected<% } %>>Championship</option>
+        </select>
+        <select style="display:none"  onchange="getTeam(this.value)">
+          <option selected disabled>Select Team</option>
+          <option value="AAR">Aardvarks</option>
+          <option value="AVI">Aviators</option>
+          <option value="BAD">Badgers</option>
+          <option value="CHA">Chameleons</option>
+          <option value="CHE">Cheetahs</option>
+          <option value="COL">Collies</option>
+          <option value="COO">Coonhounds</option>
+          <option value="COU">Cougars</option>
+          <option value="DRA">Dragons</option>
+          <option value="EAG">Eagles</option>
+          <option value="ENG">Engineers</option>
+          <option value="FAL">Falcons</option>
+          <option value="FLA">Flamingos</option>
+          <option value="FOX">Foxes</option>
+          <option value="GAL">Galaxy</option>
+          <option value="GOL">Goldens</option>
+          <option value="GRE">Greats</option>
+          <option value="GRI">Grizzlies</option>
+          <option value="HUM">Hummingbirds</option>
+          <option value="HUS">Huskies</option>
+          <option value="LON">Longhorns</option>
+          <option value="LYN">Lynx</option>
+          <option value="NAT">Nationals</option>
+          <option value="PAN">Pandas</option>
+          <option value="PEG">Pegasi</option>
+          <option value="PEN">Penguins</option>
+          <option value="PIO">Pioneers</option>
+          <option value="PIR">Pirates</option>
+          <option value="REB">Rebels</option>
+          <option value="RED">Red Pandas</option>
+          <option value="ROT">Rottweilers</option>
+          <option value="SEN">Senators</option>
+          <option value="SHA">Sharks</option>
+          <option value="SNA">Snakes</option>
+          <option value="SQU">Squirrels</option>
+          <option value="STA">Stallions</option>
+          <option value="STR">Stars</option>
+          <option value="WAR">Warriors</option>
+          <option value="WOL">Wolves</option>
+          <option value="ZEB">Zebras</option>
+        </select>
+      </div>
+      <div id="logoCont" <% if (week <= 20 && week !== 0) { %>style="display:none;"<%}%>>
+        <img src="<%= src %>">
+      </div>
+      <div id="gameCont">
+        <div id="sideGame">
+          <div class="relConv">
+            <svg id="closeSide" role="button" viewBox="0 0 24 24" onclick="this.parentElement.parentElement.style.display='none'">
+              <path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+            </svg>
+            <div id="sideLeft">
+              <table id="gameTable">
+                <tr>
+                  <th>Team</th>
+                  <th>1</th>
+                  <th>2</th>
+                  <th>3</th>
+                  <th>4</th>
+                  <th>T</th>
+                </tr>
+                <tr>
+                  <th>Away</th>
+                  <th>-</th>
+                  <th>-</th>
+                  <th>-</th>
+                  <th>-</th>
+                  <th>-</th>
+                </tr>
+                <tr>
+                  <th>Home</th>
+                  <th>-</th>
+                  <th>-</th>
+                  <th>-</th>
+                  <th>-</th>
+                  <th>-</th>
+                </tr>
+              </table>
+            </div>
+            <div id="sideRight">
+              <div class="sideRow">
+                <div class="sideNum">0</div>
+                <div class="sideStat">Offensive Rating</div>
+                <div class="sideNum">0</div>
+              </div>
+              <div class="sideRow">
+                <div class="sideBar"></div>
+                <div class="sideBar"></div>
+              </div>
+              <div class="sideRow">
+                <div class="sideNum">0</div>
+                <div class="sideStat">Defensive Rating</div>
+                <div class="sideNum">0</div>
+              </div>
+              <div class="sideRow">
+                <div class="sideBar"></div>
+                <div class="sideBar"></div>
+              </div>
+              <div class="sideRow">
+                <div class="sideNum">0</div>
+                <div class="sideStat">Yards Per Play</div>
+                <div class="sideNum">0</div>
+              </div>
+              <div class="sideRow">
+                <div class="sideBar"></div>
+                <div class="sideBar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% for (let g of games) { %>
+          <div onclick="showDetails(this)" class="gameCell <% if (g.primetime) { %>primetime<% } %>" data-stats="<%= g.stats %>" data-away="<%= g.awayMascot %>" data-home="<%= g.homeMascot %>" data-awaysbq="<%= g.awaySbq %>" data-homesbq="<%= g.homeSbq %>" data-status="<%= g.status %>">
+            <div class="gameTop"><%= g.format.toUpperCase() %> <% if (g.primetime) { %> - PRIMETIME<% } %></div>
+            <div class="gameBot">
+              <div class="gameBotCell"><img src="logos/<%= g.awayTeam %>_g.png"></div>
+              <div class="gameBotCell"><%= g.awayMascot.toUpperCase() %></div>
+              <% if (g.status == 'upcoming') { %>
+                <div class="gameBotCell"></div>
+              <% } else { %>
+                <div class="gameBotCell"><%= g.awayScore %></div>
+              <% } %>
+              <div class="gameBotCell"><img src="logos/<%= g.homeTeam %>_g.png"></div>
+              <div class="gameBotCell"><%= g.homeMascot.toUpperCase() %></div>
+              <% if (g.status == 'upcoming') { %>
+                <div class="gameBotCell"></div>
+              <% } else { %>
+                <div class="gameBotCell"><%= g.homeScore %></div>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </main>
+    <div id="errorCont">
+      <span></span>
+    </div>
+    <% if (dark != 'true' && prompt != 'false') { %>
+      <div id="promptCont">
+        <div id="prompt">
+          <div>Enable Dark Mode?</div>
+          <div>
+            <button onclick="enableDark()">Yes</button>
+            <button onclick="declineDark()" style="margin-left:5px;">No</button>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </body>
+</html>

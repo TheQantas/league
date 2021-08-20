@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>The League | Info</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/colors.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/info.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/resources.min.js"></script>
+  </head>
+  <body <% if (dark == 'true') { %>class="dark"<% } %>>
+    <header>
+      <img src="images/logo_sq_mono.png" ondblclick="toggleDark()">
+      <a href="/">Home</a>
+      <svg id="hamburger" onclick="toggleNav()" viewBox="0 0 24 24">
+        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+      </svg>
+      <a href="info" style="text-decoration:underline;">Info</a>
+      <a href="office">Office</a>
+      <a href="playoffs">Playoffs</a>
+      <a href="schedule">Schedule</a>
+      <a href="stats">Stats</a>
+      <a href="teams">Teams</a>
+    </header>
+    <section id="mobileNav">
+      <div class="relConv">
+        <svg id="close" onclick="toggleNav()" viewBox="0 0 24 24">
+          <path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+        </svg>
+        <div class="centerConv">
+          <div style="width:100%;height:auto;">
+            <a class="navLink" href="/">Home</a>
+            <a class="navLink" href="info" style="text-decoration:underline;">Info</a>
+            <a class="navLink" href="office">Office</a>
+            <a class="navLink" href="playoffs">Playoffs</a>
+            <a class="navLink" href="schedule">Schedule</a>
+            <a class="navLink" href="stats">Stats</a>
+            <a class="navLink" href="teams">Teams</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div id="head"><img src="images/2021-2022.png"><div id="grey"></div></div>
+    <div id="nav">
+      <div>
+        <a href="#1">1. Changes from Spring 2021 Season</a><br>
+        <a href="#1.1" class="single">1.1. Salary Cap</a><br>
+        <a href="#1.2" class="single">1.2. Agents</a><br>
+        <a href="#1.3" class="single">1.3. Account Changes</a><br>
+        <a href="#1.4" class="single">1.4. New Attributes</a><br>
+        <a href="#1.5" class="single">1.5. Player Rankings</a><br>
+      </div>
+      <div>
+        <a href="#2">2. Contracts & Negotiations</a><br>
+        <a href="#2.1" class="single">2.1. Contract Value</a><br>
+        <a href="#2.2" class="single">2.2. Agent Power</a><br>
+        <a href="#2.3" class="single">2.3. Negotiation Difficulty</a><br>
+        <a href="#2.4" class="single">2.4. Chance of Success</a><br>
+        <a href="#2.5" class="single">2.5. Negotiation Notes</a><br>
+      </div>
+      <div>
+        <a href="#3">3. Game Simulation</a><br>
+        <a href="#3.1" class="single">3.1. Player Tiring</a><br>
+        <a href="#3.2" class="single">3.2. Pass Plays</a><br>
+        <a href="#3.3" class="single">3.3. Run Plays</a><br>
+        <a href="#3.4" class="single">3.4. 4th Downs & 2-PT Conversions</a><br>
+        <a href="#3.5" class="single">3.5. Kickoffs and Punting</a><br>
+      </div>
+      <div>
+        <a href="#4">4. Notes</a><br>
+        <a href="#4.1" class="single">4.1. Trading Players</a><br>
+        <a href="#4.2" class="single">4.2. Playoff Seeding</a><br>
+        <a href="#4.3" class="single">4.3. Scheduling</a><br>
+        <a href="#4.4" class="single">4.4. Draft</a><br>
+        <a href="#4.5" class="single">4.5. Account Recovery</a><br>
+      </div>
+      <div>
+        <a href="#5">5. Player Positions</a><br>
+        <a href="#5.1" class="single">5.1. Quarterbacks</a><br>
+        <a href="#5.2" class="single">5.2. Running Backs</a><br>
+        <a href="#5.3" class="single">5.3. Wide Receivers</a><br>
+        <a href="#5.4" class="single">5.4. Tight Ends</a><br>
+        <a href="#5.5" class="single">5.5. Offensive Linemen</a><br>
+      </div>
+      <div>
+        <a href="#5.6" class="single">5.6. Defensive Linemen</a><br>
+        <a href="#5.7" class="single">5.7. Linebackers</a><br>
+        <a href="#5.8" class="single">5.8. Cornerbacks</a><br>
+        <a href="#5.9" class="single">5.9. Safeties</a><br>
+        <a href="#5.10" class="single">5.10. Kickers</a><br>
+        <a href="#5.11" class="single">5.11. Punters</a><br>
+      </div>
+    </div>
+    <section> <!-- changes -->
+      <h1 id="1">1. Changes from Spring 2021 Season</h1>
+      <h2 id="1.1">1.1. Salary Cap</h2>
+      <p>Each team has a salary cap of $200 million. The total amount against the cap is the total 
+        amount invested in <a href="#2.2">agents</a>, plus the total value of each player contract, 
+        plus any dead money that the team has accumulated. If a team is over the cap for any given game, 
+        they cannot win that game. However, the game will still be played, and their opponent must still 
+        win the game to be awarded a win.
+      </p>
+      <p class="note"><b>Note:</b> The salary cap is calculated for the regular season. Players are not paid 
+        for the preseason or postseason.
+      </p>
+      <h2 id="1.2">1.2. Agents</h2>
+      <p>Agents are used to negotiate contracts with players. As the level and amount of agents increases, 
+        the chance of the contract being accepted by the player increases.
+      </p>
+      <h2 id="1.3">1.3. Account Changes</h2>
+      <p>Accounts can now be recovered with recovery codes. These codes can be generated at the bottom of 
+        the settings page in the Office view. The codes should be saved in a safe place and should not 
+        be shared.
+      </p>
+      <h2 id="1.4">1.4. New Attributes</h2>
+      <p>All players now have 4 attributes instead of 3. </p>
+      <h2 id="1.5">1.5. Player Rankings</h2>
+      <p>All attributes of all players are ranked on a 7-point scale. The scale, from best to worst, 
+        is: generational (&gt;90%), excellent (80%-90%), above average (60%-80%), average (40%-60%), below average (20%-40%), 
+        terrible (10%-20%), and inept (&lt;10%). The icons for each of these are shown below.
+      </p>
+      <div class="lightbox">
+        <div class="ranking generational" title="Generational">GE</div>
+        <div class="ranking excellent" title="Excellent">EX</div>
+        <div class="ranking aboveaverage" title="Above Average">AA</div>
+        <div class="ranking average" title="Average">AV</div>
+        <div class="ranking belowaverage" title="Below Average">BA</div>
+        <div class="ranking terrible" title="Terrible">TE</div>
+        <div class="ranking inept" title="Inept">IN</div>
+      </div>
+    </section>
+    <section> <!-- contracts -->
+      <h1 id="2">2. Contracts & Negotiations</h1>
+      <h2 id="2.1">2.1. Contract Value</h2>
+      <p>The value of a player contract is the base salary times the number of regular-season games 
+        plus the total guaranteed money.
+      </p>
+      <h2 id="2.2">2.2. Agent Power</h2>
+      <p>Each agent has a power level, from 1 to 5. The level increases by 0.5 after each successful 
+        negotiation, and 0.25 after each unsuccessful negotiation. You can also pay to upgrade the agent 
+        an entire power level in the "Agents" page of the Office view. The power level determines the agent's 
+        contribution to each negotiation, according to the below equation.
+      </p>
+      <div class="lightbox text">contribution = 1.5 / ln(5) * ln(level) + 0.5</div>
+      <h2 id="2.3">2.3. Negotiation Difficulty</h2>
+      <p>The difficulty of a negotiation is based on the player's ego, and the value (in the eyes 
+        of the player) of their current contract and the proposed contract. The value in the eyes of 
+        the player is calculated as shown below.
+      </p>
+      <div class="lightbox text">player_value = base * contract_duration + guaranteed * 1.5</div>
+      <p>The negotiation difficulty is calculated in two parts, as shown below.</p>
+      <p class="note"><b>Note:</b> In the equations below, <span class="v">ov</span> is the old 
+      contract value and <span class="v">nv</span> is the proposed/new contract value, as 
+      calculated above.</p>
+      <div class="lightbox text">difficulty = a + b</div>
+      <div class="lightbox text">a = (ln(ego) + 1.1) * ov^2 / nv^2</div>
+      <div class="lightbox text">b = abs(ov-nv) / 100,000,000</div>
+      <h2 id="2.4">2.4. Chance of Success</h2>
+      <p>For any given negotiation, the chance of success is the total of all the agents'
+        contributions divided by the negotiation difficulty.
+      </p>
+      <div class="lightbox text">chance_success = (agent_1 + agent_2 + ...) / difficulty</div>
+      <h2 id="2.5">2.5. Negotiation Notes</h2>
+      <p>- In the official free agency period, agents will take 6 hours. Outside of it, 
+        the cooldown period is 24 hours.
+      </p>
+      <p>- You cannot negotiate for less guaranteed money.</p>
+      <p>- For any contract, the dead cap hit will be the base salary times the games already played 
+        on the current contract.</p>
+    </section>
+    <section> <!-- simulation -->
+      <h1 id="3">3. Game Simulation</h1>
+      <h2 id="3.1">3.1. Player Tiring</h2>
+      <p>Certain offensive positions (<a href="#5.2">RB</a>,<a href="#5.3">WR</a>,<a href="#5.4">TE</a>) tire during a drive. Each time a receiver is 
+        targets or a running back attempts a rush, that player's <span class="s">Tire</span> stat increases 
+        by one, up to a maximum of 10. This tiring is subtracted from the appropriate player stat.
+      </p>
+      <div class="lightbox text">tire_speed = tire * 0.5</div>
+      <div class="lightbox text">tire_recep = tire * 0.04</div>
+      <div class="lightbox text">tire_elus = tire * 0.01</div>
+      <h2 id="3.2">3.2. Pass Plays</h2>
+      <p>The <a href="#5.1">quarterback</a> waits to throw the ball according to his throw delay stat. Waiting for the 
+        ball to be thrown allows for the receivers to make it farther down the field, but it also gives 
+        the <a href="#5.6">defensive linemen</a> and <a href="#5.7">linebackers</a> more time to sack the QB. Once the delay is over, 
+        it checks if either of the <a href="#5.5">offensive linemen</a> has committed a holding penalty, and if there are no 
+        penalties, it checks if any of the defensive linemen can sack the QB.
+      </p>
+      <p>Assuming the ball can be thrown, a receiver is picked at random, with the first read 
+        having a 50% chance of being picked, the second read a 30% chance, and the third read a 20% chance.
+        For throws under 10 yards, the <span class="s">Accuracy</span> stat is used; for throws 10 yards 
+        or over, the <span class="s">Long Accuracy</span> stat is used. If the QB is pressured 
+        (as determined by the DL <span class="s">Pressure Percentage</span>), the QB <span class="s">Pressure Penalty</span> 
+        is subtracted from the appropriate accuracy value. If the throw is 20 yards or over, an additional 10% 
+        penalty is added to the overall accuracy.
+      </p>
+      <p>The reception rate of the receiver is determined using the <span class="s">Reception</span> stat
+        for throws under 10 yards, and the <span class="s">Long Reception</span> stat for throws 10 yards or 
+        over, minus 0.04 times the receiver's <span class="s">Tiring</span>.
+      </p>
+      <div class="lightbox text">chance_catch = qb_acc * rec_recep * (1 - cb_cover)</div>
+      <div class="lightbox text">chance_int = (1 - qb_acc) * cb_int</div>
+      <div class="lightbox text">chance_incomplete = (1 - chance_catch) + (1 - chance_int)</div>
+      <h2 id="3.3">3.3. Run Plays</h2>
+      <p>The <a href="#5.2">running back</a> will run according to their <span class="s">Speed</span> stat, minus any tiring. The entire 
+        defensive unit will then run towards the RB, with the chance of each defender tackling the RB calculated 
+        as shown below.
+      </p>
+      <div class="lightbox text">chance_tackle = def_tackle * (1 - rb_elus) * (1 + rb_tire * 0.01)</div>
+      <h2 id="3.4">3.4. Fourth Downs & 2-Point Conversions</h2>
+      <p>Teams will only go for it on fourth down in the fourth quarter.</p>
+      <p>Teams will go for it inside of their opponent's 3-yard line.</p>
+      <p>Teams will not go for it if:</p>
+      <p>- They are in field goal range and can tie/win with a field goal</p>
+      <p>- They are out of field goal range and ahead</p>
+      <p>- They are ahead with over 2 yards needed to convert</p>
+      <p>- They are behind by one possession inside own 40 with over 3 minutes left in the game</p>
+      <p>If none of the above conditions are met, teams will go for it if the following expression is less than 750.</p>
+      <div class="lightbox text">seconds_left / 6 + 25 * point_differential + 9 * distance_from_own_goal_line</div>
+      <p>Teams will go for two if there the game is within the final 10 minutes and the point differential 
+        (own_score - opponent_score) is -15,-13,-11,-10,-8,-5,-2,1,5, or 12.
+      </p>
+      <h2 id="3.5">3.5. Kickoffs & Punting</h2>
+      <p>If the kicker kicks off for a touchback (as determined by the <span class="s">Touchback </span> 
+        stat), then the opposing team starts on their own 25. Otherwise, the RB gets the ball on his 10-yard 
+        line and returns it for 2.5 times his <span class="s">Punt Return</span> stat.
+      </p>
+      <p>If a punt is not blocked (as determined by the punter's <span class="s">Punt Block</span> stat), 
+        then the ball travels according to the punter's <span class="s">Distance</span> stat. If the ball goes 
+        out of bounds (as determined by the punter's <span class="s">Out of Bounds</span> stat), and the distance is 
+        adjusted as shown below.
+      </p>
+      <div class="lightbox text">punt_oob = &Sqrt;(punt_distance + 625)</div>
+      <p>If the punter is "aware" (as determined by his <span class="s">Aware</span> stat), he cannot 
+        kick for a touchback, and the ball land somewhere within the 10-yard line.
+      </p>
+      <p>If the punt lands in the field of play, the RB will return it according to his 
+        <span class="s">Punt Return</span> stat.
+      </p>
+    </section>
+    <section> <!-- notes -->
+      <h1 id="4">4. Notes</h1>
+      <h2 id="4.1">4.1. Trading Players and Picks</h2>
+      <p>- The trade deadline is 16 November</p>
+      <p>- If a player with guaranteed money is traded, the guaranteed money is split between the two teams</p>
+      <h2 id="4.2">4.2. Playoff Seeding</h2>
+      <p>Eight teams from each conference will make the playoffs. Each division winner automatically 
+        gets one of the top five seeds, with the remaining three playoff spots going to the three best 
+        teams in the conference who did not win their conference.
+      </p>
+      <p>In the playoffs, the top seed will play the bottom seed, and the second-to-top seed will play the 
+        second-to-bottom seed, and so on.
+      </p>
+      <p>The in the event of a tie in overall record, the following tie-breakers will be used:</p>
+      <p>1. Direct Matchups</p>
+      <p>2. Divisional Record</p>
+      <p>3. Average Point Differential</p>
+      <p>4. Total Points Scored</p>
+      <h2 id="4.3">4.3. Scheduling</h2>
+      <p>Every team will play one preseason game against a team from the other conference. Each team 
+        will play each team in their division twice and 14 of the 16 remaining teams in their conference, 
+        for a total of 20 regular-season games.
+      </p>
+      <h2 id="4.4">4.4. Draft</h2>
+      <p>The draft is on the 3 September. Each team will initially have one pick in each of the eight rounds. 
+        The time limit is 20 seconds in rounds 1-4 and 15 seconds in rounds 5-8. If a team does not turn 
+        in a pick within the time limit, the server will try to get the team's pinned players.
+      </p>
+      <p class="note"><b>Note: </b> The draft browser tab must be active for the server to get your 
+        pinned players.
+      </p>
+      <p>If no pinned players can be drafted, a player will be drafted for that team at random.</p>
+      <h2 id="4.5">4.5. Account Recovery</h2>
+      <p>If you use your account, you can either use your email or a recovery code to recover your account. 
+        Keep your recovery codes in a safe place and never share them with anyone.
+      </p>
+    </section>
+    <section> <!-- positions -->
+      <h1 id="5">5. Player Positions</h1>
+      <h2 id="5.1">5.1. Quarterback</h2>
+      <p>Quarterbacks have ID's that start with '0' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Accuracy</div>
+        <div>The chance of a quarterback throwing an accurate ball under 10 yards.</div>
+        <div>0.87</div>
+        <div>0.035</div>
+        
+        <div>Long Accuracy</div>
+        <div>The chance of a quarterback throwing an accurate ball over 10 yards.</div>
+        <div>0.78</div>
+        <div>0.05</div>
+
+        <div>Pressure Penalty</div>
+        <div>This amount will be subtracted from the QB's accuracy if pressured.</div>
+        <div>0.1</div>
+        <div>0.03</div>
+
+        <div>Throw Delay</div>
+        <div>How long the quarterback will wait until throwing the ball.</div>
+        <div>2</div>
+        <div>0.25</div>
+      </div>
+      <h2 id="5.2">5.2. Running Backs</h2>
+      <p>Running backs have ID's that start with '1' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Elusiveness</div>
+        <div>This reduces the chance of the RB being tackled.</div>
+        <div>0.35</div>
+        <div>0.05</div>
+        
+        <div>Run Blocking</div>
+        <div>The chance of the RB stuffing a LB on a run play. Equivalent to OL stuff.</div>
+        <div>0.17</div>
+        <div>0.035</div>
+
+        <div>Punt Return</div>
+        <div>How far the RB returns a returnable punt.</div>
+        <div>6</div>
+        <div>1</div>
+
+        <div>Speed</div>
+        <div>How fast the player moves.</div>
+        <div>6</div>
+        <div>0.5</div>
+      </div>
+      <h2 id="5.3">5.3. Wide Receivers</h2>
+      <p>Wide receivers have ID's that start with '2' or '3' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Reception Rate</div>
+        <div>The chance of the receiver catching an accurate ball under 10 yards.</div>
+        <div>0.87</div>
+        <div>0.035</div>
+
+        <div>Long Reception Rate</div>
+        <div>The chance of the receiver catching an accurate ball over 10 yards.</div>
+        <div>0.78</div>
+        <div>0.05</div>
+
+        <div>Elusiveness</div>
+        <div>This reduces the chance of the RB being tackled.</div>
+        <div>0.1</div>
+        <div>0.025</div>
+
+        <div>Speed</div>
+        <div>How fast the player moves.</div>
+        <div>6</div>
+        <div>0.5</div>
+      </div>
+      <h2 id="5.4">5.4. Tight Ends</h2>
+      <p>Tight ends have ID's that start with '4' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Reception Rate</div>
+        <div>The chance of the receiver catching an accurate ball under 10 yards.</div>
+        <div>0.87</div>
+        <div>0.035</div>
+
+        <div>Long Reception Rate</div>
+        <div>The chance of the receiver catching an accurate ball over 10 yards.</div>
+        <div>0.78</div>
+        <div>0.05</div>
+
+        <div>Elusiveness</div>
+        <div>This reduces the chance of the RB being tackled.</div>
+        <div>0.1</div>
+        <div>0.025</div>
+
+        <div>Speed</div>
+        <div>How fast the player moves.</div>
+        <div>5</div>
+        <div>0.5</div>
+      </div>
+      <h2 id="5.5">5.5. Offensive Linemen</h2>
+      <p>Offensive linemen have ID's that start with '5' or '6' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Stuff</div>
+        <div>The chance of the OL stuffing a DL.</div>
+        <div>0.16</div>
+        <div>0.02</div>
+        
+        <div>Holding</div>
+        <div>The chance of the OL getting an offensive holding penalty.</div>
+        <div>0.015</div>
+        <div>0.008</div>
+
+        <div>Sack Avoidance</div>
+        <div>Reduces the chance of the QB being sacked.</div>
+        <div>0</div>
+        <div>0</div>
+
+        <div>Speed</div>
+        <div>How fast the player moves.</div>
+        <div>2</div>
+        <div>0.25</div>
+      </div>
+      <h2 id="5.6">5.6. Defensive Linemen</h2>
+      <p>Defensive linemen have ID's that start with '7' or '8' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Escape</div>
+        <div>This reduces the chance of the DL getting stuffed.</div>
+        <div>0.04</div>
+        <div>0.01</div>
+        
+        <div>Pressure Percentage</div>
+        <div>The chance of the DL pressuring the quarterback.</div>
+        <div>0.11</div>
+        <div>0.025</div>
+
+        <div>Tackle</div>
+        <div>The chance of the DL tackling someone within 0.5 yards.</div>
+        <div>0.54</div>
+        <div>0.03</div>
+
+        <div>Speed</div>
+        <div>How fast the player moves.</div>
+        <div>2</div>
+        <div>0.25</div>
+      </div>
+      <h2 id="5.7">5.7. Linebackers</h2>
+      <p>Running backs have ID's that start with '9' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Escape</div>
+        <div>This reduces the chance of the LB getting stuffed.</div>
+        <div>0.04</div>
+        <div>0.01</div>
+        
+        <div>Pressure Percentage</div>
+        <div>The chance of the LB pressuring the quarterback.</div>
+        <div>0.11</div>
+        <div>0.025</div>
+
+        <div>Tackle</div>
+        <div>The chance of the LB tackling someone within 0.5 yards.</div>
+        <div>0.63</div>
+        <div>0.03</div>
+
+        <div>Speed</div>
+        <div>How fast the player moves.</div>
+        <div>4</div>
+        <div>0.25</div>
+      </div>
+      <h2 id="5.8">5.8. Cornerbacks</h2>
+      <p>Cornerbacks have ID's that start with 'A', 'B', or 'C' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Cover</div>
+        <div>The chance of the CB breaking up a pass.</div>
+        <div>0.2</div>
+        <div>0.05</div>
+        
+        <div>Interception</div>
+        <div>The chance of the CB intercepting an inaccurate pass.</div>
+        <div>0.25</div>
+        <div>0.05</div>
+
+        <div>Tackle</div>
+        <div>The chance of the CB tackling someone within 0.5 yards.</div>
+        <div>0.91</div>
+        <div>0.015</div>
+
+        <div>Speed</div>
+        <div>How fast the player moves.</div>
+        <div>6</div>
+        <div>0.25</div>
+      </div>
+      <h2 id="5.9">5.9. Safeties</h2>
+      <p>Safeties have ID's that start with 'D' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Cover</div>
+        <div>This does nothing.</div>
+        <div>-</div>
+        <div>-</div>
+        
+        <div>Interception</div>
+        <div>This does nothing.</div>
+        <div>-</div>
+        <div>-</div>
+
+        <div>Tackle</div>
+        <div>The chance of the S tackling someone within 0.5 yards.</div>
+        <div>0.93</div>
+        <div>0.015</div>
+
+        <div>Speed</div>
+        <div>How fast the player moves.</div>
+        <div>7.5</div>
+        <div>0.25</div>
+      </div>
+      <h2 id="5.10">5.10. Kickers</h2>
+      <p>Kickers have ID's that start with 'E' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Point After Touchdown</div>
+        <div>The chance of the K making a PAT</div>
+        <div>0.94</div>
+        <div>0.02</div>
+        
+        <div>Field Goal</div>
+        <div>The chance of the K making a field goal under 40 yards.</div>
+        <div>0.92</div>
+        <div>0.02</div>
+
+        <div>Long Field Goal</div>
+        <div>The chance of the K making a field goal over 40 yards.</div>
+        <div>0.86</div>
+        <div>0.03</div>
+
+        <div>Touchback</div>
+        <div>The chance of the K kicking off for a touchback.</div>
+        <div>0.8</div>
+        <div>0.05</div>
+      </div>
+      <h2 id="5.11">5.11. Punters</h2>
+      <p>Punters have ID's that start with 'F' and the following attributes:</p>
+      <div class="playerGrid">
+        <div>Name</div>
+        <div>Description</div>
+        <div>Mean</div>
+        <div><abbr title="Maximum Standard Deviation">MSD</abbr></div>
+
+        <div>Distance</div>
+        <div>The distance of the punt (in yards).</div>
+        <div>50</div>
+        <div>5</div>
+        
+        <div>Awareness</div>
+        <div>The chance of the punter avoiding a touchback (to try to land it in the 20).</div>
+        <div>0.2</div>
+        <div>0.02</div>
+
+        <div>Blocked Punt Rate</div>
+        <div>The chance of a punt being blocked.</div>
+        <div>0.02</div>
+        <div>0.005</div>
+
+        <div>Out of Bounds</div>
+        <div>The change of a punt going out of bounds.</div>
+        <div>0.2</div>
+        <div>0.02</div>
+      </div>
+    </section>
+    <div id="errorCont">
+      <span></span>
+    </div>
+    <% if (dark != 'true' && prompt != 'false') { %>
+      <div id="promptCont">
+        <div id="prompt">
+          <div>Enable Dark Mode?</div>
+          <div>
+            <button onclick="enableDark()">Yes</button>
+            <button onclick="declineDark()" style="margin-left:5px;">No</button>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </body>
+</html>

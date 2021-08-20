@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>The League | 404</title>
+    <link rel="shortcut icon" href="https://theleague.football/images/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        height: 100vh;
+        width: 100%;
+        background-color: var(--main);
+        margin: 0px;
+        --sapphire: rgb(72,120,203);
+      }
+      body.dark {
+        --main: #333;
+        --accent: #444;
+        --doubleaccent: #555;
+        --tripleaccent: #666;
+        --quadrupleaccent: #707070;
+        --text: #eee;
+        --accenttext: #ddd;
+      }
+      body:not(.dark) {
+        --main: #eee;
+        --accent: #ddd;
+        --doubleaccent: #ccc;
+        --tripleaccent: #bbb;
+        --quadrupleaccent: #aaa;
+        --text: #333;
+        --accenttext: #444;
+      }
+      header {
+        width: calc(100% - 40px);
+        padding: 0 20px 25px 20px;
+        height: 200px;
+        color: var(--sapphire);
+        line-height: 200px;
+        font-family: sans-serif;
+        font-size: 180px;
+        display: flex;
+        align-items: center;
+      }
+      section {
+        height: auto;
+        width: calc(100% - 40px);
+        padding: 10px 20px;
+        font-family: sans-serif;
+        font-size: 60px;
+        color: var(--text);
+        background-color: var(--accent);
+      }
+      a {
+        text-decoration: none;
+        color: var(--sapphire);
+        border: 2px solid currentColor;
+        font-family: sans-serif;
+        padding: 10px;
+        display: inline-block;
+        margin: 20px;
+        font-size: 40px;
+      }
+      a:hover {
+        background-color: var(--accent);
+      }
+      @media only screen and (max-width: 600px) {
+        section {
+          font-size: 48px;
+        }
+        a {
+          font-size: 30px;
+        }
+        header {
+          padding: 0 20px 20px 20px;
+          height: 150px;
+          font-size: 120px;
+        }
+      }
+      @media only screen and (max-width: 450px) {
+        section, header {
+          text-align: center;
+        }
+        header {
+          justify-content: center;
+        }
+        section {
+          font-size: 40px;
+        }
+        a {
+          margin: 0;
+          width: calc(100% - 24px);
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body <% if (dark == 'true') { %>class="dark"<% } %>>
+    <header>:(</header>
+    <section>The page that you are looking for could not be found</section>
+    <a href="/">Go to Home Page</a>
+  </body>
+</html>

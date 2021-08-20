@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>The League | Teams</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/colors.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/teams.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/resources.min.js"></script>
+    <script src="scripts/teams.min.js"></script>
+  </head>
+  <body <% if (dark == 'true') { %>class="dark"<% } %>>
+    <header>
+      <img src="images/logo_sq_mono.png" ondblclick="toggleDark()">
+      <a href="/">Home</a>
+      <svg id="hamburger" onclick="toggleNav()" viewBox="0 0 24 24">
+        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+      </svg>
+      <a href="info">Info</a>
+      <a href="office">Office</a>
+      <a href="playoffs">Playoffs</a>
+      <a href="schedule">Schedule</a>
+      <a href="stats">Stats</a>
+      <a href="teams" style="text-decoration:underline;">Teams</a>
+    </header>
+    <section id="mobileNav">
+      <div class="relConv">
+        <svg id="close" onclick="toggleNav()" viewBox="0 0 24 24">
+          <path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+        </svg>
+        <div class="centerConv">
+          <div style="width:100%;height:auto;">
+            <a class="navLink" href="/">Home</a>
+            <a class="navLink" href="info">Info</a>
+            <a class="navLink" href="office">Office</a>
+            <a class="navLink" href="playoffs">Playoffs</a>
+            <a class="navLink" href="schedule">Schedule</a>
+            <a class="navLink" href="stats">Stats</a>
+            <a class="navLink" href="teams" style="text-decoration:underline;">Teams</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <main>
+      <select onchange="ws.mail({method:'teamInfo',abbr:this.value})">
+        <option value="AAR" <% if (abbr == 'AAR') { %>selected<% } %>>Aardvarks</option>
+        <option value="AVI" <% if (abbr == 'AVI') { %>selected<% } %>>Aviators</option>
+        <option value="BAD" <% if (abbr == 'BAD') { %>selected<% } %>>Badgers</option>
+        <option value="CHA" <% if (abbr == 'CHA') { %>selected<% } %>>Chameleons</option>
+        <option value="CHE" <% if (abbr == 'CHE') { %>selected<% } %>>Cheetahs</option>
+        <option value="COL" <% if (abbr == 'COL') { %>selected<% } %>>Collies</option>
+        <option value="COO" <% if (abbr == 'COO') { %>selected<% } %>>Coonhounds</option>
+        <option value="COU" <% if (abbr == 'COU') { %>selected<% } %>>Cougars</option>
+        <option value="DRA" <% if (abbr == 'DRA') { %>selected<% } %>>Dragons</option>
+        <option value="EAG" <% if (abbr == 'EAG') { %>selected<% } %>>Eagles</option>
+        <option value="ENG" <% if (abbr == 'ENG') { %>selected<% } %>>Engineers</option>
+        <option value="FAL" <% if (abbr == 'FAL') { %>selected<% } %>>Falcons</option>
+        <option value="FLA" <% if (abbr == 'FLA') { %>selected<% } %>>Flamingos</option>
+        <option value="FOX" <% if (abbr == 'FOX') { %>selected<% } %>>Foxes</option>
+        <option value="GAL" <% if (abbr == 'GAL') { %>selected<% } %>>Galaxy</option>
+        <option value="GOL" <% if (abbr == 'GOL') { %>selected<% } %>>Goldens</option>
+        <option value="GRE" <% if (abbr == 'GRE') { %>selected<% } %>>Greats</option>
+        <option value="GRI" <% if (abbr == 'GRI') { %>selected<% } %>>Grizzlies</option>
+        <option value="HUM" <% if (abbr == 'HUM') { %>selected<% } %>>Hummingbirds</option>
+        <option value="HUS" <% if (abbr == 'HUS') { %>selected<% } %>>Huskies</option>
+        <option value="LON" <% if (abbr == 'LON') { %>selected<% } %>>Longhorns</option>
+        <option value="LYN" <% if (abbr == 'LYN') { %>selected<% } %>>Lynx</option>
+        <option value="NAT" <% if (abbr == 'NAT') { %>selected<% } %>>Nationals</option>
+        <option value="PEG" <% if (abbr == 'PEG') { %>selected<% } %>>Pegasi</option>
+        <option value="PEN" <% if (abbr == 'PEN') { %>selected<% } %>>Penguins</option>
+        <option value="PIO" <% if (abbr == 'PIO') { %>selected<% } %>>Pioneers</option>
+        <option value="PIR" <% if (abbr == 'PIR') { %>selected<% } %>>Pirates</option>
+        <option value="REB" <% if (abbr == 'REB') { %>selected<% } %>>Rebels</option>
+        <option value="RED" <% if (abbr == 'RED') { %>selected<% } %>>Red Pandas</option>
+        <option value="ROT" <% if (abbr == 'ROT') { %>selected<% } %>>Rottweilers</option>
+        <option value="SEN" <% if (abbr == 'SEN') { %>selected<% } %>>Senators</option>
+        <option value="SHA" <% if (abbr == 'SHA') { %>selected<% } %>>Sharks</option>
+        <option value="SNA" <% if (abbr == 'SNA') { %>selected<% } %>>Snakes</option>
+        <option value="SQU" <% if (abbr == 'SQU') { %>selected<% } %>>Squirrels</option>
+        <option value="STA" <% if (abbr == 'STA') { %>selected<% } %>>Stallions</option>
+        <option value="STR" <% if (abbr == 'STR') { %>selected<% } %>>Stars</option>
+        <option value="WAR" <% if (abbr == 'WAR') { %>selected<% } %>>Warriors</option>
+        <option value="WOL" <% if (abbr == 'WOL') { %>selected<% } %>>Wolves</option>
+        <option value="ZEB" <% if (abbr == 'ZEB') { %>selected<% } %>>Zebras</option>
+      </select>
+      <section id="mainCont">
+        <div id="top" class="<%= team.clean %>">
+          <img src="logos/<%= team.clean %>.png">
+          <div id="topInfo">
+            <div id="topMascot"><%= team.mascot %></div>
+            <div id="topRecord">(<%= team.w %>-<%= team.l %>) | (<%= team.dw %>-<%= team.dl %>) in <%= team.division %></div>
+          </div>
+        </div>
+        <div id="navBar">
+          <button class="nav" onclick="toPage('page','nav',0)" style="text-decoration:underline;">News</button>
+          <button class="nav" onclick="toPage('page','nav',1)">Draft</button>
+          <button class="nav" onclick="toPage('page','nav',2)">Roster</button>
+        </div>
+        <div class="page" style="display:block">
+          <% for (let i = 0, s = stories[0]; i < stories.length; i++, s = stories[i]) { %>
+            <div class="cell storyCell" <% if (i>4) { %>style="display:none"<% } %>>
+              <div class="cellTop"><%= s.format %></div>
+              <div class="cellBot"><%= s.story %></div>
+            </div>
+          <% } %>
+          <% if (stories.length > 5) { %>
+            <button id="moreStories" onclick="viewMoreStories()">View More Stories</button>
+          <% } %>
+          <div class="only" id="onlyStory">This team has no noteworthy stories</div>
+        </div>
+        <div class="page">
+          <% for (let p of picks) { %>
+            <div class="pickRow">
+              <img class="pickLogo" src="logos/<%= p.clean %>_g.png">
+              <div class="pickInfo">RD <%= p.round %> PK <%= p.pick %> (<%= p.ordinal.toUpperCase() %>)</div>
+              <div class="pickTransfer">
+                <% if (JSON.parse(p.trades).length > 1) { %>
+                  <%=JSON.parse(p.trades)[0]%>
+                  <% for (let k = 1; k < JSON.parse(p.trades).length; k++) { %>
+                    &#9654;&nbsp;<%=JSON.parse(p.trades)[k]%>
+                  <% } %>
+                <% } %>
+              </div>
+              <div class="pickName">
+                <% if (p.player) { %>
+                  <%= p.player.fName %> <%= p.player.lName %> <span class="num">(<%= p.player.pos %> #<%= p.player.id %>)</span>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+          <div class="only" id="onlyStory">This team has no draft picks</div>
+        </div>
+        <div class="page">
+          <% for (let p of players) { %>
+            <div class="cell">
+              <div class="playerTop">
+                <%= p.fName %> <%= p.lName %>&nbsp;<span class="num">(<%= p.pos %> #<%= p.id %>)</span>
+                <svg viewBox="0 0 24 24" role="button" onclick="this.parentElement.nextElementSibling.classList.toggle('show')">
+                  <path d="M12,16A2,2 0 0,1 14,18A2,2 0 0,1 12,20A2,2 0 0,1 10,18A2,2 0 0,1 12,16M12,10A2,2 0 0,1 14,12A2,2 0 0,1 12,14A2,2 0 0,1 10,12A2,2 0 0,1 12,10M12,4A2,2 0 0,1 14,6A2,2 0 0,1 12,8A2,2 0 0,1 10,6A2,2 0 0,1 12,4Z"></path>
+                  <title>More Details</title>
+                </svg>
+              </div>
+              <div class="playerBot">
+                <div class="playerCell">Stat</div>
+                <div class="playerCell">Mean</div>
+                <div class="playerCell"><abbr title="Standard Deviation">Std. Dev.</abbr></div>
+                <div class="playerCell">Rank</div>
+                <% let a = [p.stat1,p.stat2,p.stat3,p.stat4]; %>
+                <% for (let x of a) { %>
+                  <div class="playerCell"><%- x.h %></div>
+                  <div class="playerCell"><%= x.m %></div>
+                  <div class="playerCell"><%= x.s %></div>
+                  <div class="playerCell">
+                    <div class="ranking <%= x.r.cls %>" title="<%= x.r.name %>">
+                      <%= x.r.abbr %>
+                    </div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          <% } %>
+          <div class="only" id="onlyStory">This team has no players on their roster</div>
+        </div>
+      </section>
+    </main>
+    <div id="errorCont">
+      <span></span>
+    </div>
+    <% if (dark != 'true' && prompt != 'false') { %>
+      <div id="promptCont">
+        <div id="prompt">
+          <div>Enable Dark Mode?</div>
+          <div>
+            <button onclick="enableDark()">Yes</button>
+            <button onclick="declineDark()" style="margin-left:5px;">No</button>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>The League | Sign In</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/colors.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/signin.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/resources.min.js"></script>
+    <script src="scripts/signin.min.js"></script>
+  </head>
+  <body <% if (dark == 'true') { %>class="dark"<% } %>>
+    <header>
+      <img src="images/logo_sq_mono.png" ondblclick="toggleDark()">
+      <a href="/">Home</a>
+      <svg id="hamburger" onclick="toggleNav()" viewBox="0 0 24 24">
+        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+      </svg>
+      <a href="info">Info</a>
+      <a href="office">Office</a>
+      <a href="playoffs">Playoffs</a>
+      <a href="schedule">Schedule</a>
+      <a href="stats">Stats</a>
+      <a href="teams">Teams</a>
+    </header>
+    <section id="mobileNav">
+      <div class="relConv">
+        <svg id="close" onclick="toggleNav()" viewBox="0 0 24 24">
+          <path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+        </svg>
+        <div class="centerConv">
+          <div style="width:100%;height:auto;">
+            <a class="navLink" href="/">Home</a>
+            <a class="navLink" href="info">Info</a>
+            <a class="navLink" href="office">Office</a>
+            <a class="navLink" href="playoffs">Playoffs</a>
+            <a class="navLink" href="schedule">Schedule</a>
+            <a class="navLink" href="stats">Stats</a>
+            <a class="navLink" href="teams">Teams</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <main style="background-image: url('../images/background<% if (dark == 'true') { %>_dark<% } %>.png');">
+      <div>
+        <div class="page" style="display:block;"> <!-- 0 sign in -->
+          <input id="mainUser" type="text" placeholder="Username">
+          <input id="mainPass" type="password" placeholder="Password">
+          <button onclick="signIn()">Sign In</button>
+          <a class="btn" onclick="toPage('page',undefined,2)">Activate Account</a>
+          <a class="btn" onclick="recover()">Forgot Password</a>
+        </div>
+        <div class="page"> <!-- 1 2fa -->
+          <p>Enter Two-Factor Code</p>
+          <input id="2faCode" oninput="checkCode(this.value)" type="number" placeholder="######">
+        </div>
+        <div class="page"> <!-- 2 activate -->
+          <input id="actUser" type="text" placeholder="Username">
+          <input id="actCode" type="number" placeholder="######">
+          <button onclick="activate()">Activate Account</button>
+        </div>
+        <div class="page"> <!-- 3 set password -->
+          <input id="setPass" oninput="checkValid()" type="password" placeholder="Set Password">
+          <input id="conPass" oninput="checkValid()" type="password" placeholder="Confirm Password">
+          <div id="setError">error message</div>
+          <button onclick="setPassword()">Set Password</button>
+        </div>
+        <div class="page"> <!-- 4 username verification -->
+          <input id="recUser" type="text" placeholder="Username">
+          <button onclick="checkUname()">Confirm Username</button>
+        </div>
+        <div class="page"> <!-- 5 recover account options -->
+          <button onclick="email()">Email Recovery</button>
+          <button onclick="toPage('page',undefined,7)">Use Recovery Code</button>
+        </div>
+        <div class="page"> <!-- 6 check email recovery code -->
+          <p id="emailMess">Enter Two-Factor Code</p>
+          <input id="emailCode" type="number" oninput="checkEmailCode(this.value)" placeholder="######">
+          <button id="resend" style="display:none;" onclick="email()">Send New Code</button>
+        </div>
+        <div class="page"> <!-- 7 use recovery code -->
+          <input id="recoCode" type="text" placeholder="Enter Code">
+          <button onclick="recoverCode()">Confirm Code</button>
+        </div>
+      </div>
+    </main>
+    <div id="errorCont">
+      <span></span>
+    </div>
+  </body>
+</html>

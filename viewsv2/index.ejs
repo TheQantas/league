@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>The League</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/colors.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/styles.min.css">
+    <link rel="stylesheet" href="css/update.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/resources.min.js"></script>
+    <script src="scripts/script.min.js"></script>
+    <script src="scripts/update.min.js"></script>
+  </head>
+  <% function shorten(str) {
+    switch(str) {
+      case 'Hummingbirds':
+        return 'H\'Birds';
+      case 'Chameleons':
+        return '\'Leons';
+      case 'Rottweilers':
+        return 'Rotts';
+    }
+    return str;
+  } %>
+  <% var adj = 0; %>
+  <% function getTheme(num) {
+    switch(num) {
+      case 0:
+        return {c:'teal',s:'preseason'};
+      case 21:
+        return {c:'green',s:'wildcard'};
+      case 22:
+        return {c:'blue',s:'divisional'};
+      case 23:
+        return {c:'purple',s:'conference'};
+      case 24:
+        return {c:'gold',s:'trophy'};
+    }
+  }%>
+  <body <% if (dark == 'true') { %>class="dark"<% } %>>
+    <header>
+      <img src="images/logo_sq_mono.png" ondblclick="toggleDark()">
+      <a href="/" style="text-decoration:underline;">Home</a>
+      <svg id="hamburger" onclick="toggleNav()" viewBox="0 0 24 24">
+        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+      </svg>
+      <a href="info">Info</a>
+      <a href="office">Office</a>
+      <a href="playoffs">Playoffs</a>
+      <a href="schedule">Schedule</a>
+      <a href="stats">Stats</a>
+      <a href="teams">Teams</a>
+    </header>
+    <section id="mobileNav">
+      <div class="relConv">
+        <svg id="close" onclick="toggleNav()" viewBox="0 0 24 24">
+          <path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+        </svg>
+        <div class="centerConv">
+          <div style="width:100%;height:auto;">
+            <a class="navLink" href="/" style="text-decoration:underline;">Home</a>
+            <a class="navLink" href="info">Info</a>
+            <a class="navLink" href="office">Office</a>
+            <a class="navLink" href="playoffs">Playoffs</a>
+            <a class="navLink" href="schedule">Schedule</a>
+            <a class="navLink" href="stats">Stats</a>
+            <a class="navLink" href="teams">Teams</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="gamesCont">
+      <svg class="gamesChevron disabled" role="button" onclick="scrollGames(-600)" style="left:0" viewBox="0 0 24 24">
+        <path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
+      </svg>
+      <div id="games">
+        <% games.sort((a,b) => { return new Date(a.schedule).getTime() - new Date(b.schedule).getTime(); }) %>
+        <% for (let g of games) { %>
+          <% if (gameActive) { %>
+            <% if (game.away.abbr == g.away && game.home.abbr == g.home) { %>
+              <div id="currentGame">
+            <% } else { %>
+              <div>
+            <% } %>
+          <% } else { %>
+            <div>
+          <% } %>
+            <div class="gamesHead"><% if (gameActive) { %>
+              <% if (g.away == game.away.abbr && g.home == game.home.abbr) { %>
+                <span id="gamesTime"><%= gameTime.q %> &middot; <%= gameTime.s %></span>
+                <button class="live" onclick="showUpdates()">LIVE</button>
+              <% } else { %>
+                <%= g.time %>
+              <% } %>
+              <% } else if (g.status == 'upcoming') { %>
+                <%= g.time %>
+              <% } else { %>
+                <%= g.status %>
+              <% } %>
+            </div>
+            <div class="gamesRow">
+              <img src="logos/<%= g.awayClean %>_g.png">
+              <div><%= g.away %></div>
+              <% if (gameActive && g.away == game.away.abbr && g.home == game.home.abbr) { %>
+                <div class="s" id="gamesAwayScore"><%= game.awayScore %></div>
+              <% } else { %>
+                <div class="s"<% if (g.awayLead) { %> style="font-weight:bold;"<%}%>><%= g.awayRender %></div>
+              <% } %>
+            </div>
+            <div class="gamesRow">
+              <img src="logos/<%= g.homeClean %>_g.png">
+              <div><%= g.home %></div>
+              <% if (gameActive && g.away == game.away.abbr && g.home == game.home.abbr) { %>
+                <div class="s" id="gamesHomeScore"><%= game.homeScore %></div>
+              <% } else { %>
+                <div class="s"<% if (g.homeLead) { %> style="font-weight:bold;"<%}%>><%= g.homeRender %></div>
+              <% } %>
+            </div>
+          </div>
+        <% } %>
+      </div>
+      <svg class="gamesChevron" role="button" onclick="scrollGames(600)" style="right:0" viewBox="0 0 24 24">
+        <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
+      </svg>
+    </section>
+    <section id="slideCont">
+      <% if (week == 0 || week > 20) { %>
+        <% adj++; %>
+        <div class="page" style="display:block;">
+          <div class="desktop">
+            <div class="weekLeft" style="background-image:url('images/<%= getTheme(week).c %>.jpg');"></div>
+            <div class="botRight weekTri"></div>
+            <div class="weekRight"></div>
+            <div class="weekImgCont"><img src="images/<%= getTheme(week).s %>_grey.png"></div>
+          </div>
+          <div class="mobile week" style="background-image:url('images/<%= getTheme(week).c %>.jpg');">
+            <img src="images/<%= getTheme(week).s %>_grey.png">
+          </div>
+        </div>
+      <% } %>
+      <% for (let i = 0, t = top[0]; i < top.length; i++, t = top[i]) { %>
+        <div class="page" <% if (i+adj==0) {%> style="display:block"<%}%>>
+          <div class="desktop">
+            <div class="deskSide <%= t.awayClean %>" style="left:0px;">
+              <img src="logos/<%= t.awayClean %>_t.png">
+            </div>
+            <div class="deskBlock left <%= t.awayClean %>"></div>
+            <div class="deskTri">
+              <div class="<%= t.awayClean %>">
+                <div class="botRight <%= t.homeClean %>"></div>
+              </div>
+            </div>
+            <div class="deskBlock right <%= t.homeClean %>"></div>
+            <div class="deskSide <%= t.homeClean %>" style="right:0px;">
+              <img src="logos/<%= t.homeClean %>_t.png">
+            </div>
+            <div class="deskMain">
+              <div class="deskTop"><span class="m"><%= shorten(t.awayMascot) %></span><span class="a"><%= t.away %></span> @ <span class="m"><%= shorten(t.homeMascot) %></span><span class="a"><%= t.home %></span></div>
+              <% if (game.away.abbr == t.away && game.home.abbr == t.home) { %>
+                <div class="deskBot"><span class="m">LIVE <%= game.away.abbr %> <span id="deskAwayScore"><%= game.awayScore %></span> <%= game.home.abbr %> <span id="deskHomeScore"><%= game.homeScore %></span></span></div>
+              <% } else if (t.status.indexOf('FINAL') != -1) { %>
+                <div class="deskBot"><span class="m"><%= t.status %> <%= t.away %> <%= t.awayScore %> <%= t.home %> <%= t.homeScore %></span></div>
+              <% } else { %>
+                <div class="deskBot"><span class="m"><%= t.fullTime %></span></div>
+              <% } %>
+            </div>
+            <div class="deskRecord left <%= t.awayClean %>"><%= t.awayRecord %></div>
+            <div class="deskRecord right <%= t.homeClean %>"><%= t.homeRecord %></div>
+            <% if (t.primetime) { %>
+              <img class="primetime" src="images/primetime.png">
+            <% } %>
+          </div>
+          <div class="mobile">
+            <div class="mobileHalf <%= t.awayClean %>" style="top:0;">
+              <img src="logos/<%= t.awayClean %>_t.png">
+            </div>
+            <div class="mobileMiddle <%= t.awayClean %>" style="top:185px;"></div>
+            <div class="mobileMiddle <%= t.homeClean %>" style="bottom:215px;"></div>
+            <div class="mobileHalf <%= t.homeClean %>" style="bottom:30px;">
+              <img src="logos/<%= t.homeClean %>_t.png">
+            </div>
+            <div class="mobileBottom <%= t.homeClean %>"></div>
+            <div class="mobileDetails">
+              <div class="mobileTop"><span class="m"><%= shorten(t.awayMascot) %></span><span class="a"><%= t.away %></span> @ <span class="m"><%= shorten(t.homeMascot) %></span><span class="a"><%= t.home %></span></div>
+              <% if (game.away.abbr == t.away && game.home.abbr == t.home) { %>
+                <div class="mobileBot"><span class="m">LIVE <%= game.away.abbr %> <span id="mobileAwayScore"><%= game.awayScore %></span> <%= game.home.abbr %> <span id="mobileHomeScore"><%= game.homeScore %></span></span></div>
+              <% } else if (t.status.indexOf('FINAL') != -1 ) { %>
+                <div class="mobileBot"><span class="m"><%= t.status %> <%= t.away %> <%= t.awayScore %> <%= t.home %> <%= t.homeScore %></span></div>
+              <% } else { %>
+                <div class="mobileBot"><span class="m"><%= t.fullTime %></span></div>
+              <% } %>
+            </div>
+          </div>
+        </div>
+      <% } %>
+      <div id="slideDockCont">
+        <div id="slideDock">
+          <% for (let i = 0; i < top.length + adj; i++) { %>
+            <button <% if (i==0) {%> class="selected"<%}%> onclick="slideTo(<%= i %>)"></button>
+          <% } %>
+        </div>
+      </div>
+    </section>
+    <section id="dates">
+      <div id="datesHeader">Important Dates</div>
+      <select id="datesSelect" onchange="toMonth(Number(this.value))">
+        <option value="0" <% if (month == 0) { %>selected<% } %>>September</option>
+        <option value="1" <% if (month == 1) { %>class="selected"<% } %>>October</option>
+        <option value="2" <% if (month == 2) { %>class="selected"<% } %>>November</option>
+        <option value="3" <% if (month == 3) { %>class="selected"<% } %>>December</option>
+        <option value="4" <% if (month == 4) { %>class="selected"<% } %>>January</option>
+        <option value="5" <% if (month == 5) { %>class="selected"<% } %>>February</option>
+      </select>
+      <div id="datesLower">
+        <div id="datesLeft">
+          <button onclick="toMonth(0)" <% if (month == 0) { %>class="selected"<% } %>>September</button>
+          <button onclick="toMonth(1)" <% if (month == 1) { %>class="selected"<% } %>>October</button>
+          <button onclick="toMonth(2)" <% if (month == 2) { %>class="selected"<% } %>>November</button>
+          <button onclick="toMonth(3)" <% if (month == 3) { %>class="selected"<% } %>>December</button>
+          <button onclick="toMonth(4)" <% if (month == 4) { %>class="selected"<% } %>>January</button>
+          <button onclick="toMonth(5)" <% if (month == 5) { %>class="selected"<% } %>>February</button>
+        </div>
+        <div id="datesRight">
+          <div class="datesGrid" <% if (month == 0) { %>style="display:grid;"<% } %>>
+            <div><%= dates.season %></div>
+            <div>Free Agency Starts/ 2021-2022 League Season Starts/ Draft Order Finalized</div>
+            <div><%= dates.draft %></div>
+            <div>Draft Starts</div>
+            <div>6-8 Sep</div>
+            <div>League Preseason</div>
+            <div><%= dates.fa %></div>
+            <div>Free Agency Period Ends</div>
+            <div><%= dates.firstGame %></div>
+            <div>First Game of the Regular Season</div>
+          </div>
+          <div class="datesGrid" <% if (month == 1) { %>style="display:grid;"<% } %>>
+            <div style="grid-column:1/span 2;">There are no important dates in October</div>
+          </div>
+          <div class="datesGrid" <% if (month == 2) { %>style="display:grid;"<% } %>>
+            <div><%= dates.trade %></div>
+            <div>Trade Deadline</div>
+          </div>
+          <div class="datesGrid" <% if (month == 3) { %>style="display:grid;"<% } %>>
+            <div><%= dates.sign %></div>
+            <div>Free Agency Deadline</div>
+          </div>
+          <div class="datesGrid" <% if (month == 4) { %>style="display:grid;"<% } %>>
+            <div><%= dates.release %></div>
+            <div>Player Release Deadline</div>
+            <div>26 Jan</div>
+            <div>Wild Card Wednesday</div>
+            <div>30 Jan</div>
+            <div>Divisional Round</div>
+          </div>
+          <div class="datesGrid" <% if (month == 5) { %>style="display:grid;"<% } %>>
+            <div>02 Feb</div>
+            <div>Conference Round</div>
+            <div><%= dates.championship %></div>
+            <div>The League Championship</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="news">
+      <div id="newsHeader">League Headlines</div>
+      <% for (let s of stories) { %>
+        <div class="newsRow">
+          <p><%= s.stamp %></p>
+          <p><%= s.story %></p>
+        </div>
+      <% } %>
+      <% if (stories.length == 0) { %>
+        <div class="newsRow">
+          <p>-</p>
+          <p>There are no headlines right now</p>
+        </div>
+      <% } %>
+    </section>
+    <footer>
+      <div>
+        <span>CFC North</span>
+        <div>
+          <img src="logos/flamingos.png" alt="Flamingos">
+          <img src="logos/foxes.png" alt="Foxes">
+          <img src="logos/nationals.png" alt="Nationals">
+          <img src="logos/penguins.png" alt="Penguins">
+        </div>
+      </div>
+      <div>
+        <span>CFC South</span>
+        <div>
+          <img src="logos/greats.png" alt="Greats">
+          <img src="logos/pandas.png" alt="Pandas">
+          <img src="logos/pirates.png" alt="Pirates">
+          <img src="logos/snakes.png" alt="Snakes">
+        </div>
+      </div>
+      <div>
+        <span>CFC Central</span>
+        <div>
+          <img src="logos/dragons.png" alt="Dragons">
+          <img src="logos/engineers.png" alt="Engineers">
+          <img src="logos/pioneers.png" alt="Pioneers">
+          <img src="logos/redpandas.png" alt="Red Pandas">
+        </div>
+      </div>
+      <div>
+        <span>CFC East</span>
+        <div>
+          <img src="logos/cougars.png" alt="Cougars">
+          <img src="logos/falcons.png" alt="Falcons">
+          <img src="logos/grizzlies.png" alt="Grizzlies">
+          <img src="logos/warriors.png" alt="Warriors">
+        </div>
+      </div>
+      <div>
+        <span>CFC West</span>
+        <div>
+          <img src="logos/aardvarks.png" alt="Aardvarks">
+          <img src="logos/coonhounds.png" alt="Coonhounds">
+          <img src="logos/rottweilers.png" alt="Rottweilers">
+          <img src="logos/senators.png" alt="Senators">
+        </div>
+      </div>
+      <div>
+        <span>NFC North</span>
+        <div>
+          <img src="logos/badgers.png" alt="Badgers">
+          <img src="logos/hummingbirds.png" alt="Hummingbirds">
+          <img src="logos/longhorns.png" alt="Longhorns">
+          <img src="logos/wolves.png" alt="Wolves">
+        </div>
+      </div>
+      <div>
+        <span>NFC South</span>
+        <div>
+          <img src="logos/aviators.png" alt="Aviators">
+          <img src="logos/chameleons.png" alt="Chameleons">
+          <img src="logos/eagles.png" alt="Eagles">
+          <img src="logos/galaxy.png" alt="Galaxy">
+        </div>
+      </div>
+      <div>
+        <span>NFC Central</span>
+        <div>
+          <img src="logos/cheetahs.png" alt="Cheetahs">
+          <img src="logos/pegasi.png" alt="Pegasi">
+          <img src="logos/stars.png" alt="Stars">
+          <img src="logos/zebras.png" alt="Zebras">
+        </div>
+      </div>
+      <div>
+        <span>NFC East</span>
+        <div>
+          <img src="logos/collies.png" alt="Collies">
+          <img src="logos/huskies.png" alt="Huskies">
+          <img src="logos/lynx.png" alt="Lynx">
+          <img src="logos/stallions.png" alt="Stallions">
+        </div>
+      </div>
+      <div>
+        <span>NFC West</span>
+        <div>
+          <img src="logos/goldens.png" alt="Goldens">
+          <img src="logos/rebels.png" alt="Rebels">
+          <img src="logos/sharks.png" alt="Sharks">
+          <img src="logos/squirrels.png" alt="Squirrels">
+        </div>
+      </div>
+    </footer>
+    <div id="errorCont">
+      <span></span>
+    </div>
+    <% if (dark != 'true' && prompt != 'false') { %>
+      <div id="promptCont">
+        <div id="prompt">
+          <div>Enable Dark Mode?</div>
+          <div>
+            <button onclick="enableDark()">Yes</button>
+            <button onclick="declineDark()" style="margin-left:5px;">No</button>
+          </div>
+        </div>
+      </div>
+    <% } %>
+    <div id="updateCont"><div>
+      <svg id="closeUpdate"  onclick="hideUpdates()" role="button" viewBox="0 0 24 24">
+        <path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+      </svg>
+      <div id="update">
+        <div id="updateTop">
+          <div class="topOuter" style="left:0;padding-right:10px;"></div>
+          <div id="topLeft"></div>
+          <div class="topRecord" style="left:207px">(0-0) | (0-0)</div>
+          <img class="topLogo" style="left:200px">
+          <img class="ball left" src="images/ball-light.png">
+          <div id="topCenter">
+            <div id="centerDown"></div>
+            <div id="centerTop"></div>
+            <div id="centerBot"></div>
+          </div>
+          <img class="ball right" src="images/ball-light.png">
+          <img class="topLogo" style="right:200px">
+          <div class="topRecord" style="right:207px">(0-0) | (0-0)</div>
+          <div id="botRight"></div>
+          <div class="topOuter" style="right:0;padding-left:10px;">COO</div>
+        </div>
+        <div id="updateMobile">
+          <div class="updateLeft" style="left:0px;"></div>
+          <div class="updateLeft" style="right:0px;"></div>
+          <img class="updateLogo left">
+          <img class="updateLogo right">
+          <div class="updateScore left"></div>
+          <div class="updateScore right"></div>
+          <img class="updateBall left" src="images/ball-light.png">
+          <img class="updateBall right" src="images/ball-light.png">
+          <div id="updateMiddle">
+            <div id="updateDown"></div>
+            <div id="updateTime"></div>
+          </div>
+        </div>
+        <div id="updateNavRow">
+          <button class="updateNav" onclick="toPage('updatePage','updateNav',0)" style="text-decoration:underline;">Updates</button>
+          <button class="updateNav" onclick="toPage('updatePage','updateNav',1)">Stats</button>
+          <button class="updateNav" onclick="toPage('updatePage','updateNav',2)">Players</button>
+        </div>
+        <div id="updateLower">
+          <div class="updatePage" style="display:block">
+            <div id="noUpdate">There are no updates</div>
+          </div>
+          <div class="updatePage">
+            <div class="statsRow" style="padding-top:5px;margin-top:0px;">
+              <div>0.0</div>
+              <div>Offensive Rating</div>
+              <div>0.0</div>
+            </div>
+            <div class="statsBar"><div></div><div></div></div>
+            <div class="statsRow">
+              <div>0.0</div>
+              <div>Defensive Rating</div>
+              <div>0.0</div>
+            </div>
+            <div class="statsBar"><div></div><div></div></div>
+            <div class="statsRow">
+              <div>0</div>
+              <div>Total Yards</div>
+              <div>0</div>
+            </div>
+            <div class="statsBar"><div></div><div></div></div>
+            <div class="statsRow">
+              <div>0</div>
+              <div>Passing Yards</div>
+              <div>0</div>
+            </div>
+            <div class="statsBar"><div></div><div></div></div>
+            <div class="statsRow">
+              <div>0</div>
+              <div>Rushing Yards</div>
+              <div>0</div>
+            </div>
+            <div class="statsBar"><div></div><div></div></div>
+            <div class="statsRow">
+              <div>0</div>
+              <div>Yards Per Play</div>
+              <div>0</div>
+            </div>
+            <div class="statsBar"><div></div><div></div></div>
+            <div class="statsRow">
+              <div>0</div>
+              <div>First Downs</div>
+              <div>0</div>
+            </div>
+            <div class="statsBar"><div></div><div></div></div>
+            <div class="statsRow">
+              <div>0</div>
+              <div>Sacks</div>
+              <div>0</div>
+            </div>
+            <div class="statsBar"><div></div><div></div></div>
+            <div class="statsRow">
+              <div>0</div>
+              <div>Interceptions</div>
+              <div>0</div>
+            </div>
+            <div class="statsBar"><div></div><div></div></div>
+            <div style="width:100%;height:10px;"></div>
+          </div>
+          <div class="updatePage">
+            <div class="posRow">
+              <div class="h">Quarterbacks</div>
+              <div>Rating</div>
+              <div>Comp/Att</div>
+              <div>TD/Int</div>
+              <div>Yards</div>
+            </div>
+            <div id="qbCont"></div>
+            <div class="spacer"></div>
+            <div class="posRow">
+              <div class="h">Running Backs</div>
+              <div>Yards</div>
+              <div>Attempts</div>
+              <div>Average</div>
+              <div>TD</div>
+            </div>
+            <div id="rbCont"></div>
+            <div class="spacer"></div>
+            <div class="posRow">
+              <div class="h">Wide Receivers & Tight Ends</div>
+              <div>Yards</div>
+              <div>Targets</div>
+              <div>Average</div>
+              <div>TD</div>
+            </div>
+            <div id="recCont"></div>
+            <div class="spacer"></div>
+            <div class="posRow">
+              <div class="h">Offensive Linemen</div>
+              <div><abbr title="Sacks Allowed">SA</abbr></div>
+              <div>Holding</div>
+              <div>Plays Def.</div>
+            </div>
+            <div id="olCont"></div>
+            <div class="spacer"></div>
+            <div class="posRow">
+              <div class="h">Defensive Line & Linebackers</div>
+              <div>Tackles</div>
+              <div>Sacks</div>
+            </div>
+            <div id="lnCont"></div>
+            <div class="spacer"></div>
+            <div class="posRow">
+              <div class="h">Cornerbacks & Safeties</div>
+              <div>Tackles</div>
+              <div>Int</div>
+              <div>Targets</div>
+            </div>
+            <div id="dbCont"></div>
+            <div class="spacer"></div>
+            <div class="posRow">
+              <div class="h">Kickers</div>
+              <div>Under 40</div>
+              <div>Over 40</div>
+              <div>PAT</div>
+              <div>Points</div>
+            </div>
+            <div id="kCont"></div>
+            <div class="spacer"></div>
+            <div class="posRow">
+              <div class="h">Punters</div>
+              <div>Yards</div>
+              <div>Net Yards</div>
+              <div>In 20</div>
+              <div>Blocked</div>
+            </div>
+            <div id="pCont"></div>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </body>
+</html>

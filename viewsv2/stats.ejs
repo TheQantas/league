@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>The League | Stats</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/colors.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/stats.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/resources.min.js"></script>
+    <script src="scripts/stats.min.js"></script>
+  </head>
+  <% function reduce(arr,not) { //slices by default
+    if (!Array.isArray(arr)) {
+      return 0;
+    }
+    if (not === true) {
+      return arr.reduce((a,b) => a + b,0);
+    }
+    if (arr.slice(1).reduce((a,b) => a + b,0) == undefined) {
+      return 0;
+    }
+    return arr.slice(1).reduce((a,b) => a + b,0);
+  } %>
+  <body <% if (dark == 'true') { %>class="dark"<% } %>>
+    <header>
+      <img src="images/logo_sq_mono.png" ondblclick="toggleDark()">
+      <a href="/">Home</a>
+      <svg id="hamburger" onclick="toggleNav()" viewBox="0 0 24 24">
+        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+      </svg>
+      <a href="info">Info</a>
+      <a href="office">Office</a>
+      <a href="playoffs">Playoffs</a>
+      <a href="schedule">Schedule</a>
+      <a href="stats" style="text-decoration:underline;">Stats</a>
+      <a href="teams">Teams</a>
+    </header>
+    <section id="mobileNav">
+      <div class="relConv">
+        <svg id="close" onclick="toggleNav()" viewBox="0 0 24 24">
+          <path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+        </svg>
+        <div class="centerConv">
+          <div style="width:100%;height:auto;">
+            <a class="navLink" href="/">Home</a>
+            <a class="navLink" href="info">Info</a>
+            <a class="navLink" href="office">Office</a>
+            <a class="navLink" href="playoffs">Playoffs</a>
+            <a class="navLink" href="schedule">Schedule</a>
+            <a class="navLink" href="stats" style="text-decoration:underline;">Stats</a>
+            <a class="navLink" href="teams">Teams</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <main>
+      <div id="nav">
+        <select onchange="sortTable();toPage('page',undefined,Number(this.value))">
+          <option value="0">Quarterbacks</option>
+          <option value="1">Running Backs</option>
+          <option value="2">Wide Receivers</option>
+          <option value="3">Tight Ends</option>
+          <option value="4">Offensive Linemen</option>
+          <option value="5">Defensive Linemen</option>
+          <option value="6">Linebackers</option>
+          <option value="7">Cornerbacks</option>
+          <option value="8">Safeties</option>
+          <option value="9">Kickers</option>
+          <option value="10">Punters</option>
+          <option value="11">Team Offense</option>
+          <option value="12">Team Defense</option>
+        </select>
+        <select onchange="sortTable();">
+          <option value="-1">All Season</option>
+          <option value="0">Preseason</option>
+          <option value="1">Week 1</option>
+          <option value="2">Week 2</option>
+          <option value="3">Week 3</option>
+          <option value="4">Week 4</option>
+          <option value="5">Week 5</option>
+          <option value="6">Week 6</option>
+          <option value="7">Week 7</option>
+          <option value="8">Week 8</option>
+          <option value="9">Week 9</option>
+          <option value="10">Week 10</option>
+          <option value="11">Week 11</option>
+          <option value="12">Week 12</option>
+          <option value="13">Week 13</option>
+          <option value="14">Week 14</option>
+          <option value="15">Week 15</option>
+          <option value="16">Week 16</option>
+          <option value="17">Week 17</option>
+          <option value="18">Week 18</option>
+          <option value="19">Week 19</option>
+          <option value="20">Week 20</option>
+          <option value="21">Wild Card</option>
+          <option value="22">Divisional</option>
+          <option value="23">Conference</option>
+          <option value="24">Championship</option>
+        </select>
+      </div>
+      <div class="page" data-pos="QB" style="display:block;">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div><abbr title="Quarterback Rating">QBR</abbr></div>
+          <div>TD/Int</div>
+          <div>Yards</div>
+          <div><abbr title="Completions/Attempts">Comp/Att</abbr></div>
+        </div>
+        <% for (let p of players.qb) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.rating %></div>
+            <div><%= p.s.td.reduce((a,b) => a + b,0) %>/<%= p.s.int.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.yds.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.comp.reduce((a,b) => a + b,0) %>/<%= p.s.att.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="RB">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div>Yards</div>
+          <div>TD</div>
+          <div>Avg</div>
+          <div>Attempts</div>
+        </div>
+        <% for (let p of players.rb) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.yds.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.td.reduce((a,b) => a + b,0) %></div>
+            <% if (p.s.att.reduce((a,b) => a + b,0) == 0) { %>
+              <div>0.0</div>
+            <% } else { %>
+              <div><%= (p.s.yds.reduce((a,b) => a + b,0))/(p.s.att.reduce((a,b) => a + b,0)) %></div>
+            <% } %>
+            <div><%= p.s.att.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="WR">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div>Yards</div>
+          <div>TD</div>
+          <div>Avg</div>
+          <div>Targets</div>
+        </div>
+        <% for (let p of players.wr) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.yds.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.td.reduce((a,b) => a + b,0) %></div>
+            <% if (p.s.att.reduce((a,b) => a + b,0) == 0) { %>
+              <div>0.0</div>
+            <% } else { %>
+              <div><%= (p.s.yds.reduce((a,b) => a + b,0))/(p.s.att.reduce((a,b) => a + b,0)) %></div>
+            <% } %>
+            <div><%= p.s.att.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="TE">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div>Yards</div>
+          <div>TD</div>
+          <div>Avg</div>
+          <div>Targets</div>
+        </div>
+        <% for (let p of players.te) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.yds.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.td.reduce((a,b) => a + b,0) %></div>
+            <% if (p.s.att.reduce((a,b) => a + b,0) == 0) { %>
+              <div>0.0</div>
+            <% } else { %>
+              <div><%= (p.s.yds.reduce((a,b) => a + b,0))/(p.s.att.reduce((a,b) => a + b,0)) %></div>
+            <% } %>
+            <div><%= p.s.att.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="OL">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div><abbr title="Pressures Allowed">Press. All.</abbr></div>
+          <div><abbr title="Sacks Allowed">Sacks All.</abbr></div>
+        </div>
+        <% for (let p of players.ol) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.pressures.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.sacks.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="DL">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div>Pressures</div>
+          <div>Sacks</div>
+        </div>
+        <% for (let p of players.dl) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.pressures.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.sacks.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="LB">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div>Pressures</div>
+          <div>Sacks</div>
+        </div>
+        <% for (let p of players.lb) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.pressures.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.sacks.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="CB">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div>Int</div>
+          <div>Tackles</div>
+          <div><abbr title="Tackle Attempts">Tack. Att.</abbr></div>
+          <div>Targets</div>
+        </div>
+        <% for (let p of players.cb) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.int.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.tackles.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.att.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.targets.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="S">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div>Tackles</div>
+          <div><abbr title="Tackle Attempts">Tack. Att.</abbr></div>
+        </div>
+        <% for (let p of players.s) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.tackles.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.att.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="K">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div>Points</div>
+          <div>Under 40</div>
+          <div>Over 40</div>
+          <div>PAT</div>
+        </div>
+        <% for (let p of players.k) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.pts.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.under40.reduce((a,b) => a + b,0) %>/<%= p.s.under40Att.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.over40.reduce((a,b) => a + b,0) %>/<%= p.s.over40Att.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.pat.reduce((a,b) => a + b,0) %>/<%= p.s.patAtt.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="P">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div>Yards</div>
+          <div>Net Yards</div>
+          <div>In 20</div>
+          <div>Punts</div>
+        </div>
+        <% for (let p of players.p) { %>
+          <div class="row" data-stats="<%= JSON.stringify(p.s) %>" data-teams="<%= JSON.stringify(p.teamHistory) %>" data-team="<%= p.team %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.fName %></span><span class="fInit"><%= p.fName.charAt(0) %>.</span> <span class="lName"><%= p.lName %></span> <span class="num">#<%= p.id %></span></div>
+            <div><%= p.s.yds.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.netYds.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.in20.reduce((a,b) => a + b,0) %></div>
+            <div><%= p.s.att.reduce((a,b) => a + b,0) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="OFF">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div><abbr title="Offensive (Team) Rating">OTR</abbr></div>
+          <div>Yards</div>
+          <div>Plays</div>
+          <div>1st Downs</div>
+        </div>
+        <% for (let p of players.off) { %>
+          <div class="row" data-stats="<%= p.stats %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.mascot %></span><span class="fInit abbr"><%= p.abbr %></span> <span class="lName">Offense</span></div>
+            <div><%= p.offRating %></div>
+            <div><%= reduce(p.stats.yds) %></div>
+            <div><%= reduce(p.stats.plays) %></div>
+            <div><%= reduce(p.stats.firstDowns) %></div>
+          </div>
+        <% } %>
+      </div>
+      <div class="page" data-pos="DEF">
+        <div class="head">
+          <div style="width:40px;"></div>
+          <div class="t">Name</div>
+          <div><abbr title="Defensive (Team) Rating">DTR</abbr></div>
+          <div><abbr title="Yards Allowed">Yds All.</abbr></div>
+          <div>Sacks</div>
+          <div>Int</div>
+        </div>
+        <% for (let p of players.def) { %>
+          <div class="row" data-stats="<%= p.stats %>">
+            <img src="logos/<%= p.clean %>_g.png">
+            <div class="t"><span class="fName"><%= p.mascot %></span><span class="fInit abbr"><%= p.abbr %></span> <span class="lName">Defense</span></div>
+            <div><%= p.defRating %></div>
+            <div><%= reduce(p.stats.defYds) %></div>
+            <div><%= reduce(p.stats.sacks) %></div>
+            <div><%= reduce(p.stats.int) %></div>
+          </div>
+        <% } %>
+      </div>
+    </main>
+    <div id="errorCont">
+      <span></span>
+    </div>
+    <% if (dark != 'true' && prompt != 'false') { %>
+      <div id="promptCont">
+        <div id="prompt">
+          <div>Enable Dark Mode?</div>
+          <div>
+            <button onclick="enableDark()">Yes</button>
+            <button onclick="declineDark()" style="margin-left:5px;">No</button>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </body>
+</html>

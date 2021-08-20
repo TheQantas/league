@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <title>The League | Playoffs</title>
+    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="stylesheet" href="css/colors.min.css">
+    <link rel="stylesheet" href="css/main.min.css">
+    <link rel="stylesheet" href="css/playoffs.min.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Oswald&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="scripts/resources.min.js"></script>
+    <script>
+      window.addEventListener('dark',() => { 
+        updateImage(document.getElementById('trophy'));
+      }, false);
+    </script>
+  </head>
+  <body <% if (dark == 'true') { %>class="dark"<% } %>>
+    <header>
+      <img src="images/logo_sq_mono.png" ondblclick="toggleDark()">
+      <a href="/">Home</a>
+      <svg id="hamburger" onclick="toggleNav()" viewBox="0 0 24 24">
+        <path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" />
+      </svg>
+      <a href="info">Info</a>
+      <a href="office">Office</a>
+      <a href="playoffs" style="text-decoration:underline;">Playoffs</a>
+      <a href="schedule">Schedule</a>
+      <a href="stats">Stats</a>
+      <a href="teams">Teams</a>
+    </header>
+    <section id="mobileNav">
+      <div class="relConv">
+        <svg id="close" onclick="toggleNav()" viewBox="0 0 24 24">
+          <path d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+        </svg>
+        <div class="centerConv">
+          <div style="width:100%;height:auto;">
+            <a class="navLink" href="/">Home</a>
+            <a class="navLink" href="info">Info</a>
+            <a class="navLink" href="office">Office</a>
+            <a class="navLink" href="playoffs" style="text-decoration:underline;">Playoffs</a>
+            <a class="navLink" href="schedule">Schedule</a>
+            <a class="navLink" href="stats">Stats</a>
+            <a class="navLink" href="teams">Teams</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <main>
+      <div>
+        <div class="confLogo"><img src="images/cfc.png"></div>
+        <div class="confText" style="color:var(--cfcstart)">Wild Card</div>
+        <div class="confText" style="color:var(--cfcmid)">Divisional</div>
+        <div class="confText" style="color:var(--cfcend)">Conference</div>
+        <div class="confGames" style="--conf:var(--cfcstart)">
+          <% for (let i = 0; i < 8; i += 2) { %>
+            <div>
+              <div class="confTime"><%= games[i].time %></div>
+              <div class="confTeam">
+                <img src="logos/<%= games[i].awayClean %>_g.png">
+                <div class="confAbbr"><span><%= games[i].awaySeed %></span> <%= games[i].away %> <span><%= games[i].awayFlag %></span></div>
+                <div class="confScore"><%= games[i].awayRender %></div>
+              </div>
+              <div class="confTeam">
+                <img src="logos/<%= games[i].homeClean %>_g.png">
+                <div class="confAbbr"><span><%= games[i].homeSeed %></span> <%= games[i].home %> <span><%= games[i].homeFlag %></span></div>
+                <div class="confScore"><%= games[i].awayRender %></div>
+              </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="confGames" style="--conf:var(--cfcmid)">
+          <% for (let i = 8; i < 12; i += 2) { %>
+            <div>
+              <div class="confTime"><%= games[i].time %></div>
+              <div class="confTeam">
+                <img src="logos/<%= games[i].awayClean %>_g.png">
+                <div class="confAbbr"><span><%= games[i].awaySeed %></span> <%= games[i].away %> <span><%= games[i].awayFlag %></span></div>
+                <div class="confScore"><%= games[i].awayRender %></div>
+              </div>
+              <div class="confTeam">
+                <img src="logos/<%= games[i].homeClean %>_g.png">
+                <div class="confAbbr"><span><%= games[i].homeSeed %></span> <%= games[i].home %> <span><%= games[i].homeFlag %></span></div>
+                <div class="confScore"><%= games[i].awayRender %></div>
+              </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="confGames" style="--conf:var(--cfcend)">
+          <div>
+            <div class="confTime"><%= games[12].time %></div>
+            <div class="confTeam">
+              <img src="logos/<%= games[12].awayClean %>_g.png">
+              <div class="confAbbr"><span><%= games[12].awaySeed %></span> <%= games[12].away %> <span><%= games[12].awayFlag %></span></div>
+              <div class="confScore"><%= games[12].awayRender %></div>
+            </div>
+            <div class="confTeam">
+              <img src="logos/<%= games[12].homeClean %>_g.png">
+              <div class="confAbbr"><span><%= games[12].homeSeed %></span> <%= games[12].home %> <span><%= games[12].homeFlag %></span></div>
+              <div class="confScore"><%= games[12].awayRender %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="champCont">
+        <div>
+          <img id="trophy" src="images/trophy<% if (dark == 'true') {%>_dark<%}%>.png">
+          <div id="champTitle">The League<br>Championship</div>
+          <div id="champTime"><%= games[14].time %></div>
+          <div id="champCell">
+            <div class="champRow">
+              <img src="logos/<%= games[14].awayClean %>_g.png">
+              <div class="champText"><span><%= games[14].awaySeed %></span> <%= games[14].away %> <span><%= games[14].awayFlag %></span></div>
+              <div class="champText score"><%= games[14].awayRender %></div>
+            </div>
+            <div class="champRow">
+              <img src="logos/<%= games[14].homeClean %>_g.png">
+              <div class="champText"><span><%= games[14].homeSeed %></span> <%= games[14].home %> <span><%= games[14].homeFlag %></span></div>
+              <div class="champText score"><%= games[14].homeRender %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="confLogo"><img src="images/nfc.png"></div>
+        <div class="confText" style="color:var(--nfcend)">Conference</div>
+        <div class="confText" style="color:var(--nfcmid)">Divisional</div>
+        <div class="confText" style="color:var(--nfcstart)">Wild Card</div>
+        <div class="confGames" style="--conf:var(--nfcend)">
+          <div>
+            <div class="confTime"><%= games[13].time %></div>
+            <div class="confTeam">
+              <img src="logos/<%= games[13].awayClean %>_g.png">
+              <div class="confAbbr"><span><%= games[13].awaySeed %></span> <%= games[13].away %> <span><%= games[13].awayFlag %></span></div>
+              <div class="confScore"><%= games[13].awayRender %></div>
+            </div>
+            <div class="confTeam">
+              <img src="logos/<%= games[13].homeClean %>_g.png">
+              <div class="confAbbr"><span><%= games[13].homeSeed %></span> <%= games[13].home %> <span><%= games[13].homeFlag %></span></div>
+              <div class="confScore"><%= games[13].awayRender %></div>
+            </div>
+          </div>
+        </div>
+        <div class="confGames" style="--conf:var(--nfcmid)">
+          <% for (let i = 9; i < 12; i += 2) { %>
+            <div>
+              <div class="confTime"><%= games[i].time %></div>
+              <div class="confTeam">
+                <img src="logos/<%= games[i].awayClean %>_g.png">
+                <div class="confAbbr"><span><%= games[i].awaySeed %></span> <%= games[i].away %> <span><%= games[i].awayFlag %></span></div>
+                <div class="confScore"><%= games[i].awayRender %></div>
+              </div>
+              <div class="confTeam">
+                <img src="logos/<%= games[i].homeClean %>_g.png">
+                <div class="confAbbr"><span><%= games[i].homeSeed %></span> <%= games[i].home %> <span><%= games[i].homeFlag %></span></div>
+                <div class="confScore"><%= games[i].awayRender %></div>
+              </div>
+            </div>
+            <% } %>
+        </div>
+        <div class="confGames" style="--conf:var(--nfcstart)">
+          <% for (let i = 1; i < 8; i += 2) { %>
+            <div>
+              <div class="confTime"><%= games[i].time %></div>
+              <div class="confTeam">
+                <img src="logos/<%= games[i].awayClean %>_g.png">
+                <div class="confAbbr"><span><%= games[i].awaySeed %></span> <%= games[i].away %> <span><%= games[i].awayFlag %></span></div>
+                <div class="confScore"><%= games[i].awayRender %></div>
+              </div>
+              <div class="confTeam">
+                <img src="logos/<%= games[i].homeClean %>_g.png">
+                <div class="confAbbr"><span><%= games[i].homeSeed %></span> <%= games[i].home %> <span><%= games[i].homeFlag %></span></div>
+                <div class="confScore"><%= games[i].awayRender %></div>
+              </div>
+            </div>
+            <% } %>
+        </div>
+      </div>
+    </main>
+    <section id="mobileCont">
+      <div class="mobileCell" style="margin-top:0px;">
+        <span class="mobileHead">Championship</span>
+        <div class="mobileGrid" style="display:flex;justify-content:center;">
+          <div id="champ">
+            <div class="mobileTime" style="color:var(--golden)"><%= games[14].time %></div>
+            <div class="mobileRow">
+              <img src="logos/<%= games[14].awayClean %>_g.png">
+              <div class="mobileAbbr" style="padding:0 2px;"><span><%= games[14].awaySeed %></span> <%= games[14].away %> <span><%= games[14].awayFlag %></span></div>
+              <div class="mobileScore"><%= games[14].awayRender %></div>
+            </div>
+            <div class="mobileRow">
+              <img src="logos/<%= games[14].homeClean %>_g.png">
+              <div class="mobileAbbr" style="padding:0 2px;"><span><%= games[14].homeSeed %></span> <%= games[14].home %> <span><%= games[14].homeFlag %></span></div>
+              <div class="mobileScore"><%= games[14].awayRender %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mobileCell">
+        <span class="mobileHead">Conference</span>
+        <div class="mobileGrid conf">
+          <% for (let i = 12; i < 14; i++) { %>
+            <div style="border-color:var(--<% if(i%2==0){%>cfc<%}else{%>nfc<%}%>end)">
+              <div class="mobileTime" style="color:var(--<% if(i%2==0){%>cfc<%}else{%>nfc<%}%>end)"><%= games[i].time %></div>
+              <div class="mobileRow">
+                <img src="logos/<%= games[i].awayClean %>_g.png">
+                <div class="mobileAbbr"><span><%= games[i].awaySeed %></span> <%= games[i].away %> <span><%= games[i].awayFlag %></span></div>
+                <div class="mobileScore"><%= games[i].awayRender %></div>
+              </div>
+              <div class="mobileRow">
+                <img src="logos/<%= games[i].homeClean %>_g.png">
+                <div class="mobileAbbr"><span><%= games[i].homeSeed %></span> <%= games[i].home %> <span><%= games[i].homeFlag %></span></div>
+                <div class="mobileScore"><%= games[i].awayRender %></div>
+              </div>
+            </div>
+            <% } %>
+        </div>
+      </div>
+      <div class="mobileCell">
+        <span class="mobileHead">Divisional</span>
+        <div class="mobileGrid">
+          <% for (let i = 8; i < 12; i++) { %>
+            <div>
+              <div class="mobileTime" style="color:var(--<% if(i%2==0){%>cfc<%}else{%>nfc<%}%>mid)"><%= games[i].time %></div>
+              <div class="mobileRow">
+                <img src="logos/<%= games[i].awayClean %>_g.png">
+                <div class="mobileAbbr"><span><%= games[i].awaySeed %></span> <%= games[i].away %> <span><%= games[i].awayFlag %></span></div>
+                <div class="mobileScore"><%= games[i].awayRender %></div>
+              </div>
+              <div class="mobileRow">
+                <img src="logos/<%= games[i].homeClean %>_g.png">
+                <div class="mobileAbbr"><span><%= games[i].homeSeed %></span> <%= games[i].home %> <span><%= games[i].homeFlag %></span></div>
+                <div class="mobileScore"><%= games[i].awayRender %></div>
+              </div>
+            </div>
+            <% } %>
+        </div>
+      </div>
+      <div class="mobileCell">
+        <span class="mobileHead">Wild Card</span>
+        <div class="mobileGrid">
+          <% for (let i = 0; i < 8; i++) { %>
+            <div>
+              <div class="mobileTime" style="color:var(--<% if(i%2==0){%>cfc<%}else{%>nfc<%}%>start)"><%= games[i].time %></div>
+              <div class="mobileRow">
+                <img src="logos/<%= games[i].awayClean %>_g.png">
+                <div class="mobileAbbr"><span><%= games[i].awaySeed %></span> <%= games[i].away %> <span><%= games[i].awayFlag %></span></div>
+                <div class="mobileScore"><%= games[i].awayRender %></div>
+              </div>
+              <div class="mobileRow">
+                <img src="logos/<%= games[i].homeClean %>_g.png">
+                <div class="mobileAbbr"><span><%= games[i].homeSeed %></span> <%= games[i].home %> <span><%= games[i].homeFlag %></span></div>
+                <div class="mobileScore"><%= games[i].awayRender %></div>
+              </div>
+            </div>
+            <% } %>
+        </div>
+      </div>
+    </section>
+    <section id="hunt">
+      <div>
+        <div class="confHeader cfc">
+          <img src="images/cfc_white.png">
+        </div>
+        <% for (let i = 8; i < 20; i++) { %>
+          <div class="huntRow">
+            <img src="logos/<%= confs.cfc[i].clean %>_g.png">
+            <div><span><%= confs.cfc[i].seed %></span> <span class="m"><%= confs.cfc[i].mascot %></span><span class="a"><%= confs.cfc[i].abbr %></span> <span><%= confs.cfc[i].flag %></span></div>
+          </div>
+        <% } %>
+      </div>
+      <div id="huntKey">
+        <div>x | Clinched Playoffs</div>
+        <div>y | Clinched Division</div>
+        <div>e | Eliminated from Playoffs</div>
+      </div>
+      <div>
+        <div class="confHeader nfc">
+          <img src="images/nfc_white.png">
+        </div>
+        <% for (let i = 8; i < 20; i++) { %>
+          <div class="huntRow">
+            <img src="logos/<%= confs.nfc[i].clean %>_g.png">
+            <div><span><%= confs.nfc[i].seed %></span> <span class="m"><%= confs.nfc[i].mascot %></span><span class="a"><%= confs.nfc[i].abbr %></span> <span><%= confs.cfc[i].flag %></span></div>
+          </div>
+        <% } %>
+      </div>
+    </section>
+    <div id="key">x | Clinched Playoffs<br>y | Clinched Division<br>e | Eliminated from Playoffs</div>
+    <div class="divisions">
+      <div>
+        <div>
+          <span class="divName">CFC North</span>
+          <% for (let t of divs.cfcnorth) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+        <div>
+          <span class="divName">CFC South</span>
+          <% for (let t of divs.cfcsouth) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+        <div>
+          <span class="divName">CFC Central</span>
+          <% for (let t of divs.cfccentral) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+        <div>
+          <span class="divName">CFC East</span>
+          <% for (let t of divs.cfceast) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+        <div>
+          <span class="divName">CFC West</span>
+          <% for (let t of divs.cfcwest) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+      <div>
+        <div>
+          <span class="divName">NFC North</span>
+          <% for (let t of divs.nfcnorth) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+        <div>
+          <span class="divName">NFC South</span>
+          <% for (let t of divs.nfcsouth) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+        <div>
+          <span class="divName">NFC Central</span>
+          <% for (let t of divs.nfccentral) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+        <div>
+          <span class="divName">NFC East</span>
+          <% for (let t of divs.nfceast) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+        <div>
+          <span class="divName">NFC West</span>
+          <% for (let t of divs.nfcwest) { %>
+            <div class="divRow">
+              <img src="logos/<%= t.clean %>_g.png">
+              <div class="divText"><span class="m"><%= t.mascot %></span><span class="a"><%= t.abbr %></span> <span><%= t.flag %></span></div>
+              <div class="divText record">(<%= t.w %>-<%= t.l %>) | (<%= t.dw %>-<%= t.dl %>)</div>
+            </div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+    <div id="errorCont">
+      <span></span>
+    </div>
+    <% if (dark != 'true' && prompt != 'false') { %>
+      <div id="promptCont">
+        <div id="prompt">
+          <div>Enable Dark Mode?</div>
+          <div>
+            <button onclick="enableDark()">Yes</button>
+            <button onclick="declineDark()" style="margin-left:5px;">No</button>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </body>
+</html>
