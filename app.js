@@ -742,12 +742,12 @@ news.newStory = (abbrs,story) => {
   request(`INSERT INTO news (teams,time,story) VALUES (${t},${s},${story});`);
 }
 const line = {};
-line.trade = '2021-11-17T06:59:00Z';
+line.trade = '2021-11-16T19:00:00Z';
 line.draft = '2021-09-04T00:00:00Z';
 line.fa = '2021-09-10T18:00:00Z';
-line.release = '2022-01-22T18:00:00Z';
+line.release = '2022-01-22T19:00:00Z';
 line.season = '2021-09-01T18:00:00Z';
-line.sign = '2021-12-15T06:59:00Z';
+line.sign = '2021-12-14T19:00:00Z';
 line.firstGame = '2021-09-10T22:00:00Z';
 line.championship = '2022-02-05T19:00:00Z';
 const span = {};
