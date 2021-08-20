@@ -106,10 +106,8 @@
               <div class="cellBot"><%= s.story %></div>
             </div>
           <% } %>
-          <% if (stories.length > 5) { %>
-            <button id="moreStories" onclick="viewMoreStories()">View More Stories</button>
-          <% } %>
-          <div class="only" id="onlyStory">This team has no noteworthy stories</div>
+          <button id="moreStories" onclick="viewMoreStories()" <% if (stories.length < 6) { %>style="display:none;"<% } %>>View More Stories</button>
+          <div class="only" id="onlyStory" <% if (stories.length == 0) { %>style="display:block;"<% } %>>This team has no noteworthy stories</div>
         </div>
         <div class="page">
           <% for (let p of picks) { %>
