@@ -2569,15 +2569,14 @@ app.set('view engine','ejs');
 app.get('/', (req,res) => {
   contests.getWeek(getCurrentWeek()).then(games => {
     news.getMostRecent(6).then(stories => {
-      var geo = geoip.lookup(req.ip);
+      var geo = geoip.lookup(req.header('x-forwarded-for') || req.connection.remoteAddress);
       var tz = 'utc';
       if (geo) {
         if (geo.timezone) {
           tz = geo.timezone;
         }
       }
-	    let qrs = req.header('x-forwarded-for') || req.connection.remoteAddress;
-      console.log('tz',tz,'ip',req.ip,'ip2',qrs);
+      console.log('tz',tz);
       for (let g of games) {
         g.time = tiempo.getFormatDayAndHour(g.schedule,tz);
         g.fullTime = tiempo.getFormatTime(g.schedule,tz);
@@ -3006,7 +3005,7 @@ app.get('/office', (req,res) => {
   });
 });
 app.get('/playoffs', (req,res) => {
-    var geo = geoip.lookup(req.ip);
+    var geo = geoip.lookup(req.header('x-forwarded-for') || req.connection.remoteAddress);
     var tz = 'utc';
     if (geo) {
       if (geo.timezone) {
@@ -3221,7 +3220,7 @@ app.get('/stats', (req,res) => {
 });
 app.get('/schedule', (req,res) => {
   contests.getWeek(getCurrentWeek()).then(games => {
-    var geo = geoip.lookup(req.ip);
+    var geo = geoip.lookup(req.header('x-forwarded-for') || req.connection.remoteAddress);
     var tz = 'utc';
     if (geo) {
       if (geo.timezone) {
@@ -3272,7 +3271,7 @@ app.get('/schedule', (req,res) => {
   });
 });
 app.get('/teams', (req,res) => {
-  var geo = geoip.lookup(req.ip);
+  var geo = geoip.lookup(req.header('x-forwarded-for') || req.connection.remoteAddress);
   var tz = 'utc';
   if (geo) {
     if (geo.timezone) {
