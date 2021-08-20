@@ -6,6 +6,7 @@ const path = require('path');
 const speakeasy = require('speakeasy');
 const useragent = require('express-useragent');
 const mysql = require('mysql');
+const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
 const cookieParser = require('cookie-parser');
 const { DateTime } = require('luxon');
