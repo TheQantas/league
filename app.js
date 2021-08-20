@@ -747,9 +747,9 @@ line.draft = '2021-09-04T00:00:00Z';
 line.fa = '2021-09-10T18:00:00Z';
 line.release = '2022-01-22T18:00:00Z';
 line.season = '2021-09-01T18:00:00Z';
-line.sign = '2021-12-14T19:00:00Z';
-line.firstGame = '2021-09-11T04:00:00Z';
-line.championship = '2022-02-06T01:00:00Z';
+line.sign = '2021-12-15T06:59:00Z';
+line.firstGame = '2021-09-10T22:00:00Z';
+line.championship = '2022-02-05T19:00:00Z';
 const span = {};
 span.canTrade = () => {
   if (new Date(line.trade).getTime() > new Date().getTime()) {
