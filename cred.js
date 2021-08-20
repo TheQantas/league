@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const QRCS = require('./qrcs.js');
 
 exports.sql = () => {
-  return {p:'5$nm12@kbV9)',d:'fantasy'};
+  return {p:'eHL0cThfzctM4d3ece#12kx0nLfvYkDU',d:'fantasy'};
 }
 
 exports.key = () => {return '38571967'; }
