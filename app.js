@@ -2577,7 +2577,7 @@ app.get('/', (req,res) => {
           tz = geo.timezone;
         }
       }
-      console.log('tz',tz,'geo',geo,'ip',req.clientIp);
+      console.log('tz',tz,'geo',geo,'ip',req.clientIp,req.ip,req.connection.remoteAddress);
       for (let g of games) {
         g.time = tiempo.getFormatDayAndHour(g.schedule,tz);
         g.fullTime = tiempo.getFormatTime(g.schedule,tz);
