@@ -1,0 +1,188 @@
+body {
+  background-color: var(--main);
+}
+main {
+  width: calc(100% - 100px);
+  padding: 50px;
+  background-color: var(--main);
+}
+#navCont {
+  min-height: 30px;
+  width: 100%;
+  display: flex;
+}
+#navCont > select {
+  padding: 5px 15px;
+  background-color: var(--blue);
+  border: none;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  width: 100%;
+  border-radius: 0px;
+}
+#gameCont {
+  width: 100%;
+  background-color: var(--cell);
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  position: relative;
+}
+.gameCell {
+  height: 140px;
+  border: 2px solid var(--cellborder);
+}
+.gameCell:hover {
+  background-color: var(--cellhover);
+  cursor: pointer;
+}
+.gameCell.primetime {
+  border: 2px solid gold;
+}
+.gameTop {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  color: var(--blue);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+.gameBot {
+  display: grid;
+  grid-template-columns: 50px auto 50px;
+}
+.gameBotCell {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 30px;
+  font-family: 'Oswald', sans-serif;
+  color: var(--celltext);
+}
+.gameBotCell > img {
+  height: 40px;
+  width: 40px;
+  margin: 5px;
+}
+#sideGame {
+  background-color: var(--accent);
+  position: absolute;
+  display: none;
+  box-shadow: 4px 4px 5px var(--shadow);
+}
+#sideLeft, #sideRight {
+  position: absolute;
+  height: 100%;
+  width: calc(50% - 20px);
+}
+#sideLeft {
+  left: 0;
+}
+#gameTable {
+  color: var(--text);
+  font-family: 'Oswald', sans-serif;
+  width: 100%;
+  height: 100%;
+  font-size: 20px;
+  text-align: center;
+}
+#sideRight {
+  right: 40px;
+}
+#closeSide {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  height: 30px;
+  width: 30px;
+  fill: var(--accenttext);
+  border-radius: 5px;
+}
+#closeSide:hover {
+  cursor: pointer;
+  background-color: var(--doubleaccent);
+}
+.sideRow {
+  height: 24px;
+  width: 100%;
+  display: flex;
+}
+.sideRow:nth-of-type(odd) {
+  height: 36px;
+}
+.sideRow:nth-of-type(even) {
+  height: 12px;
+}
+.sideNum, .sideStat {
+  width: 50px;
+  line-height: 30px;
+  height: 32px;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  color: var(--text);
+  font-size: 20px;
+}
+.sideNum {
+  flex-shrink: 0;
+}
+.sideStat {
+  width: 100%;
+}
+.sideBar {
+  background-color: var(--bar);
+  height: 6px;
+  margin-top: 3px;
+}
+.sideBar:first-of-type {
+  margin-right: 2px;
+  flex-shrink: 0;
+  width: calc(50% - 4px);
+}
+.sideBar:last-of-type {
+  margin-left: 2px;
+  width: 100%;
+}
+#logoCont {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cell);
+}
+#logoCont img {
+  height: 200px;
+  width: auto;
+}
+@media only screen and (max-width: 1300px) {
+  #gameCont {
+    grid-template-columns: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+  }
+}
+@media only screen and (max-width: 1050px) {
+  #gameCont {
+    grid-template-columns: 50% 50%;
+  }
+  #logoCont {
+    height: auto;
+  }
+  #logoCont img {
+    height: auto;
+    width: 100%;
+  }
+}
+@media only screen and (max-width: 750px) {
+  main {
+    width: calc(100% - 50px);
+    padding: 25px;
+  }
+  #gameCont {
+    grid-template-columns: 100%;
+  }
+  #navCont > select {
+    padding: 5px;
+    font-size: 18px;
+  }
+}

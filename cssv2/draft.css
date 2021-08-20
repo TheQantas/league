@@ -1,0 +1,577 @@
+body {
+  margin: 0px;
+}
+#errorCont {
+  z-index: 10;
+  width: 100%;
+  position: fixed;
+  bottom: 30px;
+  height: auto;
+  display: none;
+  justify-content: center;
+  pointer-events: none;
+}
+#errorCont > span {
+  padding: 5px 15px;
+  background-color: #222d;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-size: 30px;
+  pointer-events: all;
+  border-radius: 5px;
+  text-align: center;
+}
+header {
+  width: 100%;
+  display: flex;
+}
+header > button {
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--blue);
+  border: none;
+  border-radius: 0px;
+  height: 60px;
+  width: 100%;
+  color: white;
+  font-size: 36px;
+}
+header > button:hover {
+  background-color: var(--bluehover);
+  cursor: pointer;
+}
+footer {
+  height: auto;
+  width: 100%;
+  position: relative;
+}
+main {
+  height: calc(100vh - 200px);
+  width: 100%;
+  overflow-y: auto;
+}
+main::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+main::-webkit-scrollbar-track {
+  background: var(--track);
+}
+main::-webkit-scrollbar-thumb {
+  background: var(--thumb);
+}
+main::-webkit-scrollbar-thumb:hover {
+  background: var(--thumbhover);
+}
+.page {
+  display: none;
+  height: 100%;
+  width: 100%;
+}
+#footTop {
+  height: 100px;
+  width: 100%;
+  position: relative;
+}
+#pickLogoCont {
+  height: 100px;
+  width: 180px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-position: center;
+  background-size: cover;
+  opacity: 0.4;
+}
+#pickLogo {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  top: 0px;
+  left: 40px;
+}
+#pickMatrix {
+  height: 100px;
+  width: 120px;
+  position: absolute;
+  top: 0px;
+  left: 180px;
+  background-color: var(--secondary);
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+.pickCell, #pickClock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  color: var(--primary);
+  font-size: 30px;
+}
+#pickClock {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+  left: 300px;
+  background-color: var(--secondary);
+  color: var(--primary);
+  font-size: 50px;
+}
+#pickText {
+  width: calc(100% - 400px);
+  top: 0;
+  right: 0;
+  height: 100px;
+  display: flex;
+  position: absolute;
+  background-color: var(--primary);
+  color: var(--secondary);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 60px;
+  text-transform: uppercase;
+}
+#footBot {
+  height: 40px;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  background-color: var(--main);
+  color: var(--text);
+}
+.footBotCell {
+  padding: 0 15px;
+  height: 40px;
+  line-height: 40px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+#breaking, #warning {
+  background-color: red;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 40px;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  text-transform: uppercase;
+  font-size: 30px;
+  display: none;
+}
+#breaking {
+  z-index: 2;
+}
+#warning {
+  display: block;
+}
+#warning * a {
+  color: white;
+  text-decoration: none;
+}
+#warning * span {
+  font-style: italic;
+}
+#warning * span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+#breaking > div, #warning > div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 40px;
+  width: 100%;
+  overflow: hidden;
+}
+#tx {
+  display: none;
+}
+#bn {
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+/* players */
+#playersCont {
+  background-color: var(--main);
+}
+#playerNav, #roundNav {
+  width: 100%;
+  display: flex;
+}
+#playerNav > button, #roundNav > button {
+  background-color: var(--sapphire);
+  height: 60px;
+  width: 100%;
+  border: none;
+  font-size: 36px;
+  font-family: 'Oswald', sans-serif;
+  color: white;
+  border-radius: 0px;
+}
+#playerNav > button:hover, #roundNav > button:hover {
+  background-color: var(--sapphirehover);
+  cursor: pointer;
+}
+.playerPage, .pickPage {
+  min-height: calc(100% - 60px);
+  width: 100%;
+  display: none;
+}
+.playerRow {
+  background-color: var(--cell);
+  border: 2px solid var(--cellborder);
+}
+.playerPage:nth-of-type(13) .playerRow:hover {
+  background-color: var(--cellhover);
+  cursor: move;
+}
+.playerTop {
+  height: 50px;
+  width: calc(100% - 10px);
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  color: var(--celltext);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  position: relative;
+}
+.playerTop > svg {
+  height: 36px;
+  width: 36px;
+  padding: 2px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  fill: var(--celltext);
+  border-radius: 25%;
+}
+.playerTop > svg.draft {
+  right: 95px;
+  height: 30px;
+  width: 30px;
+  padding: 5px;
+}
+.playerTop > svg.pin {
+  right: 50px;
+  height: 30px;
+  width: 30px;
+  padding: 5px;
+}
+.playerTop > svg:hover {
+  background-color: var(--accent);
+  cursor: pointer;
+}
+span.num {
+  font-size: 0.7em;
+}
+.ranking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+.ranking.generational {
+  background-color: turquoise;
+}
+.ranking.excellent {
+  background-color: limegreen;
+}
+.ranking.aboveaverage {
+  background-color: lawngreen;
+}
+.ranking.average {
+  background-color: gold;
+}
+.ranking.belowaverage {
+  background-color: orange;
+}
+.ranking.terrible {
+  background-color: orangered;
+}
+.ranking.inept {
+  background-color: crimson;
+}
+.playerBot {
+  width: 100%;
+  display: none;
+  background-color: var(--accent);
+  grid-template-columns: auto auto auto auto;
+}
+.playerBot.show {
+  display: grid;
+}
+.playerCell {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--accenttext);
+  font-size: 30px;
+}
+#playersPin {
+  display: none;
+}
+#playersPin:only-child {
+  display: block;
+}
+.tip {
+  padding: 5px 10px;
+  width: calc(100% - 20px);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+.tip > span {
+  font-style: italic;
+  font-size: 0.75em;
+}
+.tip > span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* picks */
+.pickRow {
+  background-color: var(--cell);
+  border: 2px solid var(--cellborder);
+  min-height: 60px;
+  display: flex;
+}
+.pickLogo {
+  height: 50px;
+  width: 50px;
+  flex-shrink: 0;
+  padding: 5px;
+}
+.pickInfo, .pickTransfer {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #888;
+  font-size: 24px;
+  width: 250px;
+  text-align: center;
+}
+.pickTransfer {
+  font-size: 20px;
+  width: auto;
+  padding-right: 10px;
+}
+.pickName {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--celltext);
+  font-size: 36px;
+  font-weight: bold;
+}
+/* home */
+#homeCont, #announceCont {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+#announceCont {
+  display: none;
+}
+#leftCont {
+  height: 100%;
+  width: 400px;
+  background-color: var(--primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#leftCont > img {
+  height: 300px;
+  width: 300px;
+}
+#rightCont {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: calc(100% - 400px);
+  background-color: var(--primaryaccent);
+  display: flex;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+}
+.rightRow {
+  min-height: 80px;
+  width: calc(100% - 120px);
+  margin-left: 100px;
+  padding: 0 10px;
+  background-color: var(--secondary);
+  display: flex;
+  align-items: center;
+  font-family: 'Oswald', sans-serif;
+  color: var(--tertiary);
+  font-size: 48px;
+}
+.announceRow {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--secondary);
+  background-color: var(--primaryaccent);
+  font-family: 'Oswald', sans-serif;
+  font-size: 120px;
+  letter-spacing: 5px;
+  overflow: hidden;
+}
+#silhCont {
+  height: 100%;
+  display: none;
+  background-color: var(--primaryaccent);
+}
+#silhouette {
+  height: calc(100% - 50px);
+  padding: 25px 35px;
+  width: auto;
+  fill: var(--secondary);
+}
+.silhPart {
+  height: 100%;
+}
+.silhAttr {
+  position: absolute;
+  background-color: var(--secondary);
+  color: var(--tertiary);
+  font-family: 'Oswald', sans-serif;
+  font-size: 60px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+#silhFName, #silhLName {
+  width: 100%;
+  top: 30px;
+  height: 100px;
+}
+#silhPos, #silhId {
+  width: 50%;
+  top: 160px;
+  font-size: 40px;
+}
+#songToggle {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  flex-shrink: 0;
+  fill: white;
+  background-color: var(--blue);
+}
+#songToggle:hover {
+  background-color: var(--bluehover);
+  cursor: pointer;
+}
+div#chatMain {
+  top: 60px;
+  height: calc(100% - 200px);
+  display: block;
+}
+button#tradeMake {
+  bottom: 150px;
+}
+@media only screen and (max-height: 610px) { /* height */
+  header > button, #playerNav > button, #roundNav > button {
+    height: 40px;
+    font-size: 24px;
+  }
+  #songToggle {
+    height: 30px;
+    width: 30px;
+  }
+  main {
+    height: calc(100vh - 180px);
+  }
+  div#chatMain {
+    top: 40px;
+    height: calc(100% - 180px);
+  }
+}
+@media only screen and (max-width: 1050px) {
+  .rightRow {
+    width: calc(100% - 20px);
+    margin-left: 0px;
+    font-size: 40px;
+    text-align: right;
+    justify-content: flex-end;
+    min-height: 60px;
+  }
+  #pickText {
+    width: calc(100% - 320px);
+    height: 70px;
+    font-size: 40px;
+  }
+  #pickLogoCont {
+    width: 120px;
+    height: 70px;
+  }
+  #pickLogo {
+    height: 70px;
+    width: 70px;
+    position: absolute;
+    top: 0px;
+    left: 25px;
+  }
+  #pickMatrix {
+    left: 120px;
+    height: 70px;
+    width: 100px;
+  }
+  .pickCell {
+    font-size: 24px;
+  }
+  #pickClock {
+    left: 220px;
+    height: 70px;
+    font-size: 40px;
+  }
+  #leftCont {
+    width: 320px;
+  }
+  #rightCont {
+    width: calc(100% - 320px);
+  }
+  #footTop {
+    height: 70px;
+  }
+  main {
+    height: calc(100vh - 150px);
+  }
+  #leftCont > img {
+    height: 280px;
+    width: 280px;
+  }
+  div#chatMain {
+    height: calc(100% - 150px);
+  }
+  button#tradeMake {
+    bottom: 120px;
+  }
+}

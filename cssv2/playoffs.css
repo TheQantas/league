@@ -1,0 +1,581 @@
+body.dark {
+  --transcell: #2228;
+}
+body:not(.dark) {
+  --transcell: #fffb;
+}
+main, #hunt {
+  width: 100%;
+  background-color: var(--main);
+  display: grid;
+  grid-template-columns: 40% 20% 40%;
+  grid-template-rows: 100%;
+}
+main {
+  height: calc(100vh - 60px);
+}
+#hunt {
+  height: auto;
+  min-height: 100px;
+}
+main > div:first-of-type, main > div:last-of-type {
+  padding: 5px;
+  display: grid;
+  grid-template-columns: repeat(3,calc(100%/3));
+  grid-template-rows: 50px 50px auto;
+}
+main > div > div {
+  background-color: var(--main);
+}
+main > div:first-of-type {
+  background: linear-gradient(45deg,var(--cfcstart),var(--cfcend));
+}
+main > div:last-of-type {
+  background: linear-gradient(45deg,var(--nfcstart),var(--nfcend));
+}
+.confLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: span 3;
+}
+.confLogo img {
+  height: 40px;
+  width: auto;
+}
+.confText {
+  line-height: 50px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 28px;
+}
+.confGames {
+  display: flex;
+  justify-content: center;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+}
+.confGames > div {
+  height: auto;
+  width: calc(100% - 20px);
+  padding: 0 3px;
+  background-color: var(--cell);
+  border: 2px solid var(--cellborder);
+}
+.confTime {
+  height: 20px;
+  line-height: 20px;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--conf);
+  font-weight: bold;
+}
+.confTeam {
+  height: auto;
+  width: 100%;
+  display: flex;
+}
+.confTeam img {
+  height: 26px;
+  width: auto;
+  padding: 2px;
+  flex-shrink: 0;
+}
+.confAbbr, .confScore {
+  height: 30px;
+  line-height: 30px;
+  color: rgb(128,128,128);
+  font-size: 24px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  text-align: center;
+}
+.confAbbr {
+  width: 100%;
+}
+.confScore {
+  width: 40px;
+  flex-shrink: 0;
+}
+.confAbbr span {
+  font-size: 0.6em;
+}
+.huntRow {
+  display: flex;
+  width: calc(100% - 6px);
+  padding: 3px;
+  background-color: var(--cell);
+  height: auto;
+}
+.huntRow img {
+  height: 46px;
+  width: 46px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+.huntRow div {
+  height: 50px;
+  line-height: 50px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 40px;
+  color: rgb(128,128,128);
+  text-align: center;
+  width: 100%;
+}
+.huntRow span:not(.m):not(.a) {
+  font-size: 0.6em;
+}
+.huntRow span.a {
+  display: none;
+}
+#huntKey {
+  display: flex;
+  align-content: center;
+  flex-wrap: wrap;
+}
+#huntKey div {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  color: rgb(128,128,128);
+}
+.divisions {
+  width: 100%;
+  display: flex;
+}
+.divisions > div {
+  padding: 5px;
+  min-height: 100px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2,calc(50% - 2.5px));
+  grid-template-rows: auto;
+  grid-gap: 5px;
+}
+.divisions > div:first-of-type {
+  background: linear-gradient(45deg,var(--cfcstart),var(--cfcend));
+}
+.divisions > div:last-of-type {
+  background: linear-gradient(45deg,var(--nfcstart),var(--nfcend));
+}
+.divisions > div > div {
+  background-color: var(--transcell);
+}
+.divName {
+  color: rgb(128,128,128);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 28px;
+  padding-left: 5px;
+  font-weight: bold;
+}
+.divRow {
+  height: auto;
+  width: 100%;
+  display: flex;
+}
+.divRow img {
+  height: 30px;
+  width: 30px;
+  padding: 3px;
+  flex-shrink: 0;
+}
+.divText {
+  height: 36px;
+  line-height: 36px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  color: rgb(128,128,128);
+  width: 100%;
+  text-align: center;
+}
+.divText:not(.record) {
+  font-weight: bold;
+}
+.divText.record {
+  width: 135px;
+  flex-shrink: 0;
+}
+.divText span:not(.a):not(.m) {
+  font-size: 0.6em;
+}
+.divText span.a {
+  display: none;
+}
+.confHeader {
+  height: 60px;
+  width: 100%;
+  align-items: center;
+  justify-content: space-around;
+  display: none;
+}
+.confHeader img {
+  height: 50px;
+}
+.confHeader.cfc {
+  background: linear-gradient(45deg,var(--cfcstart),var(--cfcend));
+}
+.confHeader.nfc {
+  background: linear-gradient(45deg,var(--nfcstart),var(--nfcend));
+}
+#mobileCont, #key {
+  display: none;
+  width: 100%;
+  min-height: 50px;
+  background-color: var(--main);
+}
+#key {
+  color: var(--text);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+  padding: 5px 0;
+}
+#mobileCont {
+  padding: 5px;
+  width: calc(100% - 10px);
+}
+.mobileCell {
+  background-color: var(--cell);
+  border: 2px solid var(--cellborder);
+  padding: 3px;
+  margin-top: 5px;
+}
+.mobileHead {
+  color: var(--celltext);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 24px;
+}
+.mobileGrid {
+  display: grid;
+  grid-template-columns: repeat(4,calc((100% - 9px)/4));
+  grid-auto-rows: max-content;
+  grid-gap: 3px;
+}
+.mobileGrid > div {
+  background-color: var(--cellaccent);
+  padding: 2px;
+}
+.mobileTime {
+  height: 30px;
+  line-height: 30px;
+  font-size: 24px;
+  font-family: 'Montserrat', sans-serif;
+}
+.mobileRow {
+  display: flex;
+  width: 100%;
+}
+.mobileRow img {
+  height: 39px;
+  width: auto;
+  padding: 3px;
+}
+.mobileAbbr, .mobileScore {
+  height: 45px;
+  line-height: 45px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+  color: rgb(128,128,128);
+}
+.mobileAbbr span {
+  font-size: 0.7em;
+}
+.mobileScore {
+  flex-shrink: 0;
+  width: 60px;
+}
+.mobileGrid.conf > div {
+  border: 2px solid;
+}
+#champ {
+  border:2px solid var(--golden);
+  padding:2px 10px;
+}
+#champCont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#trophy {
+  width: 100px;
+  left: calc(50% - 50px);
+  margin: 0 auto;
+  display: block;
+}
+#champCont > div {
+  width: calc(100% - 10px);
+  min-height: 10px;
+}
+#champTime, #champTitle {
+  margin: 10px 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#champTitle {
+  color: var(--text);
+  font-size: 26px;
+}
+#champTime {
+  color: var(--golden);
+  font-size: 20px;
+}
+#champCell {
+  background-color: var(--cell);
+  border: 2px solid var(--cellborder);
+  padding: 3px;
+  width: calc(100% - 10px);
+}
+.champRow {
+  width: 100%;
+  display: flex;
+}
+.champRow img {
+  height: 44px;
+  width: 44px;
+  padding: 3px;
+  flex-shrink: 0;
+}
+.champText {
+  height: 50px;
+  line-height: 50px;
+  width: 100%;
+  color: rgb(128,128,128);
+  text-align: center;
+  font-size: 36px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+.champText.score {
+  width: 60px;
+  flex-shrink: 0;
+}
+@media only screen and (max-width: 1300px) {
+  .divisions > div {
+    grid-template-columns: 100%;
+    width: calc(100% - 10px);
+  }
+  .divName {
+    font-size: 28px;
+  }
+  .divRow img {
+    height: 42px;
+    width: 42px;
+    padding: 4px;
+  }
+  .divText {
+    height: 50px;
+    line-height: 50px;
+    font-size: 30px;
+  }
+  .divText.record {
+    width: 200px;
+  }
+  .confTime {
+    font-size: 12px;
+  }
+  .confText, .confAbbr, .confScore {
+    font-size: 20px;
+  }
+  .confAbbr, .confScore {
+    height: 24px;
+    line-height: 24px;
+  }
+  .confTeam img {
+    height: 20px;
+    padding: 2px 0;
+  }
+  .confGames > div {
+    width: calc(100% - 15px);
+  }
+  .confScore {
+    width: 30px;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  main {
+    display: none;
+  }
+  #hunt {
+    grid-template-columns: repeat(2,50%);
+  }
+  #huntKey {
+    display: none;
+  }
+  .confHeader {
+    display: flex;
+  }
+  #mobileCont {
+    display: block;
+  }
+  #key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 1060px) {
+  .divText {
+    height: 36px;
+    line-height: 36px;
+    font-size: 24px;
+  }
+  .divText.record {
+    width: 160px;
+  }
+  .divRow img {
+    height: 30px;
+    width: 30px;
+    padding: 3px;
+  }
+  .divText span:not(.a):not(.m) {
+    font-size: 0.7em;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .mobileTime {
+    height: 24px;
+    line-height: 24px;
+    font-size: 18px;
+  }
+  .mobileRow img {
+    height: 30px;
+    padding: 3px;
+  }
+  .mobileAbbr, .mobileScore {
+    height: 36px;
+    line-height: 36px;
+    font-size: 24px;
+  }
+  .mobileScore {
+    width: 40px;
+  }
+}
+@media only screen and (max-width: 900px) {
+  .huntRow img {
+    height: 36px;
+    width: 36px;
+    padding: 2px;
+  }
+  .huntRow div {
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+  }
+  .confHeader {
+    height: 40px;
+  }
+  .confHeader img {
+    height: 30px;
+  }
+  .divText span.m {
+    display: none;
+  }
+  .divText span.a {
+    display: inline-block;
+  }
+}
+@media only screen and (min-width: 801px) {
+  .mobileGrid.conf {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .mobileGrid.conf > div {
+    padding: 2px 10px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  .mobileGrid {
+    grid-template-columns: repeat(2,calc((100% - 3px)/2));
+  }
+  #champ {
+    width: 50%;
+  }
+}
+@media only screen and (max-width: 700px) {
+  #hunt {
+    grid-template-columns: 100%;
+    grid-template-rows: auto auto;
+  }
+  .divisions {
+    display: block;
+  }
+  .divText span.a {
+    display: none;
+  }
+  .divText span.m {
+    display: inline-block;
+  }
+  .huntRow div {
+    height: 50px;
+    line-height: 50px;
+    font-size: 40px;
+  } 
+  .huntRow img {
+    height: 44px;
+    width: 44px;
+    padding: 3px;
+  }
+  .divText {
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+  }
+  .divText.record {
+    width: 220px;
+  }
+  .divRow img {
+    height: 36px;
+    width: 36px;
+    padding: 2px;
+  }
+}
+@media only screen and (max-width: 570px) {
+  #key {
+    font-size: 20px;
+  }
+  .divText {
+    height: 30px;
+    line-height: 30px;
+    font-size: 24px;
+  }
+  .divText.record {
+    width: 170px;
+  }
+  .divRow img {
+    height: 26px;
+    width: 26px;
+  }
+  .huntRow div {
+    height: 40px;
+    line-height: 40px;
+    font-size: 30px;
+  }
+  .huntRow img {
+    height: 34px;
+    width: 34px;
+  }
+  .divName {
+    font-size: 24px;
+  }
+}
+@media only screen and (max-width: 450px) {
+  .divText span.m, .huntRow span.m {
+    display: none;
+  }
+  .divText span.a, .huntRow span.a {
+    display: inline-block;
+  }
+}

@@ -1,0 +1,240 @@
+main {
+  min-height: calc(100vh - 160px);
+  background-color: var(--main);
+  padding: 50px;
+  width: calc(100% - 100px);
+}
+select {
+  padding: 5px 15px;
+  background-color: var(--blue);
+  border: none;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  width: 100%;
+  border-radius: 0px;
+  height: 50px;
+}
+#mainCont {
+  height: calc(100% - 50px);
+  width: 100%;
+}
+#top {
+  display: flex;
+  width: 100%;
+  background-color: var(--primary);
+}
+#top > img {
+  height: 200px;
+  flex-shrink: 0;
+}
+#topInfo {
+  width: 100%;
+  height: 200px;
+  color: var(--secondary);
+}
+#topMascot {
+  height: 120px;
+  line-height: 120px;
+  font-size: 96px;
+}
+#topRecord {
+  height: 80px;
+  line-height: 80px;
+  font-size: 48px;
+}
+#topMascot, #topRecord {
+  padding-left: 20px;
+  width: calc(100% - 20px);
+  font-family: 'Oswald', sans-serif;
+}
+#navBar {
+  height: 50px;
+  width: 100%;
+  display: flex;
+}
+.nav {
+  border: none;
+  background-color: var(--sapphire);
+  height: 50px;
+  width: 100%;
+  font-family: 'Oswald', sans-serif;
+  color: white;
+  font-size: 30px;
+}
+.nav:hover {
+  background-color: var(--sapphirehover);
+}
+.page {
+  width: 100%;
+  display: none;
+}
+.cell {
+  background-color: var(--cell);
+  border: 2px solid var(--cellborder);
+  color: var(--celltext);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 36px;
+}
+.cellTop {
+  padding-left: 10px;
+  font-size: 0.5em;
+  font-style: italic;
+}
+.cellBot {
+  padding: 0 10px;
+}
+#moreStories {
+  height: 50px;
+  font-size: 30px;
+  background-color: var(--purple);
+  font-family: 'Oswald', sans-serif;
+  border: none;
+  width: 100%;
+  color: white;
+}
+#moreStories:hover {
+  background-color: var(--purplehover);
+}
+.playerTop {
+  height: 50px;
+  width: calc(100% - 10px);
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+  color: var(--celltext);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  position: relative;
+}
+.playerBot {
+  width: 100%;
+  display: none;
+  background-color: var(--accent);
+  grid-template-columns: auto auto auto auto;
+}
+.playerBot.show {
+  display: grid;
+}
+.playerCell {
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--accenttext);
+  font-size: 30px;
+}
+.playerTop > svg {
+  height: 36px;
+  width: 36px;
+  padding: 2px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  fill: var(--celltext);
+  border-radius: 25%;
+}
+.playerTop > svg:hover {
+  background-color: var(--accent);
+  cursor: pointer;
+}
+.ranking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+}
+.ranking.generational {
+  background-color: turquoise;
+}
+.ranking.excellent {
+  background-color: limegreen;
+}
+.ranking.aboveaverage {
+  background-color: lawngreen;
+}
+.ranking.average {
+  background-color: gold;
+}
+.ranking.belowaverage {
+  background-color: orange;
+}
+.ranking.terrible {
+  background-color: orangered;
+}
+.ranking.inept {
+  background-color: crimson;
+}
+.pickRow {
+  background-color: var(--cell);
+  border: 2px solid var(--cellborder);
+  min-height: 60px;
+  display: flex;
+}
+.pickLogo {
+  height: 50px;
+  width: 50px;
+  flex-shrink: 0;
+  padding: 5px;
+}
+.pickInfo, .pickTransfer {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: #888;
+  font-size: 24px;
+  width: 250px;
+  text-align: center;
+}
+.pickTransfer {
+  font-size: 20px;
+  width: auto;
+  padding-right: 10px;
+}
+.pickName {
+  height: 60px;
+  line-height: 60px;
+  padding: 0 5px;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--celltext);
+  font-size: 36px;
+  font-weight: bold;
+}
+.only {
+  display: none;
+  width: 100%;
+  padding: 5px 0;
+  font-family: 'Oswald', sans-serif;
+  background-color: #888;
+  font-style: italic;
+  text-align: center;
+  color: white;
+  font-size: 36px;
+}
+.only:only-child {
+  display: block;
+}
+@media only screen and (max-width: 800px) {
+  main {
+    min-height: calc(100vh - 160px);
+    width: calc(100% - 50px);
+    padding: 25px;
+  }
+  #topInfo {
+    display: none;
+  }
+  #top {
+    justify-content: center;
+  }
+}

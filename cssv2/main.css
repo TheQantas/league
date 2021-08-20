@@ -1,0 +1,226 @@
+body {
+  margin: 0px;
+  background-color: var(--main);
+}
+.tip {
+  padding: 5px 10px;
+  width: calc(100% - 20px);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+}
+.tip > span {
+  font-style: italic;
+  font-size: 0.75em;
+}
+.tip > span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+header {
+  height: 60px;
+  background-color: var(--grey);
+  width: 100%;
+  display: flex;
+}
+header > img {
+  height: calc(100% - 10px);
+  width: auto;
+  padding: 5px;
+}
+header > a {
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  font-family: 'Oswald', sans-serif;
+  color: var(--lightgrey);
+  text-decoration: none;
+}
+header > a:hover {
+  text-decoration: underline;
+  background-color: var(--greyhover);
+}
+button {
+  border: none;
+  border-radius: 0px;
+}
+button:hover, select:hover {
+  cursor: pointer;
+}
+button:focus, input:focus, select:focus, textarea:focus {
+  outline: none;
+}
+#errorCont {
+  z-index: 20;
+  width: 100%;
+  position: fixed;
+  bottom: 30px;
+  height: auto;
+  display: none;
+  justify-content: center;
+  pointer-events: none;
+}
+#errorCont > span {
+  padding: 5px 15px;
+  background-color: #222d;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  font-size: 30px;
+  pointer-events: all;
+  border-radius: 5px;
+  text-align: center;
+}
+.relConv {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+#hamburger, #close {
+  fill: rgb(195,195,195);
+  height: calc(100% - 10px);
+  width: auto;
+  margin: 5px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  border-radius: 5px;
+}
+#hamburger {
+  display: none;
+}
+#close {
+  height: 50px;
+  fill: rgb(64,64,64);
+}
+#close:hover {
+  background-color: #ccc;
+  cursor: pointer;
+}
+#hamburger:hover {
+  background-color: var(--greyhover);
+  cursor: pointer;
+}
+#mobileNav {
+  height: 100vh;
+  width: 100%;
+  background-color: #ccca;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
+  z-index: 20;
+}
+.relConv {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+.centerConv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+.navLink {
+  width: 100%;
+  display: block;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+  color: var(--teal);
+  text-decoration: none;
+  padding: 5px 0;
+}
+.navLink:hover {
+  text-decoration: underline;
+  background-color: #ccc;
+}
+span.num {
+  font-size: 0.7em;
+}
+#promptCont {
+  width: 100%;
+  position: fixed;
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+#prompt {
+  padding: 5px;
+  background-color: #242424;
+  display: flex;
+  pointer-events: all;
+}
+#prompt > div:first-of-type {
+  font-family: 'Montserrat', sans-serif;
+  height: 50px;
+  line-height: 50px;
+  font-size: 30px;
+  color: white;
+  padding: 0 10px;
+}
+#prompt > div:last-of-type {
+  height: 50px;
+  display: flex;
+}
+#prompt > div:last-of-type > button {
+  border: none;
+  border-radius: 0px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+  padding: 0 10px;
+}
+#prompt > div:last-of-type > button:first-of-type {
+  background-color: var(--sapphire);
+}
+#prompt > div:last-of-type > button:first-of-type:hover {
+  background-color: var(--sapphirehover);
+}
+#prompt > div:last-of-type > button:last-of-type {
+  border: 2px solid var(--sapphire);
+  background-color: #242424;
+}
+#prompt > div:last-of-type > button:last-of-type:hover {
+  background-color: #333;
+}
+@media only screen and (max-width: 900px) {
+  header > a {
+    padding: 0 10px;
+  }
+}
+@media only screen and (max-width: 800px) {
+  header > a {
+    font-size: 30px;
+  }
+  header {
+    height: 60px;
+  }
+}
+@media only screen and (max-width: 700px) {
+  header > a {
+    display: none;
+  }
+  header {
+    display: flex;
+    position: relative;
+    justify-content: center;
+  }
+  #hamburger {
+    display: block;
+  }
+}
+@media only screen and (max-width: 550px) {
+  #prompt {
+    display: block;
+  }
+  #prompt > div:last-of-type > button {
+    width: 50%;
+  }
+}

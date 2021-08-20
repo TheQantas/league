@@ -1,0 +1,214 @@
+#head {
+  height: 120px;
+  width: 100%;
+  background-image: url('../images/indigo.png');
+  background-color: rgb(50,80,200);
+  background-size: 100% 100%;
+  position: relative;
+}
+#head img {
+  height: 120px;
+  margin: auto;
+  display: block;
+  position: relative;
+  z-index: 2;
+}
+#grey {
+  width: calc(50% - 290px);
+  height: 120px;
+  background-color: rgb(64,64,64);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#nav {
+  display: grid;
+  grid-template-rows: repeat(2,auto);
+  grid-auto-columns: calc(100% / 3);
+  grid-auto-flow: column;
+  padding: 10px;
+  width: calc(100% - 20px);
+  background-color: var(--accent);
+}
+#nav div {
+  background-color: var(--sapphire);
+  min-height: 50px;
+}
+#nav div:nth-of-type(3), #nav div:nth-of-type(4) {
+  background-color: var(--sapphireaccent);
+}
+#nav a {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 20px;
+  padding: 5px;
+  text-decoration: none;
+}
+#nav a.single {
+  margin-left: 16px;
+}
+#nav a:hover {
+  text-decoration: underline;
+}
+section {
+  min-height: 50px;
+  padding: 5px;
+  width: calc(100% - 10px);
+}
+section div.lightbox {
+  min-height: 50px;
+  width: calc(100% - 40px);
+  margin: 5px 20px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--accent);
+}
+section div.lightbox.text {
+  height: 50px;
+  justify-content: center;
+  text-align: center;
+  color: var(--blue);
+  font-family: 'Roboto', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+section:nth-of-type(odd) {
+  background-color: var(--accent);
+}
+section:nth-of-type(odd) div.lightbox {
+  background-color: var(--doubleaccent);
+}
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  margin: 5px;
+  color: var(--text);
+  font-size: 30px;
+}
+h2 {
+  font-size: 24px;
+}
+h3 {
+  font-size: 21px;
+}
+p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 20px;
+  color: var(--accenttext);
+  margin: 8px 5px;
+  text-indent: 20px;
+}
+p.note {
+  font-style: italic;
+}
+p a {
+  color: var(--sapphire);
+  text-decoration: none;
+}
+p a:hover {
+  text-decoration: underline;
+}
+span.v {
+  color: var(--purple);
+  font-weight: bold;
+}
+span.s {
+  color: var(--tealhover);
+  font-weight: bold;
+}
+.playerGrid {
+  display: grid;
+  width: calc(100% - 50px);
+  padding: 5px;
+  margin: 5px 20px;
+  grid-template-columns: repeat(4,auto);
+  grid-template-rows: repeat(5,auto);
+  background-color: var(--accent);
+}
+.playerGrid div {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--accenttext);
+  font-size: 20px;
+  text-align: center;
+}
+/* ranking */
+.ranking {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 36px;
+  width: 36px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  margin: 10px 0;
+}
+.ranking.generational {
+  background-color: turquoise;
+}
+.ranking.excellent {
+  background-color: limegreen;
+}
+.ranking.aboveaverage {
+  background-color: lawngreen;
+}
+.ranking.average {
+  background-color: gold;
+}
+.ranking.belowaverage {
+  background-color: orange;
+}
+.ranking.terrible {
+  background-color: orangered;
+}
+.ranking.inept {
+  background-color: crimson;
+}
+/* responsive */
+@media only screen and (max-width: 900px) {
+  #nav {
+    grid-template-rows: repeat(3,auto);
+    grid-auto-columns: 50%;
+  }
+  #nav div:nth-of-type(3) {
+    background-color: var(--sapphire);
+  }
+  #nav div:nth-of-type(5), #nav div:nth-of-type(6) {
+    background-color: var(--sapphireaccent);
+  }
+}
+@media only screen and (max-width: 700px) {
+  #head {
+    height: 80px;
+  }
+  #head img {
+    height: 80px;
+  }
+  #grey {
+    width: calc(50% - 195px);
+    height: 80px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  #nav {
+    grid-template-rows: repeat(6,auto);
+    grid-auto-columns: 100%;
+  }
+  #nav div:nth-of-type(4), #nav div:nth-of-type(5), #nav div:nth-of-type(6) {
+    background-color: var(--sapphire);
+  }
+}
+@media only screen and (max-width: 500px) {
+  #head {
+    height: 60px;
+  }
+  #head img {
+    height: 60px;
+  }
+  #grey {
+    width: calc(50% - 145px);
+    height: 60px;
+  }
+}
