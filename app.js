@@ -3489,6 +3489,7 @@ wss.on('connection', ws => {
           if (acc.timeActivated != null) {
             acc.timeActivated = new Date().toISOString().replace('T',' ').substring(0,19);
           }
+          console.log('time',acc.timeActivated,'act',acc.activated);
           if (hash == acc.hash && !acc.factorActivated) {
             let salt = secStr();
             let allSalts = JSON.parse(acc.tokenSalt);
