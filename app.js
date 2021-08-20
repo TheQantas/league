@@ -6,7 +6,6 @@ const path = require('path');
 const speakeasy = require('speakeasy');
 const useragent = require('express-useragent');
 const mysql = require('mysql');
-const requestIp = require('request-ip');
 const geoip = require('geoip-lite');
 const cookieParser = require('cookie-parser');
 const { DateTime } = require('luxon');
@@ -2570,14 +2569,14 @@ app.set('view engine','ejs');
 app.get('/', (req,res) => {
   contests.getWeek(getCurrentWeek()).then(games => {
     news.getMostRecent(6).then(stories => {
-      var geo = geoip.lookup(req.clientIp);
+      var geo = geoip.lookup(req.ip);
       var tz = 'utc';
       if (geo) {
         if (geo.timezone) {
           tz = geo.timezone;
         }
       }
-      console.log('tz',tz,'geo',geo,'ip',req.clientIp,req.ip,req.connection.remoteAddress);
+      console.log('tz',tz);
       for (let g of games) {
         g.time = tiempo.getFormatDayAndHour(g.schedule,tz);
         g.fullTime = tiempo.getFormatTime(g.schedule,tz);
@@ -3006,7 +3005,7 @@ app.get('/office', (req,res) => {
   });
 });
 app.get('/playoffs', (req,res) => {
-    var geo = geoip.lookup(req.clientIp);
+    var geo = geoip.lookup(req.ip);
     var tz = 'utc';
     if (geo) {
       if (geo.timezone) {
@@ -3221,7 +3220,7 @@ app.get('/stats', (req,res) => {
 });
 app.get('/schedule', (req,res) => {
   contests.getWeek(getCurrentWeek()).then(games => {
-    var geo = geoip.lookup(req.clientIp);
+    var geo = geoip.lookup(req.ip);
     var tz = 'utc';
     if (geo) {
       if (geo.timezone) {
@@ -3272,7 +3271,7 @@ app.get('/schedule', (req,res) => {
   });
 });
 app.get('/teams', (req,res) => {
-  var geo = geoip.lookup(req.clientIp);
+  var geo = geoip.lookup(req.ip);
   var tz = 'utc';
   if (geo) {
     if (geo.timezone) {
