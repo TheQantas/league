@@ -3486,10 +3486,9 @@ wss.on('connection', ws => {
             return error(ws,'You have exceeded your sign in attempt limit. Wait 10 minutes',result.method);
           }
           let hash = crypto.createHash('sha512').update(result.password + acc.salt).digest('hex');
-          if (acc.timeActivated != null) {
+          if (acc.timeActivated == null) {
             acc.timeActivated = new Date().toISOString().replace('T',' ').substring(0,19);
           }
-          console.log('time',acc.timeActivated,'act',acc.activated);
           if (hash == acc.hash && !acc.factorActivated) {
             let salt = secStr();
             let allSalts = JSON.parse(acc.tokenSalt);
