@@ -3489,7 +3489,7 @@ wss.on('connection', ws => {
           if (acc.timeActivated == null) {
             acc.timeActivated = new Date().toISOString().replace('T',' ').substring(0,19);
           } else {
-            acc.timeActivated = acc.timeActivated.replace('T',' ').substring(0,19);
+            console.log(typeof acc.timeActivated,acc.timeActivated);
           }
           if (hash == acc.hash && !acc.factorActivated) {
             let salt = secStr();
