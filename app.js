@@ -3486,11 +3486,6 @@ wss.on('connection', ws => {
             return error(ws,'You have exceeded your sign in attempt limit. Wait 10 minutes',result.method);
           }
           let hash = crypto.createHash('sha512').update(result.password + acc.salt).digest('hex');
-          if (acc.timeActivated == null) {
-            acc.timeActivated = new Date().toISOString().replace('T',' ').substring(0,19);
-          } else {
-            console.log(typeof acc.timeActivated,acc.timeActivated);
-          }
           if (hash == acc.hash && !acc.factorActivated) {
             let salt = secStr();
             let allSalts = JSON.parse(acc.tokenSalt);
@@ -3499,7 +3494,13 @@ wss.on('connection', ws => {
             let token = secStr();
             let newHash = crypto.createHash('sha512').update(token + salt).digest('hex');
             allHashes.push(newHash);
-            updateTeam(acc.abbr,['tokenSalt','tokenHash','timeActivated'],[allSalts,allHashes,acc.timeActivated]).then(() => {
+            let attrs = ['tokenSalt','tokenHash'];
+            let vals = [allSalts,allHashes];
+            if (acc.timeActivated == null) {
+              attrs.push('timeActivated');
+              vals.push(new Date().toISOString().replace('T',' ').substring(0,19));
+            }
+            updateTeam(acc.abbr,attrs,vals).then(() => {
               let mess = {method:'signedIn',token:token};
               ws.send(JSON.stringify(mess));
               return;
@@ -3508,7 +3509,13 @@ wss.on('connection', ws => {
             let temp = secStr();
             let tempSalt = secStr();
             let tempHash = crypto.createHash('sha512').update(temp + tempSalt).digest('hex');
-            updateTeam(acc.abbr,['tempSalt','tempHash','timeActivated'],[tempSalt,tempHash,acc.timeActivated]).then(() => {
+            let attrs = ['tempSalt','tempHash'];
+            let vals = [tempSalt,tempHash];
+            if (acc.timeActivated == null) {
+              attrs.push('timeActivated');
+              vals.push(new Date().toISOString().replace('T',' ').substring(0,19));
+            }
+            updateTeam(acc.abbr,attrs,vals).then(() => {
               ws.send(JSON.stringify({method:'prompt2fa',temp:temp}));
               setTimeout(() => { //give 90 secs to provide code
                 updateTeam(acc.abbr,['tempSalt','tempHash'],[null,null]);
