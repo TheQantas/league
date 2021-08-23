@@ -3488,6 +3488,8 @@ wss.on('connection', ws => {
           let hash = crypto.createHash('sha512').update(result.password + acc.salt).digest('hex');
           if (acc.timeActivated == null) {
             acc.timeActivated = new Date().toISOString().replace('T',' ').substring(0,19);
+          } else {
+            acc.timeActivated = acc.timeActivated.replace('T',' ').substring(0,19);
           }
           if (hash == acc.hash && !acc.factorActivated) {
             let salt = secStr();
