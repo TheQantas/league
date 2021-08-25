@@ -3348,7 +3348,7 @@ wss.on('connection', ws => {
   ws.on('close', () => {
     for (let abbr in activeCxns) {
       for (let index in activeCxns[abbr]) {
-        if (activeCxns[abbr][index].id = ws.id) {
+        if (activeCxns[abbr][index].id == ws.id) {
           delete activeCxns[abbr][index];
         }
       }
