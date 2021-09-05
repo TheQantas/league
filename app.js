@@ -782,7 +782,7 @@ span.faPeriod = () => {
   return false;
 }
 span.inSeason = () => {
-  if (new Date(line.season).getTime() > new Date().getTime()) {
+  if (new Date(line.season).getTime() < new Date().getTime()) {
     return true;
   }
   return false;
