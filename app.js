@@ -2315,6 +2315,7 @@ match.stat = (player,attr,num) => {
     } else if (player == 'home') {
       game.home.s[attr] += num;
     } else {
+      console.log(player.pos,attr);
       player.s[attr] += num;
     }
   }
@@ -2405,8 +2406,8 @@ match.setNextGame = () => { //remove comments
       }
     }
     let delay = new Date(nextGame.schedule).getTime() - new Date().getTime();
-    delay = (delay<0)?5*60*1000:delay;
-    //delay = (delay<0)?0.5*60*1000:delay;
+    //delay = (delay<0)?5*60*1000:delay;
+    delay = (delay<0)?0.5*60*1000:delay;
     console.log(delay,nextGame.away,nextGame.home);
     setTimeout(() => { match.verifyRoster(nextGame.away,nextGame.home); },delay);
   });
