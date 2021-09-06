@@ -1522,7 +1522,7 @@ match.pass = (offPlay,defPlay) => {
       for (let s of ['dl1','dl2','lb']) {
         if (match.distance(qb,def[s]) < 3 && Math.random() < def[s].pressPerc) {
           if (['dl1','dl2'].includes(s)) {
-            match.stat(match.getOther(s),'pressures',1);
+            match.stat(off[match.getOther(s)],'pressures',1);
           }
           match.stat(def[s],'pressures',1);
           press = qb.pressPen;
