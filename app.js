@@ -401,11 +401,12 @@ athletes.searchPlayers = (list,pos,id,team,base,guar,name,draftable,a,b,c,d) => 
         match = false;
         break;
       }
+      let mean = s.m;
       if (sds[i].flip) {
-        s.m = -s.m;
+        mean *= -1;
         r = -r;
       }
-      if (s.m < r) {
+      if (mean < r) {
         match = false;
         break;
       }
