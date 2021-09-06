@@ -1241,6 +1241,7 @@ match.kickoff = () => { //off is kicking team, def is receiving team
     return match.advancePeriod();
   }
   var k = match.getPlayer(game.off,game[game.off].spePlays.kickoff.k);
+  console.log('KICKER',game[game.off].spePlays.kickoff.k,k);
   if (Math.random() < k.touchback) {
     console.log('touchback');
     match.playUpdate(game.off,`${k.fName} ${k.lName} kicked off for a TOUCHBACK`,false);
