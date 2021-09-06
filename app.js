@@ -2088,7 +2088,8 @@ match.advancePeriod = () => {
       setTimeout(() => {
         match.update({type:'newPeriod',q:game.q});
         match.kickoff();
-      },20000);
+      },170000); //+10000 makes 3 mins
+      //},20000);
     } else { //end of game in reg or ot
       if (game.awayScore != game.homeScore) {
         match.endGame();
@@ -2407,8 +2408,8 @@ match.setNextGame = () => { //remove comments
       }
     }
     let delay = new Date(nextGame.schedule).getTime() - new Date().getTime();
-    //delay = (delay<0)?5*60*1000:delay;
-    delay = (delay<0)?0.5*60*1000:delay;
+    delay = (delay<0)?5*60*1000:delay;
+    //delay = (delay<0)?0.5*60*1000:delay;
     console.log(delay,nextGame.away,nextGame.home);
     setTimeout(() => { match.verifyRoster(nextGame.away,nextGame.home); },delay);
   });
