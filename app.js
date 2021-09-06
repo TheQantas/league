@@ -1118,8 +1118,8 @@ match.verifyPlays = (away,home) => {
       if (sql == '') {
         match.startGame(away,home);
       } else {
-        console.log(sql);
-        request('SELECT * FROM teams').then(() => {
+        //console.log(sql);
+        request(sql).then(() => {
           match.startGame(away,home);
         });
       }
