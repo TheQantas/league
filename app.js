@@ -4128,11 +4128,12 @@ wss.on('connection', ws => {
           let sql = '';
           clubs.getGamesLeft(acc.abbr).then(left => {
             let succ = true; //assume true until false
+            let ros = JSON.parse(acc.roster);
             if (Math.random() < chance) { //successful negotiation
               for (let d of usedDeles) {
                 d.level += 0.5;
               }
-              let ros = JSON.parse(acc.roster).concat(player.id);
+              ros.push(player.id);
               sql += `UPDATE teams SET roster = '${JSON.stringify(ros)}',dead=dead+${(player.duration-c.dura)*player.base} WHERE abbr='${acc.abbr}';`;
               sql += `UPDATE players SET team='${acc.abbr}',base=${c.base},guar=${c.guar},duration=${left},weekSigned=${getCurrentWeek()} WHERE id='${player.id}';`;
               sql += alterPlaysWithPlayer(acc,player.id,true).sql;
@@ -4150,10 +4151,10 @@ wss.on('connection', ws => {
             sql += `UPDATE teams SET delegates = '${JSON.stringify(delesCopy)}' WHERE abbr='${acc.abbr}';`;
             console.log(sql);
             request(sql).then(() => {
-              athletes.getPlayers(ros).then(roster => {
-                clubs.breakdown(expandPlayers(roster),acc,ws);
-              });
               if (succ) {
+                athletes.getPlayers(ros).then(roster => { //only need to update after successful nego
+                  clubs.breakdown(expandPlayers(roster),acc,ws);
+                });
                 player.team = acc.abbr; //update player before expanding
                 player.base = c.base;
                 player.guar = c.guar;
