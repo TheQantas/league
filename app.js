@@ -988,6 +988,7 @@ match.verifyPlays = (away,home) => {
         let play = awaySpePlays[attr];
         for (let pos in play) {
           playCheck = JSON.stringify(awaySpePlays[attr]);
+          console.log(play[pos],pos);
           if (play[pos] == '' || play[pos] == undefined || play[pos] == null || !awayRoster.includes(play[pos])) {
             awayChange.spe = true;
             for (let id of awayRoster) {
@@ -1080,6 +1081,7 @@ match.verifyPlays = (away,home) => {
         let play = homeSpePlays[attr];
         for (let pos in play) {
           playCheck = JSON.stringify(homeSpePlays[attr]);
+          console.log(play[pos],pos);
           if (play[pos] == '' || play[pos] == undefined || play[pos] == null || !homeRoster.includes(play[pos])) {
             homeChange.spe = true;
             for (let id of homeRoster) {
@@ -2399,7 +2401,7 @@ match.setNextGame = () => { //remove comments
     }
     let delay = new Date(nextGame.schedule).getTime() - new Date().getTime();
     delay = (delay<0)?5*60*1000:delay;
-    console.log(delay);
+    console.log(delay,nextGame.away,nextGame.home);
     setTimeout(() => { match.verifyRoster(nextGame.away,nextGame.home); },delay);
   });
 }
