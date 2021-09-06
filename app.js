@@ -4135,7 +4135,9 @@ wss.on('connection', ws => {
                 d.level += 0.5;
               }
               ros.push(player.id);
-              sql += `UPDATE teams SET roster = '${JSON.stringify(ros)}',dead=dead+${(player.duration-c.dura)*player.base} WHERE abbr='${acc.abbr}';`;
+              let deadAdj = (player.duration - c.dura) * player.base;
+              deadAdj = (deadAdj<0)?0:deadAdj;
+              sql += `UPDATE teams SET roster = '${JSON.stringify(ros)}',dead=dead+${deadAdj} WHERE abbr='${acc.abbr}';`;
               sql += `UPDATE players SET team='${acc.abbr}',base=${c.base},guar=${c.guar},duration=${left},weekSigned=${getCurrentWeek()} WHERE id='${player.id}';`;
               sql += alterPlaysWithPlayer(acc,player.id,true).sql;
             } else { //unsuccessful
