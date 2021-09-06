@@ -740,7 +740,7 @@ news.newStory = (abbrs,story) => {
   let s = new Date().toISOString().replace('T',' ').substring(0,19);
   let t = JSON.stringify(abbrs);
   console.log('new story',`INSERT INTO news (teams,time,story) VALUES (${t},${s},${story});`);
-  request(`INSERT INTO news (teams,time,story) VALUES (${t},${s},${story});`);
+  request(`INSERT INTO news (teams,time,story) VALUES ('${t}',${s},'${story}');`);
 }
 const line = {};
 line.trade = '2021-11-16T19:00:00Z';
