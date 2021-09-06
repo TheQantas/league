@@ -2405,8 +2405,8 @@ match.setNextGame = () => { //remove comments
       }
     }
     let delay = new Date(nextGame.schedule).getTime() - new Date().getTime();
-    //delay = (delay<0)?5*60*1000:delay;
-    delay = (delay<0)?0.5*60*1000:delay;
+    delay = (delay<0)?5*60*1000:delay;
+    //delay = (delay<0)?0.5*60*1000:delay;
     console.log(delay,nextGame.away,nextGame.home);
     setTimeout(() => { match.verifyRoster(nextGame.away,nextGame.home); },delay);
   });
