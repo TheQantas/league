@@ -434,6 +434,7 @@ athletes.signCheapestOfPos = (abbr,pos) => {
       }
       players.sort((a,b) => { return a.salary - b.salary; });
       let cheapPlayers = [];
+      console.log('cheap pos',pos,players.length);
       let cheapSalary = players[0].salary;
       for (let p of players) {
         if (p.salary > cheapSalary + 200) {
