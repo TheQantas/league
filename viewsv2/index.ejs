@@ -92,9 +92,12 @@
               <% if (g.away == game.away.abbr && g.home == game.home.abbr) { %>
                 <span id="gamesTime"><%= gameTime.q %> &middot; <%= gameTime.s %></span>
                 <button class="live" onclick="showUpdates()">LIVE</button>
-              <% } else { %>
+              <% } else if (g.status == 'upcoming') { %>
                 <%= g.time %>
+              <% } else { %>
+                <%= g.status %>
               <% } %>
+              <!-- not active game -->
               <% } else if (g.status == 'upcoming') { %>
                 <%= g.time %>
               <% } else { %>
