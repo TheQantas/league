@@ -47,22 +47,7 @@ athletes.getAllPlayers = () => {
 }
 function expandPlayers(list) {
   for (let p of list) {
-    if (p.team == 'UFA') {
-      p.clean = 'league';
-      p.mascot = 'Free Agent';
-    } else {
-      p.mascot = clubs.getAttrFromAbbr(p.team,'mascot');
-      p.clean = clubs.clean(p.mascot);
-    }
-    p.renderBase = renderAmount(p.base);
-    p.renderGuar = renderAmount(p.guar);
     p.salary = p.guar + p.base * p.duration;
-    p.renderSalary = renderAmount(p.salary);
-    if (p.weekSigned == 0) {
-      p.ws = 'Preseason';
-    } else {
-      p.ws = `Week ${p.weekSigned}`;
-    }
   }
   return list;
 }
