@@ -995,10 +995,10 @@
             </div>
             <div>3rd & 7-10</div>
             <div>
-              <select id="call3e">
+              <select id="call3l">
                 <option value="" disabled selected>Choose Play</option>
                 <% for (let p of pn) { %>
-                  <option value="<%= p %>" <% if (offPlays[p].cases.includes('3e')) {%>selected<%}%>><%= p.charAt(0).toUpperCase() %><%= p.substring(1,4) %> Play <%= p.charAt(4) %> <% if (offPlays[p].name != '') { %>-<%}%> <%= offPlays[p].name%></option>
+                  <option value="<%= p %>" <% if (offPlays[p].cases.includes('3l')) {%>selected<%}%>><%= p.charAt(0).toUpperCase() %><%= p.substring(1,4) %> Play <%= p.charAt(4) %> <% if (offPlays[p].name != '') { %>-<%}%> <%= offPlays[p].name%></option>
                 <% } %>
               </select>
             </div>
