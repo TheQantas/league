@@ -421,6 +421,7 @@ athletes.searchPlayers = (list,pos,id,team,base,guar,name,draftable,a,b,c,d) => 
 athletes.signCheapestOfPos = (abbr,pos) => {
   return clubs.getTeamFromAbbr(abbr).then(acc => {
     return request(`SELECT * FROM players WHERE team='UFA' AND pos='${pos}' AND draftable=0;`).then(players => {
+      //SELECT * FROM players WHERE team='UFA' AND pos='QB' AND draftable=0;
       let w = getCurrentWeek(), wr;
       if (w == 0) {
         wr = 20;
@@ -851,7 +852,7 @@ passRoutes.in = (player,speed) => {
   }
 }
 
-const tiring = {recep:0.4,speed:5,elus:0.1};
+const tiring = {recep:0.5,speed:6,elus:0.2};
 const game = {};
 const match = {};
 var gameSockets = [];
