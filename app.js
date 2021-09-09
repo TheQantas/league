@@ -4465,12 +4465,11 @@ wss.on('connection', ws => {
         }
         let sql = '';
         clubs.nextGame(acc.abbr).then(next => {
-          let untilNext = new Date(next.schedule).getTime() - new Date().getTime();
+          //let untilNext = new Date(next.schedule).getTime() - new Date().getTime();
           let tooLate = false;
-          if (compOff != JSON.stringify(off) && untilNext > 1000 * 60 * 60 * 6) {
+          console.log('old',compOff,'new',JSON.stringify(off));
+          if (compOff != JSON.stringify(off)) {
             sql += `UPDATE teams SET offPlays='${JSON.stringify(off)}' WHERE abbr='${acc.abbr}';`;
-          } else if (compOff != JSON.stringify(off)) {
-            tooLate = true;
           }
           if (compDef != JSON.stringify(def)) {
             sql += `UPDATE teams SET defPlays='${JSON.stringify(def)}' WHERE abbr='${acc.abbr}';`;
