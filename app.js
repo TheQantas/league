@@ -4371,9 +4371,9 @@ wss.on('connection', ws => {
         let spe = JSON.parse(acc.spePlays);
         let caseCheck = ['1s','1m','1l','1e','2s','2m','2l','2e','3s','3m','3l','3e','4s','4m','4l','4e','2p'];
         let labels = ['pass1','pass2','pass3','pass4','pass5','rush1','rush2','rush3'];
-        console.log('cases',result.cases);
         for (let a in caseCheck) { //check validity of cases
           if (result.cases[a] == '' || result.cases[a] == undefined) {
+            console.log('missing case',a);
             return error(ws,'Not all play cases declared',result.method);
           }
           if (!labels.includes(result.cases[a])) {
