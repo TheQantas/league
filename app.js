@@ -4051,7 +4051,7 @@ wss.on('connection', ws => {
               if (play[pos] != undefined && play[pos] != '') {
                 play[pos] = onlyRankings(athletes.getPlayerFromList(play[pos],players));
               } else {
-                play[pos] = undefined;
+                play[pos] = {id:'None',fName:'None',lName:''};
               }
             }
             if (play.type == 'pass' && result.abbr != acc.abbr) {
@@ -4739,7 +4739,6 @@ function expandPlayers(list) {
 
 function onlyRankings(p) {
   let s = Teams.getStatsByPos()[p.pos];
-  console.log(typeof p.stat1,p.stat1);
   if (typeof p.stat1 == 'string') {
     p.stat1 = JSON.parse(p.stat1);
   }
