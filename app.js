@@ -4051,7 +4051,7 @@ wss.on('connection', ws => {
               if (play[pos] != undefined && play[pos] != '') {
                 play[pos] = onlyRankings(athletes.getPlayerFromList(play[pos],players));
               } else {
-                play[pos] = {id:'None',fName:'None',lName:''};
+                play[pos] = {id:'None',fName:'',lName:'None'};
               }
             }
             if (play.type == 'pass' && result.abbr != acc.abbr) {
