@@ -4739,6 +4739,7 @@ function expandPlayers(list) {
 
 function onlyRankings(p) {
   let s = Teams.getStatsByPos()[p.pos];
+  console.log(typeof p.stat1,p.stat1);
   p.stat1 = JSON.parse(p.stat1);
   p.stat2 = JSON.parse(p.stat2);
   p.stat3 = JSON.parse(p.stat3);
