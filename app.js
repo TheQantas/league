@@ -4740,10 +4740,18 @@ function expandPlayers(list) {
 function onlyRankings(p) {
   let s = Teams.getStatsByPos()[p.pos];
   console.log(typeof p.stat1,p.stat1);
-  p.stat1 = JSON.parse(p.stat1);
-  p.stat2 = JSON.parse(p.stat2);
-  p.stat3 = JSON.parse(p.stat3);
-  p.stat4 = JSON.parse(p.stat4);
+  if (typeof p.stat1 == 'string') {
+    p.stat1 = JSON.parse(p.stat1);
+  }
+  if (typeof p.stat2 == 'string') {
+    p.stat2 = JSON.parse(p.stat2);
+  }
+  if (typeof p.stat3 == 'string') {
+    p.stat3 = JSON.parse(p.stat3);
+  }
+  if (typeof p.stat4 == 'string') {
+    p.stat4 = JSON.parse(p.stat4);
+  }
   for (let e of [p.stat1,p.stat2,p.stat3,p.stat4]) {
     if (e.sn != e.ln) {
       e.h = `<abbr title="${e.ln}">${e.sn}</abbr>`;
