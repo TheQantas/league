@@ -2362,7 +2362,7 @@ match.endGame = () => {
           sql += `UPDATE teams SET dl=dl+1 WHERE abbr='${game.away.abbr}';`;
         }
       }
-      if (game.homeScore < game.homeScore && game.home.cap <= 200000) { //home team won under cap
+      if (game.awayScore < game.homeScore && game.home.cap <= 200000) { //home team won under cap
         sql += `UPDATE teams SET w=w+1 WHERE abbr='${game.home.abbr}';`;
         if (game.divisional) {
           sql += `UPDATE teams SET dw=dw+1 WHERE abbr='${game.home.abbr}';`;
@@ -4178,7 +4178,7 @@ wss.on('connection', ws => {
                 player.weekSigned = getCurrentWeek();
                 player.duration = left;
                 setTimeout(() => { announceToAll({method:'updatePlayer',player:expandPlayers([player])[0]}); },2000);
-              }
+              } //below for both succ and unsucc
               setTimeout(() => { ws.send(JSON.stringify({method:'negotiated',success:succ,deles:expandDelegates(deles)})); },2000);
             });
           });
