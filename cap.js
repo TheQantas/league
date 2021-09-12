@@ -57,7 +57,7 @@ clubs.getTeamFromAbbr = abbr => {
     return list[0];
   });
 }
-const abbrs = ['FLA','FOX','NAT','PEN','GRE','PAN','PIR','SNA','DRA','ENG','PIO','REB','COU','FAL','GRI','WAR','AAR','COO','ROT','SEN','BAD','HUM','LON','WOL','AVI','CHA','EAG','GAL','CHE','PEG','STR','ZEB','COL','HUS','LYN','STA','GOL','REB','SHA','SQU'];
+const abbrs = ['FLA','FOX','NAT','PEN','GRE','PAN','PIR','SNA','DRA','ENG','PIO','RED','COU','FAL','GRI','WAR','AAR','COO','ROT','SEN','BAD','HUM','LON','WOL','AVI','CHA','EAG','GAL','CHE','PEG','STR','ZEB','COL','HUS','LYN','STA','GOL','REB','SHA','SQU'];
 var abbrIndex = 0;
 athletes.getAllPlayers().then(allPlayers => {
   function cap(abbr) {
