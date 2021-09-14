@@ -2581,8 +2581,8 @@ app.use('/images', express.static(__dirname + '/imagesv2'));
 app.use('/logos', express.static(__dirname + '/logosv2'));
 app.set('views','./viewsv2');
 app.set('view engine','ejs');
-app.get('/sitemap.xml', function(req, res) {
-  res.sendFile('sitemap.xml');
+app.get('/sitemap.xml', function(req,res) {
+  res.sendFile('sitemap.xml', { root: __dirname });
 });
 app.get('/', (req,res) => {
   contests.getWeek(getCurrentWeek()).then(games => {
