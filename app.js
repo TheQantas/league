@@ -853,7 +853,7 @@ passRoutes.in = (player,speed) => {
 }
 
 const tiring = {recep:0.5,speed:6,elus:0.2};
-const game = {};
+var game = {};
 const match = {};
 var gameSockets = [];
 var gameActive = false;
@@ -2396,6 +2396,7 @@ match.endGame = () => {
     }
     sql += `UPDATE teams SET stats='${JSON.stringify(game.away.stats)}' WHERE abbr='${game.away.abbr}';`;
     sql += `UPDATE teams SET stats='${JSON.stringify(game.home.stats)}' WHERE abbr='${game.home.abbr}';`;
+    game = {};
     request(sql).then(() => {
       match.setNextGame();
     })
