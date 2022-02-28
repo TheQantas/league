@@ -2585,6 +2585,12 @@ app.set('view engine','ejs');
 app.get('/sitemap.xml', function(req,res) {
   res.sendFile('sitemap.xml', { root: __dirname });
 });
+app.get('/league_dump.sql', function(req,res) {
+  res.sendFile('/league_dump.sql', { root: __dirname });
+});
+app.get('/fantasy_dump.sql', function(req,res) {
+  res.sendFile('/fantasy_dump.sql', { root: __dirname });
+});
 app.get('/', (req,res) => {
   contests.getWeek(getCurrentWeek()).then(games => {
     news.getMostRecent(6).then(stories => {
